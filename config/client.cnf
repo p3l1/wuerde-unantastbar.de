@@ -1,0 +1,4 @@
+# ABOUTME: MySQL client config for local dev containers.
+# ABOUTME: Disables SSL since the local DB uses self-signed certs.
+[client]
+skip-ssl = true
