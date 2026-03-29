@@ -21,6 +21,15 @@ und werden als CSS custom properties im Theme hinterlegt:
 
 ---
 
+## Keine Farbverläufe
+
+**Entscheidung:** Farbverläufe (Gradients) werden nicht verwendet.
+
+**Begründung:** Die Gestaltung setzt auf klare, flächige Farben. Verläufe widersprechen
+dem sachlichen und zugänglichen Charakter des Vereinsauftritts.
+
+---
+
 ## Startseite nicht im Hauptmenü
 
 **Entscheidung:** Die Startseite erscheint nicht als Menüpunkt — der Rückweg erfolgt

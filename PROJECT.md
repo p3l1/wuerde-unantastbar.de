@@ -30,7 +30,7 @@ Die bisherige Website **wuerde-unantastbar.de** dient als inhaltliche Grundlage.
 
 ## Design-Referenzen
 
-- **Header der Startseite**: Orientierung an **oe-kurs.de** — großes Bild, starker Slogan, emotionale Wirkung, schlichtes Menü.
+- **Header der Startseite**: Orientierung an **www.oe-kurs.de** — großes Bild, starker Slogan, emotionale Wirkung, schlichtes Menü.
 - **Bereiche beim Weiter-scrollen**: Orientierung an **uta-hillermann.de** — moderne, klar abgesetzte Bereiche, aber ohne Unruhe.
 
 ---
