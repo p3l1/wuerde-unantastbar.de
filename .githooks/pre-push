@@ -1,0 +1,15 @@
+#!/bin/sh
+# Pre-push hook: Verhindert direktes Pushen auf main oder master.
+# Alle Änderungen müssen über einen Pull Request eingereicht werden.
+
+protected_branch="main"
+
+while read local_ref local_sha remote_ref remote_sha; do
+  if echo "$remote_ref" | grep -qE "^refs/heads/(main|master)$"; then
+    echo "❌ Direktes Pushen auf '$protected_branch' ist nicht erlaubt."
+    echo "   Bitte erstelle einen Feature-Branch und öffne einen Pull Request."
+    exit 1
+  fi
+done
+
+exit 0
