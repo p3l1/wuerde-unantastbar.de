@@ -1,7 +1,7 @@
 # ABOUTME: Development task runner for the local WordPress environment.
 # ABOUTME: Uses docker compose for all container lifecycle management.
 
-.PHONY: up down restart logs shell wp env install
+.PHONY: up down restart logs shell wp env install setup
 
 # Copy .env.example to .env if it doesn't exist, then start containers
 up: env
@@ -46,3 +46,9 @@ install:
 # Ensure .env exists
 env:
 	@test -f .env || (cp .env.example .env && echo "Created .env from .env.example — edit credentials if needed")
+
+# Setup: activate git hooks (run once after cloning)
+setup:
+	git config core.hooksPath .githooks
+	chmod +x .githooks/pre-push
+	@echo "Git hooks aktiviert. Direktes Pushen auf main ist jetzt gesperrt."
