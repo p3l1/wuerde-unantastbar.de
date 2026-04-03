@@ -1,0 +1,172 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "settings": {
+    "color": {
+      "palette": [
+        {
+          "slug": "teal",
+          "color": "#00ACA0",
+          "name": "Türkis"
+        },
+        {
+          "slug": "yellow",
+          "color": "#F7BC2F",
+          "name": "Gelb"
+        },
+        {
+          "slug": "pink",
+          "color": "#F2ACC6",
+          "name": "Rosa"
+        },
+        {
+          "slug": "blue",
+          "color": "#96D3DF",
+          "name": "Blau"
+        },
+        {
+          "slug": "red",
+          "color": "#E41D21",
+          "name": "Rot"
+        },
+        {
+          "slug": "green",
+          "color": "#1EA84F",
+          "name": "Grün"
+        },
+        {
+          "slug": "orange",
+          "color": "#EC6907",
+          "name": "Orange"
+        },
+        {
+          "slug": "black",
+          "color": "#1A1A1A",
+          "name": "Schwarz"
+        },
+        {
+          "slug": "white",
+          "color": "#FFFFFF",
+          "name": "Weiß"
+        },
+        {
+          "slug": "gray-100",
+          "color": "#F5F5F5",
+          "name": "Hellgrau"
+        }
+      ],
+      "gradients": [],
+      "duotone": [],
+      "custom": false,
+      "customGradient": false,
+      "customDuotone": false,
+      "defaultPalette": false,
+      "defaultGradients": false
+    },
+    "typography": {
+      "fontFamilies": [
+        {
+          "slug": "brand",
+          "name": "Pally (Vereinsname)",
+          "fontFamily": "'Pally', sans-serif"
+        },
+        {
+          "slug": "headline",
+          "name": "Tanker (Headlines)",
+          "fontFamily": "'Tanker', sans-serif"
+        },
+        {
+          "slug": "body",
+          "name": "System (Fließtext)",
+          "fontFamily": "system-ui, -apple-system, 'Segoe UI', sans-serif"
+        }
+      ],
+      "fontSizes": [
+        { "slug": "small",        "size": "0.875rem", "name": "Klein" },
+        { "slug": "normal",       "size": "1rem",     "name": "Normal" },
+        { "slug": "large",        "size": "1.25rem",  "name": "Groß" },
+        { "slug": "x-large",      "size": "1.875rem", "name": "Sehr groß" },
+        { "slug": "xx-large",     "size": "3rem",     "name": "Riesig" }
+      ],
+      "customFontSize": false,
+      "defaultFontSizes": false
+    },
+    "spacing": {
+      "units": ["px", "em", "rem", "%", "vw"],
+      "customSpacingSize": true
+    },
+    "border": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true
+    },
+    "layout": {
+      "contentSize": "720px",
+      "wideSize": "1200px"
+    },
+    "custom": {
+      "spacing": {
+        "small":  "1.5rem",
+        "medium": "3rem",
+        "large":  "5rem"
+      }
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "#FFFFFF",
+      "text": "#1A1A1A"
+    },
+    "typography": {
+      "fontFamily": "var(--wp--preset--font-family--body)",
+      "fontSize": "var(--wp--preset--font-size--normal)",
+      "lineHeight": "1.6"
+    },
+    "elements": {
+      "link": {
+        "color": {
+          "text": "var(--wp--preset--color--teal)"
+        },
+        ":hover": {
+          "color": {
+            "text": "var(--wp--preset--color--yellow)"
+          }
+        }
+      },
+      "h1": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--headline)",
+          "fontSize": "var(--wp--preset--font-size--xx-large)"
+        }
+      },
+      "h2": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--headline)",
+          "fontSize": "var(--wp--preset--font-size--x-large)"
+        }
+      },
+      "h3": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--headline)",
+          "fontSize": "var(--wp--preset--font-size--large)"
+        }
+      },
+      "button": {
+        "color": {
+          "background": "var(--wp--preset--color--teal)",
+          "text": "#FFFFFF"
+        },
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--body)"
+        },
+        ":hover": {
+          "color": {
+            "background": "var(--wp--preset--color--yellow)",
+            "text": "#1A1A1A"
+          }
+        }
+      }
+    }
+  }
+}
