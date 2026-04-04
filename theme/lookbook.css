@@ -10,7 +10,11 @@
 
 .lb-layout {
   display: grid;
-  grid-template-columns: 240px 1fr;
+
+  /* Sidebar + Content: Inhalt bewusst begrenzen (nicht volle Viewport-Breite) */
+  grid-template-columns: 240px minmax(0, 960px);
+  justify-content: center;
+
   min-height: 100vh;
   align-items: start;
 }
@@ -82,7 +86,6 @@
 
 .lb-main {
   padding: var(--space-12) var(--space-10);
-  max-width: 960px;
 }
 
 .lb-page-header {
