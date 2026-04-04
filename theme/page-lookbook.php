@@ -435,7 +435,69 @@ get_header();
             </div>
           </article>
         </div>
+      </div      <div class="lb-component">
+        <h3 class="lb-component__label">Personen / Profil-Elemente</h3>
+        <div class="lb-cards-grid">
+
+          <article class="profile-card">
+            <div class="profile-card__media" style="--profile-photo:url('https://wuerde-unantastbar.de/wp-content/uploads/2024/02/LS_02405-scaled.jpg');" aria-hidden="true"></div>
+            <div class="profile-card__body">
+              <p class="profile-card__meta"><span class="crown-accent" aria-hidden="true"></span> Jahrgang 1964</p>
+              <h3 class="profile-card__name">Ralf Knoblauch</h3>
+              <p class="profile-card__title">Tischler · Dipl. Theologe · Diakon · Bildhauer</p>
+              <p class="profile-card__text">Die unantastbare Würde des Menschen ist seit vielen Jahren mein Lebensthema. Es findet Ausdruck in Königsskulpturen aus Eichenholz — und genau daraus entstand der Impuls für diese Initiative.</p>
+              <div class="profile-card__actions">
+                <a class="btn btn-crown btn--lg" href="#"><span class="btn-crown__icon" aria-hidden="true"></span>Mach mit</a>
+                <a class="btn btn--outline" href="#">Mehr erfahren</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="profile-card">
+            <div class="profile-card__media" style="--profile-photo:url('https://wuerde-unantastbar.de/wp-content/uploads/2024/02/LS_02379-scaled.jpg');" aria-hidden="true"></div>
+            <div class="profile-card__body">
+              <p class="profile-card__meta"><span class="crown-accent" aria-hidden="true"></span> Jahrgang 1970</p>
+              <h3 class="profile-card__name">Anja Knoblauch</h3>
+              <p class="profile-card__title">Dipl. Theologin · Pastoralreferentin</p>
+              <p class="profile-card__text">Mit meinem Engagement möchte ich einen nachhaltigen Beitrag zu einer offenen, vielfältigen und solidarischen Gesellschaft leisten — und sichtbare Zeichen für demokratische, menschenzugewandte Haltungen stärken.</p>
+              <div class="profile-card__actions">
+                <a class="btn btn--primary" href="#">Kontakt</a>
+                <a class="btn btn-crown btn-crown--outline" href="#"><span class="btn-crown__icon" aria-hidden="true"></span>Mitmachen</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="profile-card">
+            <div class="profile-card__media" style="--profile-photo:url('https://wuerde-unantastbar.de/wp-content/uploads/2024/02/LS_02481-683x1024.jpg');" aria-hidden="true"></div>
+            <div class="profile-card__body">
+              <p class="profile-card__meta"><span class="crown-accent" aria-hidden="true"></span> Jahrgang 1993</p>
+              <h3 class="profile-card__name">Lukas Schmalenstroer</h3>
+              <p class="profile-card__title">Sozialarbeiter · Jugendreferent · Fotograf · Berufungscoach</p>
+              <p class="profile-card__text">Für Vielfalt und Toleranz einzustehen ist nicht optional. Ich mache bei „für Menschenwürde und Demokratie“ mit, weil dieser Ansatz positiv ist: eher FÜR etwas zu stehen, als dagegen.</p>
+              <div class="profile-card__actions">
+                <a class="btn btn--secondary" href="#">Mehr erfahren</a>
+                <a class="btn btn--outline" href="#">Kontakt</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="profile-card">
+            <div class="profile-card__media" style="--profile-photo:url('https://wuerde-unantastbar.de/wp-content/uploads/2024/11/LS_06793-683x1024.jpg');" aria-hidden="true"></div>
+            <div class="profile-card__body">
+              <p class="profile-card__meta"><span class="crown-accent" aria-hidden="true"></span> Jahrgang 1952</p>
+              <h3 class="profile-card__name">Christoph Henn</h3>
+              <p class="profile-card__title">Dipl. Agr. Ing. · Sonderschullehrer & Heilpädagoge (i.R.)</p>
+              <p class="profile-card__text">Ich erlebe, dass Menschlichkeit und gegenseitige Akzeptanz alles andere als selbstverständlich sind. Deshalb engagiere ich mich dafür, dass Menschen unabhängig von Herkunft oder Orientierung in wertschätzendem Miteinander leben können.</p>
+              <div class="profile-card__actions">
+                <a class="btn btn--outline" href="#">Kontakt</a>
+                <a class="btn btn-crown btn-crown--outline" href="#"><span class="btn-crown__icon" aria-hidden="true"></span>Mitmachen</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
       </div>
+
     </section>
 
     <!-- ====================================================
