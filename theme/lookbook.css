@@ -460,10 +460,12 @@
   width: 220px;
   height: 220px;
   background: var(--crown-url-teal) center / contain no-repeat;
-  opacity: 0.07;
+  opacity: 0.06;
   pointer-events: none;
-  right: var(--space-6);
-  bottom: var(--space-4);
+
+  /* Wasserzeichen weiter nach unten/rechts, damit es den Titel nicht berührt */
+  right: calc(var(--space-6) * -1);
+  bottom: calc(var(--space-10) * -1);
 }
 
 /* Krone-Asset-Vorschau-Grid (Lookbook) */
