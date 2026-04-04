@@ -305,12 +305,14 @@
     border-color var(--transition-fast),
     box-shadow var(--transition-fast);
   white-space: nowrap;
+  min-height: 44px;
 }
 
 .btn--lg {
   padding: var(--space-4) var(--space-8);
   font-size: var(--text-lg);
   border-radius: var(--radius-lg);
+  min-height: 52px;
 }
 
 /* Primary */
@@ -669,6 +671,7 @@
   font-weight: 700;
   color: var(--color-primary);
   white-space: nowrap;
+  min-height: 44px;
 }
 
 .demo-nav__list {
@@ -1461,6 +1464,17 @@
   position: absolute;
   inset: 0;
   background: rgba(0,0,0,0.18);
+}
+
+
+/* No-photo Varianten: volle Farbfläche statt Avatar-Kreis */
+.profile-card__media--solid-teal { background: var(--color-teal); }
+.profile-card__media--solid-yellow { background: var(--color-yellow); }
+.profile-card__media--solid-black { background: var(--color-black); }
+
+.profile-card--no-photo .profile-card__media::after {
+  /* Bei Solid-Varianten keine Verdunkelung nötig */
+  background: transparent;
 }
 
 .profile-card__body {

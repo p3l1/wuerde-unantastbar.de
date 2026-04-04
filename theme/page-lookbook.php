@@ -291,7 +291,7 @@ get_header();
         <h3 class="lb-component__label">Krone-Button — Für besondere Aktionen</h3>
         <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-4);">Kombiniert das Krone-Symbol mit dem CTA — türkiser Hintergrund, weiße Krone; bei Hover gelb mit türkiser Krone.</p>
         <div class="lb-component__preview lb-button-row">
-          <button class="btn btn-crown btn--lg">
+          <button class="btn btn-crown">
             <span class="btn-crown__icon" aria-hidden="true"></span>
             Jetzt mitmachen (groß)
           </button>
@@ -447,7 +447,7 @@ get_header();
               <p class="profile-card__title">Tischler · Dipl. Theologe · Diakon · Bildhauer</p>
               <p class="profile-card__text">Die unantastbare Würde des Menschen ist seit vielen Jahren mein Lebensthema. Es findet Ausdruck in Königsskulpturen aus Eichenholz — und genau daraus entstand der Impuls für diese Initiative.</p>
               <div class="profile-card__actions">
-                <a class="btn btn-crown btn--lg" href="#"><span class="btn-crown__icon" aria-hidden="true"></span>Mach mit</a>
+                <a class="btn btn-crown" href="#"><span class="btn-crown__icon" aria-hidden="true"></span>Mach mit</a>
                 <a class="btn btn--outline" href="#">Mehr erfahren</a>
               </div>
             </div>
@@ -495,6 +495,23 @@ get_header();
             </div>
           </article>
 
+
+
+          <article class="profile-card profile-card--no-photo">
+            <div class="profile-card__media profile-card__media--solid-teal" aria-hidden="true">
+              <span class="crown-watermark" aria-hidden="true"></span>
+            </div>
+            <div class="profile-card__body">
+              <p class="profile-card__meta"><span class="crown-accent" aria-hidden="true"></span> Beispiel ohne Foto</p>
+              <h3 class="profile-card__name">Person ohne Bild</h3>
+              <p class="profile-card__title">Rolle / Untertitel</p>
+              <p class="profile-card__text">Fallback-Variante, wenn kein Portrait verfügbar ist: die linke Fläche ist vollständig in CI-Farbe gefüllt (statt eines kreisförmigen Avatars).</p>
+              <div class="profile-card__actions">
+                <a class="btn btn--secondary" href="#">Mehr erfahren</a>
+                <a class="btn btn--outline" href="#">Kontakt</a>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
 
@@ -637,7 +654,7 @@ get_header();
               <h1 class="demo-hero__title">Gemeinsam sichtbar werden.</h1>
               <p class="demo-hero__text">Ein Hero mit Fotohintergrund (ohne Farbverläufe) — darüber ein klarer Textblock und CTAs im CI-Look.</p>
               <div class="demo-hero__actions">
-                <button class="btn btn-crown btn--lg"><span class="btn-crown__icon" aria-hidden="true"></span>Mach mit</button>
+                <button class="btn btn-crown"><span class="btn-crown__icon" aria-hidden="true"></span>Mach mit</button>
                 <button class="btn btn--ghost btn--lg">Kontakt</button>
               </div>
             </div>
