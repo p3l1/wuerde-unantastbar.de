@@ -17,7 +17,7 @@ get_header();
     <p class="lb-sidebar__label">Komponenten</p>
     <ul class="lb-sidebar__list">
       <li><a href="#typografie" class="lb-sidebar__link">Typografie</a></li>
-      <li><a href="#farben"     class="lb-sidebar__link">Farben</a></li>
+      <li><a href="#farben"     class="lb-sidebar__link">Farben &amp; Krone</a></li>
       <li><a href="#buttons"    class="lb-sidebar__link">Buttons</a></li>
       <li><a href="#karten"     class="lb-sidebar__link">Karten</a></li>
       <li><a href="#navigation" class="lb-sidebar__link">Navigation</a></li>
@@ -169,6 +169,46 @@ get_header();
       </div>
 
       <div class="lb-component">
+        <h3 class="lb-component__label">Krone — Farbvarianten</h3>
+        <div class="lb-component__preview">
+          <div class="lb-krone-grid">
+            <div class="lb-krone-item">
+              <div class="lb-krone-item__swatch" style="background:#00ACA0;">
+                <img class="lb-krone-item__img"
+                     src="<?php echo esc_url( wuerde_asset_url( 'krone-white.png' ) ); ?>"
+                     alt="Krone weiß" width="72" height="72">
+              </div>
+              <span class="lb-krone-item__label">Weiß<br>auf Türkis</span>
+            </div>
+            <div class="lb-krone-item">
+              <div class="lb-krone-item__swatch" style="background:#F5F5F5;box-shadow:inset 0 0 0 1px var(--color-border);">
+                <img class="lb-krone-item__img"
+                     src="<?php echo esc_url( wuerde_asset_url( 'krone-teal.png' ) ); ?>"
+                     alt="Krone türkis" width="72" height="72">
+              </div>
+              <span class="lb-krone-item__label">Türkis<br>auf Hell</span>
+            </div>
+            <div class="lb-krone-item">
+              <div class="lb-krone-item__swatch" style="background:#1A1A1A;">
+                <img class="lb-krone-item__img"
+                     src="<?php echo esc_url( wuerde_asset_url( 'krone-yellow.png' ) ); ?>"
+                     alt="Krone gelb" width="72" height="72">
+              </div>
+              <span class="lb-krone-item__label">Gelb<br>auf Schwarz</span>
+            </div>
+            <div class="lb-krone-item">
+              <div class="lb-krone-item__swatch" style="background:#F5F5F5;box-shadow:inset 0 0 0 1px var(--color-border);">
+                <img class="lb-krone-item__img"
+                     src="<?php echo esc_url( wuerde_asset_url( 'krone-black.png' ) ); ?>"
+                     alt="Krone schwarz" width="72" height="72">
+              </div>
+              <span class="lb-krone-item__label">Schwarz<br>auf Hell</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lb-component">
         <h3 class="lb-component__label">Neutralfarben</h3>
         <div class="lb-color-grid lb-color-grid--neutral">
           <div class="lb-color-tile lb-color-tile--bordered" style="background:var(--color-white);color:#1A1A1A;">
@@ -246,6 +286,35 @@ get_header();
           <button class="btn btn--ghost" disabled>Spenden (deaktiviert)</button>
         </div>
       </div>
+
+      <div class="lb-component">
+        <h3 class="lb-component__label">Krone-Button — Für besondere Aktionen</h3>
+        <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-4);">Kombiniert das Krone-Symbol mit dem CTA — türkiser Hintergrund, weiße Krone; bei Hover gelb mit türkiser Krone.</p>
+        <div class="lb-component__preview lb-button-row">
+          <button class="btn btn-crown btn--lg">
+            <span class="btn-crown__icon" aria-hidden="true"></span>
+            Jetzt mitmachen (groß)
+          </button>
+          <button class="btn btn-crown">
+            <span class="btn-crown__icon" aria-hidden="true"></span>
+            Jetzt mitmachen
+          </button>
+        </div>
+      </div>
+
+      <div class="lb-component">
+        <h3 class="lb-component__label">Krone-Button Outline</h3>
+        <div class="lb-component__preview lb-button-row">
+          <button class="btn btn-crown btn-crown--outline btn--lg">
+            <span class="btn-crown__icon" aria-hidden="true"></span>
+            Mehr erfahren (groß)
+          </button>
+          <button class="btn btn-crown btn-crown--outline">
+            <span class="btn-crown__icon" aria-hidden="true"></span>
+            Mehr erfahren
+          </button>
+        </div>
+      </div>
     </section>
 
     <!-- ====================================================
@@ -293,6 +362,20 @@ get_header();
             <p class="highlight-box__text">Diskussionsabend: Demokratie in der Krise? — 15. April 2026, 19:00 Uhr, Stadtbibliothek.</p>
             <button class="btn btn--outline">Anmelden</button>
           </div>
+        </div>
+      </div>
+
+      <div class="lb-component">
+        <h3 class="lb-component__label">Karte mit Krone-Wasserzeichen</h3>
+        <div class="lb-cards-grid">
+          <article class="card" style="position:relative;overflow:hidden;">
+            <span class="crown-watermark" aria-hidden="true"></span>
+            <div class="card__body">
+              <h3 class="card__title">Menschenwürde verteidigen</h3>
+              <p class="card__text">Das Krone-Symbol steht für die Würde jedes Menschen — unantastbar und universell gültig.</p>
+              <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="card__link">Mehr erfahren</a>
+            </div>
+          </article>
         </div>
       </div>
 
@@ -412,6 +495,7 @@ get_header();
         <div class="lb-component__preview lb-component__preview--flush">
           <div class="demo-hero">
             <div class="demo-hero__content">
+              <span class="section-crown" aria-hidden="true"></span>
               <p class="demo-hero__eyebrow brand-text">Verein für Menschenwürde und Demokratie e.V.</p>
               <h1 class="demo-hero__title">Würde ist kein Privileg — sie gehört allen.</h1>
               <p class="demo-hero__text">Wir stehen auf für eine Gesellschaft, in der jeder Mensch mit Würde leben kann. Mach mit — deine Stimme zählt.</p>

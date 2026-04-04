@@ -20,6 +20,16 @@ function wuerde_setup() {
 }
 add_action( 'after_setup_theme', 'wuerde_setup' );
 
+/**
+ * Gibt die absolute URL zu einer Theme-Asset-Datei zurück.
+ *
+ * @param string $file Dateiname relativ zu theme/assets/ (z. B. 'krone.svg').
+ * @return string Vollständige URL.
+ */
+function wuerde_asset_url( $file ) {
+    return get_stylesheet_directory_uri() . '/assets/' . ltrim( $file, '/' );
+}
+
 function wuerde_enqueue_assets() {
     wp_enqueue_style(
         'wuerde-style',
@@ -36,6 +46,21 @@ function wuerde_enqueue_assets() {
             [ 'wuerde-style' ],
             wp_get_theme()->get( 'Version' )
         );
+
+        // Krone-Asset-URLs als CSS Custom Properties injizieren
+        $crown_assets = [
+            'white'  => wuerde_asset_url( 'krone-white.png' ),
+            'teal'   => wuerde_asset_url( 'krone-teal.png' ),
+            'yellow' => wuerde_asset_url( 'krone-yellow.png' ),
+            'black'  => wuerde_asset_url( 'krone-black.png' ),
+            'svg'    => wuerde_asset_url( 'krone.svg' ),
+        ];
+        $inline_css = ":root {\n";
+        foreach ( $crown_assets as $key => $url ) {
+            $inline_css .= "  --crown-url-{$key}: url('" . esc_url( $url ) . "');\n";
+        }
+        $inline_css .= '}';
+        wp_add_inline_style( 'wuerde-lookbook', $inline_css );
 
         wp_enqueue_script(
             'wuerde-lookbook',
