@@ -16,26 +16,28 @@ get_header();
   <nav class="lb-sidebar" aria-label="Lookbook Navigation">
     <p class="lb-sidebar__label">Komponenten</p>
     <ul class="lb-sidebar__list">
+      <li><a href="#navigation" class="lb-sidebar__link">Navigation</a></li>
+      <li><a href="#hero"       class="lb-sidebar__link">Hero</a></li>
       <li><a href="#typografie" class="lb-sidebar__link">Typografie</a></li>
       <li><a href="#farben"     class="lb-sidebar__link">Farben &amp; Krone</a></li>
       <li><a href="#buttons"    class="lb-sidebar__link">Buttons</a></li>
       <li><a href="#karten"     class="lb-sidebar__link">Karten</a></li>
-      <li><a href="#navigation" class="lb-sidebar__link">Navigation</a></li>
-      <li><a href="#hero"       class="lb-sidebar__link">Hero</a></li>
       <li><a href="#formulare"  class="lb-sidebar__link">Formulare</a></li>
       <li><a href="#mach-mit"   class="lb-sidebar__link">Mach mit</a></li>
+      <li><a href="#footer"     class="lb-sidebar__link">Footer</a></li>
     </ul>
 
     <!-- Mobile: Tab-Navigation -->
     <div class="lb-tabs" role="tablist" aria-label="Abschnitte">
+      <button class="lb-tab" role="tab" data-target="navigation">Navigation</button>
+      <button class="lb-tab" role="tab" data-target="hero">Hero</button>
       <button class="lb-tab" role="tab" data-target="typografie">Typografie</button>
       <button class="lb-tab" role="tab" data-target="farben">Farben</button>
       <button class="lb-tab" role="tab" data-target="buttons">Buttons</button>
       <button class="lb-tab" role="tab" data-target="karten">Karten</button>
-      <button class="lb-tab" role="tab" data-target="navigation">Navigation</button>
-      <button class="lb-tab" role="tab" data-target="hero">Hero</button>
       <button class="lb-tab" role="tab" data-target="formulare">Formulare</button>
       <button class="lb-tab" role="tab" data-target="mach-mit">Mach mit</button>
+      <button class="lb-tab" role="tab" data-target="footer">Footer</button>
     </div>
   </nav>
 
@@ -49,6 +51,75 @@ get_header();
       <h1 class="lb-page-title brand-text">Lookbook</h1>
       <p class="lb-page-subtitle">Alle Theme-Komponenten auf einen Blick — Corporate Identity des Vereins für Menschenwürde und Demokratie&nbsp;e.V.</p>
     </header>
+
+    <!-- ====================================================
+         5. NAVIGATION
+         ==================================================== -->
+    <section id="navigation" class="lb-section">
+      <h2 class="lb-section__title">Navigation</h2>
+
+      <div class="lb-component">
+        <h3 class="lb-component__label">Header-Demo</h3>
+        <div class="lb-component__preview lb-component__preview--flush">
+          <div class="demo-header">
+            <div class="demo-header__brand brand-text">Würde Unantastbar</div>
+            <nav class="demo-nav" aria-label="Demo Hauptnavigation">
+              <ul class="demo-nav__list">
+                <li><a href="#" class="demo-nav__link demo-nav__link--active">Startseite</a></li>
+                <li class="demo-nav__item--dropdown">
+                  <a href="#" class="demo-nav__link demo-nav__link--has-dropdown">
+                    Über uns
+                    <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+                  </a>
+                  <ul class="demo-dropdown">
+                    <li><a href="#" class="demo-dropdown__link">Verein & Geschichte</a></li>
+                    <li><a href="#" class="demo-dropdown__link">Vorstand</a></li>
+                    <li><a href="#" class="demo-dropdown__link">Satzung</a></li>
+                  </ul>
+                </li>
+                <li><a href="#" class="demo-nav__link">Mach mit</a></li>
+                <li><a href="#" class="demo-nav__link">Kontakt</a></li>
+              </ul>
+            </nav>
+            <button class="demo-hamburger" aria-label="Menü öffnen" aria-expanded="false" id="lb-hamburger-demo">
+              <span></span><span></span><span></span>
+            </button>
+          </div>
+          <div class="demo-mobile-nav" id="lb-mobile-nav" aria-hidden="true">
+            <ul class="demo-mobile-nav__list">
+              <li><a href="#">Startseite</a></li>
+              <li><a href="#">Über uns</a></li>
+              <li><a href="#">Mach mit</a></li>
+              <li><a href="#">Kontakt</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      
+
+      <div class="lb-component">
+        <h3 class="lb-component__label">Dropdown-Demo</h3>
+        <div class="lb-component__preview">
+          <div class="demo-dropdown-standalone">
+            <button class="demo-dropdown__trigger" aria-expanded="false" aria-controls="lb-dropdown-demo">
+              Kategorien
+              <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+            </button>
+            <ul class="demo-dropdown demo-dropdown--open" id="lb-dropdown-demo" role="menu">
+              <li role="menuitem"><a href="#" class="demo-dropdown__link">Kirche &amp; Glaube</a></li>
+              <li role="menuitem"><a href="#" class="demo-dropdown__link">Bildung &amp; Schule</a></li>
+              <li role="menuitem"><a href="#" class="demo-dropdown__link">Kommunalpolitik</a></li>
+              <li role="menuitem"><a href="#" class="demo-dropdown__link">Handwerk &amp; Beruf</a></li>
+              <li role="menuitem"><a href="#" class="demo-dropdown__link">Gesundheit &amp; Soziales</a></li>
+              <li role="menuitem"><a href="#" class="demo-dropdown__link">Sonstiges</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
 
     <!-- ====================================================
          1. TYPOGRAFIE
@@ -518,90 +589,6 @@ get_header();
     </section>
 
     <!-- ====================================================
-         5. NAVIGATION
-         ==================================================== -->
-    <section id="navigation" class="lb-section">
-      <h2 class="lb-section__title">Navigation</h2>
-
-      <div class="lb-component">
-        <h3 class="lb-component__label">Header-Demo</h3>
-        <div class="lb-component__preview lb-component__preview--flush">
-          <div class="demo-header">
-            <div class="demo-header__brand brand-text">Würde Unantastbar</div>
-            <nav class="demo-nav" aria-label="Demo Hauptnavigation">
-              <ul class="demo-nav__list">
-                <li><a href="#" class="demo-nav__link demo-nav__link--active">Startseite</a></li>
-                <li class="demo-nav__item--dropdown">
-                  <a href="#" class="demo-nav__link demo-nav__link--has-dropdown">
-                    Über uns
-                    <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
-                  </a>
-                  <ul class="demo-dropdown">
-                    <li><a href="#" class="demo-dropdown__link">Verein & Geschichte</a></li>
-                    <li><a href="#" class="demo-dropdown__link">Vorstand</a></li>
-                    <li><a href="#" class="demo-dropdown__link">Satzung</a></li>
-                  </ul>
-                </li>
-                <li><a href="#" class="demo-nav__link">Mach mit</a></li>
-                <li><a href="#" class="demo-nav__link">Kontakt</a></li>
-              </ul>
-            </nav>
-            <button class="demo-hamburger" aria-label="Menü öffnen" aria-expanded="false" id="lb-hamburger-demo">
-              <span></span><span></span><span></span>
-            </button>
-          </div>
-          <div class="demo-mobile-nav" id="lb-mobile-nav" aria-hidden="true">
-            <ul class="demo-mobile-nav__list">
-              <li><a href="#">Startseite</a></li>
-              <li><a href="#">Über uns</a></li>
-              <li><a href="#">Mach mit</a></li>
-              <li><a href="#">Kontakt</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="lb-component">
-        <h3 class="lb-component__label">Footer-Demo</h3>
-        <div class="lb-component__preview lb-component__preview--flush">
-          <div class="demo-footer">
-            <div class="demo-footer__brand brand-text">Würde Unantastbar</div>
-            <p class="demo-footer__tagline">Verein für Menschenwürde und Demokratie e.V.</p>
-            <nav class="demo-footer__nav" aria-label="Footer Navigation">
-              <ul>
-                <li><a href="#">Impressum</a></li>
-                <li><a href="#">Datenschutz</a></li>
-                <li><a href="#">Satzung</a></li>
-                <li><a href="#">Kontakt</a></li>
-              </ul>
-            </nav>
-            <p class="demo-footer__copy">&copy; 2026 Verein für Menschenwürde und Demokratie e.V.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="lb-component">
-        <h3 class="lb-component__label">Dropdown-Demo</h3>
-        <div class="lb-component__preview">
-          <div class="demo-dropdown-standalone">
-            <button class="demo-dropdown__trigger" aria-expanded="false" aria-controls="lb-dropdown-demo">
-              Kategorien
-              <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
-            </button>
-            <ul class="demo-dropdown demo-dropdown--open" id="lb-dropdown-demo" role="menu">
-              <li role="menuitem"><a href="#" class="demo-dropdown__link">Kirche &amp; Glaube</a></li>
-              <li role="menuitem"><a href="#" class="demo-dropdown__link">Bildung &amp; Schule</a></li>
-              <li role="menuitem"><a href="#" class="demo-dropdown__link">Kommunalpolitik</a></li>
-              <li role="menuitem"><a href="#" class="demo-dropdown__link">Handwerk &amp; Beruf</a></li>
-              <li role="menuitem"><a href="#" class="demo-dropdown__link">Gesundheit &amp; Soziales</a></li>
-              <li role="menuitem"><a href="#" class="demo-dropdown__link">Sonstiges</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====================================================
          6. HERO
          ==================================================== -->
     <section id="hero" class="lb-section">
@@ -644,26 +631,35 @@ get_header();
         </div>
       </div>
 
-      <div class="lb-component">
-        <h3 class="lb-component__label">Hero mit Foto (Beispielbild)</h3>
+            <div class="lb-component">
+        <h3 class="lb-component__label">Hero mit Foto (Device-Mock)</h3>
         <div class="lb-component__preview lb-component__preview--flush">
-          <div class="demo-hero demo-hero--photo" style="--hero-photo:url('https://wuerde-unantastbar.de/wp-content/uploads/2024/02/LS_02059-1024x683.jpg');">
-            <div class="demo-hero__content">
-              <span class="section-crown" aria-hidden="true"></span>
-              <p class="demo-hero__eyebrow brand-text">Menschenwürde ist unantastbar</p>
-              <h1 class="demo-hero__title">Gemeinsam sichtbar werden.</h1>
-              <p class="demo-hero__text">Ein Hero mit Fotohintergrund (ohne Farbverläufe) — darüber ein klarer Textblock und CTAs im CI-Look.</p>
-              <div class="demo-hero__actions">
-                <button class="btn btn-crown"><span class="btn-crown__icon" aria-hidden="true"></span>Mach mit</button>
-                <button class="btn btn--ghost btn--lg">Kontakt</button>
+          <div class="demo-hero demo-hero--devices">
+            <div class="demo-hero__layout">
+              <div class="demo-hero__content">
+                <span class="section-crown" aria-hidden="true"></span>
+                <p class="demo-hero__eyebrow brand-text">Menschenwürde ist unantastbar</p>
+                <h1 class="demo-hero__title">Gemeinsam sichtbar werden.</h1>
+                <p class="demo-hero__text">Foto-Inhalte werden hier in Geräte-Mockups gezeigt (iPad + iPhone) — statt Full-Width Hintergrundbild. Der Hero nutzt 100vh.</p>
+                <div class="demo-hero__actions">
+                  <button class="btn btn-crown btn--lg"><span class="btn-crown__icon" aria-hidden="true"></span>Mach mit</button>
+                  <button class="btn btn--ghost btn--lg">Kontakt</button>
+                </div>
+              </div>
+
+              <div class="device-showcase" aria-hidden="true">
+                <figure class="device-mock device-mock--ipad">
+                  <img src="https://wuerde-unantastbar.de/wp-content/uploads/2024/02/LS_02059-1024x683.jpg" alt="">
+                </figure>
+                <figure class="device-mock device-mock--iphone">
+                  <img src="https://wuerde-unantastbar.de/wp-content/uploads/2024/02/LS_02059-1024x683.jpg" alt="">
+                </figure>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-
-    <!-- ====================================================
+<!-- ====================================================
          7. FORMULARE
          ==================================================== -->
     <section id="formulare" class="lb-section">
@@ -924,7 +920,34 @@ get_header();
       </div>
     </section>
 
-  </main>
+  
+
+    <!-- ====================================================
+         FOOTER
+         ==================================================== -->
+    <section id="footer" class="lb-section">
+      <h2 class="lb-section__title">Footer</h2>
+
+      <div class="lb-component">
+        <h3 class="lb-component__label">Footer-Demo</h3>
+        <div class="lb-component__preview lb-component__preview--flush">
+          <div class="demo-footer demo-footer--stick-to-bottom">
+            <div class="demo-footer__brand brand-text">Würde Unantastbar</div>
+            <p class="demo-footer__tagline">Verein für Menschenwürde und Demokratie e.V.</p>
+            <nav class="demo-footer__nav" aria-label="Footer Navigation">
+              <ul>
+                <li><a href="#">Impressum</a></li>
+                <li><a href="#">Datenschutz</a></li>
+                <li><a href="#">Satzung</a></li>
+                <li><a href="#">Kontakt</a></li>
+              </ul>
+            </nav>
+            <p class="demo-footer__copy">&copy; 2026 Verein für Menschenwürde und Demokratie e.V.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+</main>
 </div>
 
 <?php get_footer(); ?>
