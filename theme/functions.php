@@ -27,5 +27,23 @@ function wuerde_enqueue_assets() {
         [],
         wp_get_theme()->get( 'Version' )
     );
+
+    // Lookbook-Assets nur auf der Lookbook-Seite laden
+    if ( is_page_template( 'page-lookbook.php' ) ) {
+        wp_enqueue_style(
+            'wuerde-lookbook',
+            get_stylesheet_directory_uri() . '/lookbook.css',
+            [ 'wuerde-style' ],
+            wp_get_theme()->get( 'Version' )
+        );
+
+        wp_enqueue_script(
+            'wuerde-lookbook',
+            get_stylesheet_directory_uri() . '/lookbook.js',
+            [],
+            wp_get_theme()->get( 'Version' ),
+            [ 'strategy' => 'defer', 'in_footer' => true ]
+        );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'wuerde_enqueue_assets' );
