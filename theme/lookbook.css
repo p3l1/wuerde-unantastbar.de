@@ -1386,6 +1386,104 @@
   color: var(--color-secondary);
 }
 
+
+/* ==========================================================================
+   HERO — Foto-Variante (ohne Gradients)
+   ========================================================================== */
+
+.demo-hero--photo {
+  background-image: var(--hero-photo);
+  background-size: cover;
+  background-position: center;
+}
+
+/* Override: statt türkisem Tint eine klare, dunkle Overlay-Fläche */
+.demo-hero--photo::before {
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 1;
+}
+
+.demo-hero--photo .demo-hero__eyebrow {
+  color: var(--color-yellow);
+}
+
+/* ==========================================================================
+   PROFIL-KARTEN (Personen-Vorstellung)
+   ========================================================================== */
+
+.profile-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 0;
+  align-items: stretch;
+}
+
+.profile-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+  transition: box-shadow var(--transition-normal), transform var(--transition-normal);
+}
+
+.profile-card__media {
+  background: var(--color-bg-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+}
+
+.profile-card--accent .profile-card__media {
+  background: rgba(247, 188, 47, 0.20);
+}
+
+.profile-card__avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 9999px;
+  object-fit: cover;
+  box-shadow: var(--shadow-sm);
+  border: 3px solid rgba(255,255,255,0.9);
+}
+
+.profile-card__body {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.profile-card__name {
+  font-family: var(--font-headline);
+  font-size: var(--text-xl);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.profile-card__title {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.profile-card__text {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: var(--leading-relaxed);
+  margin: 0;
+}
+
+.profile-card__actions {
+  margin-top: var(--space-2);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
 /* ==========================================================================
    RESPONSIVE — Mobile (< 768px)
    ========================================================================== */

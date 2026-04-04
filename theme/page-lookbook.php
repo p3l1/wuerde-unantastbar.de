@@ -398,6 +398,44 @@ get_header();
           </div>
         </div>
       </div>
+
+      <div class="lb-component">
+        <h3 class="lb-component__label">Personen / Profil-Elemente</h3>
+        <div class="lb-cards-grid">
+          <article class="profile-card">
+            <div class="profile-card__media">
+              <img class="profile-card__avatar" src="https://placehold.co/256x256/00ACA0/FFFFFF?text=Person" alt="Profilbild" width="128" height="128">
+            </div>
+            <div class="profile-card__body">
+              <h3 class="profile-card__name">Dr. Maria Müller</h3>
+              <p class="profile-card__title">Vorsitzende · Verein für Menschenwürde und Demokratie e.V.</p>
+              <p class="profile-card__text">Setzt sich seit vielen Jahren für Bildungsprojekte und gesellschaftlichen Zusammenhalt ein. Schwerpunkt: Demokratiebildung in Schulen.</p>
+              <div class="profile-card__actions">
+                <a class="btn btn--outline" href="#">Kontakt</a>
+                <a class="btn btn-crown btn-crown--outline" href="#">
+                  <span class="btn-crown__icon" aria-hidden="true"></span>
+                  Mitmachen
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="profile-card profile-card--accent">
+            <div class="profile-card__media">
+              <img class="profile-card__avatar" src="https://placehold.co/256x256/F7BC2F/1A1A1A?text=Person" alt="Profilbild" width="128" height="128">
+            </div>
+            <div class="profile-card__body">
+              <h3 class="profile-card__name">Klaus Schmidt</h3>
+              <p class="profile-card__title">Mitgründer · Netzwerk &amp; Aktionen</p>
+              <p class="profile-card__text">Organisiert Veranstaltungen, koordiniert lokale Initiativen und baut Partnerschaften mit Vereinen und Kommunen auf.</p>
+              <div class="profile-card__actions">
+                <a class="btn btn--primary" href="#">Mehr erfahren</a>
+                <a class="btn btn--secondary" href="#">Nächste Termine</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
     </section>
 
     <!-- ====================================================
@@ -522,6 +560,24 @@ get_header();
               </nav>
               <h1 class="demo-subpage-hero__title">Über uns</h1>
               <p class="demo-subpage-hero__text">Geschichte, Ziele und das Team hinter dem Verein für Menschenwürde und Demokratie e.V.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lb-component">
+        <h3 class="lb-component__label">Hero mit Foto (Beispielbild)</h3>
+        <div class="lb-component__preview lb-component__preview--flush">
+          <div class="demo-hero demo-hero--photo" style="--hero-photo:url('https://wuerde-unantastbar.de/wp-content/uploads/2024/02/LS_02059-1024x683.jpg');">
+            <div class="demo-hero__content">
+              <span class="section-crown" aria-hidden="true"></span>
+              <p class="demo-hero__eyebrow brand-text">Menschenwürde ist unantastbar</p>
+              <h1 class="demo-hero__title">Gemeinsam sichtbar werden.</h1>
+              <p class="demo-hero__text">Ein Hero mit Fotohintergrund (ohne Farbverläufe) — darüber ein klarer Textblock und CTAs im CI-Look.</p>
+              <div class="demo-hero__actions">
+                <button class="btn btn-crown btn--lg"><span class="btn-crown__icon" aria-hidden="true"></span>Mach mit</button>
+                <button class="btn btn--ghost btn--lg">Kontakt</button>
+              </div>
             </div>
           </div>
         </div>
