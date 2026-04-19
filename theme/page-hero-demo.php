@@ -38,13 +38,24 @@ get_header();
       </button>
     </header>
 
-    <div class="demo-mobile-nav demo-mobile-nav--dark" aria-hidden="true" data-mobile-nav>
+    <div class="demo-mobile-nav demo-mobile-nav--dark demo-mobile-nav--fullscreen" aria-hidden="true" data-mobile-nav>
       <ul class="demo-mobile-nav__list">
         <li><a href="#">Startseite</a></li>
-        <li><a href="#">&#220;ber uns</a></li>
+        <li class="demo-mobile-nav__item--sub">
+          <button class="demo-mobile-nav__sub-trigger" aria-expanded="false" data-sub-trigger>
+            &Uuml;ber uns
+            <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+          </button>
+          <ul class="demo-mobile-nav__sub">
+            <li><a href="#">Verein &amp; Geschichte</a></li>
+            <li><a href="#">Vorstand</a></li>
+            <li><a href="#">Satzung</a></li>
+          </ul>
+        </li>
         <li><a href="#">Mach mit</a></li>
         <li><a href="#">Kontakt</a></li>
       </ul>
+      <div class="demo-mobile-nav__brand brand-text">Verein f&#252;r Menschenw&#252;rde und Demokratie e.V.</div>
     </div>
 
     <section class="demo-hero demo-hero--fullscreen-photo"

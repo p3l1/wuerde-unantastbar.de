@@ -114,10 +114,26 @@
       if (!mobileNav) return;
 
       hamburger.addEventListener('click', function () {
-        const isOpen = hamburger.classList.toggle('is-open');
+        const isOpen = !hamburger.classList.contains('is-open');
+        hamburger.classList.toggle('is-open', isOpen);
         hamburger.setAttribute('aria-expanded', String(isOpen));
-        mobileNav.classList.toggle('is-open', isOpen);
-        mobileNav.setAttribute('aria-hidden', String(!isOpen));
+
+        if (isOpen) {
+          // Display setzen, dann einen Frame warten damit die Transition feuert
+          mobileNav.style.display = 'flex';
+          requestAnimationFrame(function () {
+            mobileNav.classList.add('is-open');
+            mobileNav.setAttribute('aria-hidden', 'false');
+          });
+        } else {
+          mobileNav.classList.remove('is-open');
+          mobileNav.setAttribute('aria-hidden', 'true');
+          // Display erst nach Ende der Transition entfernen
+          mobileNav.addEventListener('transitionend', function handler() {
+            mobileNav.style.display = '';
+            mobileNav.removeEventListener('transitionend', handler);
+          });
+        }
       });
     });
   }
@@ -153,6 +169,24 @@
   }
 
   // =========================================================================
+  // Mobil Untermenü — Akkordeon
+  // =========================================================================
+
+  function initMobileSubMenus() {
+    const triggers = document.querySelectorAll('[data-sub-trigger]');
+
+    triggers.forEach(function (trigger) {
+      const sub = trigger.nextElementSibling;
+      if (!sub) return;
+
+      trigger.addEventListener('click', function () {
+        const isOpen = sub.classList.toggle('is-open');
+        trigger.setAttribute('aria-expanded', String(isOpen));
+      });
+    });
+  }
+
+  // =========================================================================
   // Init
   // =========================================================================
 
@@ -162,6 +196,7 @@
     initAccordion();
     initHamburger();
     initNavDropdowns();
+    initMobileSubMenus();
   }
 
   if (document.readyState === 'loading') {
