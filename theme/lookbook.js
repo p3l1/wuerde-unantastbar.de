@@ -101,20 +101,54 @@
   }
 
   // =========================================================================
-  // Hamburger-Toggle — Demo
+  // Hamburger-Toggle — alle Instanzen unabhaengig
   // =========================================================================
 
   function initHamburger() {
-    const hamburger = document.getElementById('lb-hamburger-demo');
-    const mobileNav = document.getElementById('lb-mobile-nav');
+    const hamburgers = document.querySelectorAll('[data-hamburger]');
 
-    if (!hamburger || !mobileNav) return;
+    hamburgers.forEach(function (hamburger) {
+      const container = hamburger.closest('.lb-component__preview, .hero-demo-scene');
+      const mobileNav = container ? container.querySelector('[data-mobile-nav]') : null;
 
-    hamburger.addEventListener('click', function () {
-      const isOpen = hamburger.classList.toggle('is-open');
-      hamburger.setAttribute('aria-expanded', String(isOpen));
-      mobileNav.classList.toggle('is-open', isOpen);
-      mobileNav.setAttribute('aria-hidden', String(!isOpen));
+      if (!mobileNav) return;
+
+      hamburger.addEventListener('click', function () {
+        const isOpen = hamburger.classList.toggle('is-open');
+        hamburger.setAttribute('aria-expanded', String(isOpen));
+        mobileNav.classList.toggle('is-open', isOpen);
+        mobileNav.setAttribute('aria-hidden', String(!isOpen));
+      });
+    });
+  }
+
+  // =========================================================================
+  // Nav-Dropdown — Toggle per Klick, schliessen per Klick ausserhalb
+  // =========================================================================
+
+  function initNavDropdowns() {
+    const items = document.querySelectorAll('.demo-nav__item--dropdown');
+
+    items.forEach(function (item) {
+      const trigger = item.querySelector('.demo-nav__link--has-dropdown');
+      const dropdown = item.querySelector('.demo-dropdown');
+      if (!trigger || !dropdown) return;
+
+      trigger.addEventListener('click', function (e) {
+        e.preventDefault();
+        const isOpen = item.classList.toggle('is-open');
+        trigger.setAttribute('aria-expanded', String(isOpen));
+      });
+    });
+
+    document.addEventListener('click', function (e) {
+      items.forEach(function (item) {
+        if (!item.contains(e.target)) {
+          item.classList.remove('is-open');
+          const trigger = item.querySelector('.demo-nav__link--has-dropdown');
+          if (trigger) trigger.setAttribute('aria-expanded', 'false');
+        }
+      });
     });
   }
 
@@ -127,6 +161,7 @@
     initMobileTabs();
     initAccordion();
     initHamburger();
+    initNavDropdowns();
   }
 
   if (document.readyState === 'loading') {

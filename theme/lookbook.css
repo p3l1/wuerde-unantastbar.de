@@ -11,8 +11,7 @@
 .lb-layout {
   display: grid;
 
-  /* Sidebar + Content: Inhalt bewusst begrenzen (nicht volle Viewport-Breite) */
-  grid-template-columns: 240px minmax(0, 960px);
+  grid-template-columns: 240px minmax(0, 1280px);
   justify-content: center;
 
   min-height: 100vh;
@@ -153,7 +152,136 @@
 
 .lb-component__preview--flush {
   padding: 0;
+  overflow: visible;
+}
+
+/* Phone-Mockup Preview */
+.lb-component__preview--phone {
+  background: var(--color-bg-subtle);
+  display: flex;
+  justify-content: center;
+  padding: var(--space-10) var(--space-8);
+}
+
+.lb-phone-mock {
+  width: 390px;
+  height: 844px;
+  background: var(--color-bg);
+  border-radius: 48px;
+  border: 8px solid #1a1a1a;
+  box-shadow:
+    0 0 0 2px #3a3a3a,
+    0 32px 64px rgba(0, 0, 0, 0.35);
   overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Notch */
+.lb-phone-mock::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 126px;
+  height: 34px;
+  background: #1a1a1a;
+  border-radius: 0 0 20px 20px;
+  z-index: 10;
+}
+
+.lb-phone-mock__screen {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  padding-top: 34px; /* Notch-Höhe */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hamburger + Nav im Phone-Mock immer sichtbar */
+.lb-phone-mock .demo-hamburger {
+  display: flex;
+}
+
+.lb-phone-mock .demo-nav {
+  display: none;
+}
+
+.lb-phone-mock .demo-header__brand {
+  font-size: 0;
+  display: flex;
+  align-items: center;
+}
+
+.lb-phone-mock .demo-header__brand::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 32px;
+  background-image: var(--crown-url-teal);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Fullscreen Mobile Nav */
+.demo-mobile-nav--fullscreen {
+  flex: 1;
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-6) var(--space-6) var(--space-8);
+  display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow-y: auto;
+}
+
+.demo-mobile-nav--fullscreen.is-open {
+  display: flex;
+}
+
+.demo-mobile-nav__close {
+  position: absolute;
+  top: 34px;
+  right: var(--space-4);
+  background: none;
+  border: none;
+  padding: var(--space-2);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.demo-mobile-nav__close:hover {
+  color: var(--color-text);
+}
+
+.demo-mobile-nav--fullscreen .demo-mobile-nav__list {
+  flex: 1;
+}
+
+.demo-mobile-nav--fullscreen .demo-mobile-nav__list a {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  padding: var(--space-4) var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+  border-radius: 0;
+}
+
+.demo-mobile-nav--fullscreen .demo-mobile-nav__list a:hover {
+  background: none;
+  color: var(--color-primary);
+}
+
+.demo-mobile-nav__brand {
+  color: var(--color-primary);
+  font-size: var(--text-sm);
+  padding-top: var(--space-4);
 }
 
 .lb-component--dark .lb-component__preview {
@@ -456,7 +584,7 @@
   width: 64px;
   height: 64px;
   background: var(--crown-url-teal) center / contain no-repeat;
-  margin: 0 auto var(--space-4);
+  margin: 0 0 var(--space-4);
 }
 
 /* Sehr große halbtransparente Hintergrund-Krone (200px+) */
@@ -520,6 +648,10 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: var(--space-6);
+}
+
+.lb-cards-grid:has(.profile-card:not(.profile-card--vertical)) {
+  grid-template-columns: 1fr;
 }
 
 /* Standard-Karte */
@@ -674,6 +806,8 @@
   font-weight: 700;
   color: var(--color-primary);
   white-space: nowrap;
+  display: flex;
+  align-items: center;
   min-height: 44px;
 }
 
@@ -731,7 +865,8 @@
 }
 
 .demo-dropdown--open,
-.demo-nav__item--dropdown:hover .demo-dropdown {
+.demo-nav__item--dropdown:hover .demo-dropdown,
+.demo-nav__item--dropdown.is-open .demo-dropdown {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
@@ -846,6 +981,11 @@
 .demo-footer {
   background: var(--color-black);
   color: var(--color-gray-400);
+}
+
+.demo-footer__container {
+  max-width: var(--container-max);
+  margin: 0 auto;
   padding: var(--space-10) var(--space-8);
   display: flex;
   flex-direction: column;
@@ -951,64 +1091,6 @@
 
 
 
-/* Device-Mocks für Hero (iPad / iPhone) */
-.demo-hero--devices .demo-hero__layout {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-10);
-}
-
-.device-showcase {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr;
-  place-items: center;
-  min-width: 360px;
-}
-
-.device-mock {
-  background: #111;
-  border-radius: 28px;
-  padding: 14px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
-  border: 1px solid rgba(255,255,255,0.08);
-}
-
-.device-mock img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 18px;
-}
-
-.device-mock--ipad {
-  width: 440px;
-  border-radius: 34px;
-}
-
-.device-mock--iphone {
-  position: absolute;
-  width: 210px;
-  right: -10px;
-  bottom: -30px;
-  border-radius: 38px;
-}
-
-@media (max-width: 1100px) {
-  .demo-hero--devices .demo-hero__layout {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .device-showcase {
-    min-width: 0;
-    width: 100%;
-    place-items: start;
-  }
-  .device-mock--iphone {
-    right: 0;
-  }
-}
 /* Unterseiten-Header */
 .demo-subpage-hero {
   background: var(--color-bg-subtle);
@@ -1255,7 +1337,7 @@
   align-items: center;
   background: var(--color-bg);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-lg);
   padding: var(--space-2) var(--space-2) var(--space-2) var(--space-5);
   gap: var(--space-3);
   max-width: 560px;
@@ -1288,7 +1370,7 @@
 }
 
 .mitmach-search__btn {
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-md);
   padding: var(--space-2) var(--space-5);
   font-size: var(--text-sm);
 }
@@ -1580,10 +1662,41 @@
 }
 
 .profile-card__actions {
-  margin-top: var(--space-2);
+  margin-top: auto;
+  padding-top: var(--space-2);
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
+}
+
+/* Kompakt-Variante: schmalere Foto-Spalte, passt 2 nebeneinander */
+.profile-card--vertical {
+  grid-template-columns: 140px 1fr;
+  min-width: 0;
+}
+
+.profile-card--vertical .profile-card__media {
+  min-height: 180px;
+}
+
+.profile-card--vertical .profile-card__body {
+  padding: var(--space-5);
+  gap: var(--space-2);
+}
+
+.profile-card--vertical .profile-card__name {
+  font-size: var(--text-lg);
+}
+
+.profile-card--vertical .profile-card__actions {
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.profile-card--vertical .profile-card__actions .btn {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
 }
 
 /* ==========================================================================
@@ -1686,7 +1799,6 @@
 
   .mitmach-search__wrapper {
     flex-wrap: wrap;
-    border-radius: var(--radius-lg);
     padding: var(--space-4);
   }
 
@@ -1716,4 +1828,174 @@
   .demo-hero__actions {
     flex-direction: column;
   }
+}
+
+/* ==========================================================================
+   HERO — Fullscreen-Foto mit Gradient-Scrim (Hero-Demo-Seite)
+   ========================================================================== */
+
+.demo-hero--fullscreen-photo {
+  background-image: var(--hero-photo);
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  align-items: flex-end;
+  padding-bottom: var(--space-20);
+}
+
+/* Gradient-Scrim: Foto oben unberuehrt, Text unten lesbar */
+.demo-hero--fullscreen-photo::before {
+  display: block;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.70) 0%,
+    rgba(0, 0, 0, 0.30) 45%,
+    transparent 72%
+  );
+  opacity: 1;
+}
+
+.demo-hero--fullscreen-photo .demo-hero__eyebrow {
+  color: var(--color-yellow);
+}
+
+/* Krone-Button im Hero: Gelb statt Türkis */
+.demo-hero--fullscreen-photo .btn-crown {
+  background: var(--color-yellow);
+  border-color: var(--color-yellow);
+  color: var(--color-black);
+}
+
+.demo-hero--fullscreen-photo .btn-crown .btn-crown__icon {
+  background-image: var(--crown-url-black);
+  width: 28px;
+  height: 28px;
+  margin-left: calc(-1 * var(--space-2));
+}
+
+.demo-hero--fullscreen-photo .btn-crown:hover:not(:disabled) {
+  background: #d9a81e;
+  border-color: #d9a81e;
+  color: var(--color-black);
+  box-shadow: var(--shadow-md);
+}
+
+.demo-hero--fullscreen-photo .btn-crown:hover:not(:disabled) .btn-crown__icon {
+  background-image: var(--crown-url-black);
+}
+
+/* Ghost-Button im Hero: subtiles Fill damit er auf hellem Foto lesbar bleibt */
+.demo-hero--fullscreen-photo .btn--ghost {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.demo-hero--fullscreen-photo .btn--ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: var(--color-white);
+}
+
+/* ==========================================================================
+   HERO-DEMO-SEITE — Transparenter Header + Seitenstruktur
+   ========================================================================== */
+
+.hero-demo-scene {
+  position: relative;
+}
+
+/* Transparenter Header schwebt ueber dem Hero-Foto */
+.demo-header--transparent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background: transparent;
+  border-bottom: none;
+}
+
+.demo-header--transparent .demo-header__brand {
+  color: var(--color-white);
+}
+
+.demo-header--transparent .demo-nav__link {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.demo-header--transparent .demo-nav__link:hover,
+.demo-header--transparent .demo-nav__link--active {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--color-white);
+}
+
+.demo-header--transparent .demo-nav__link--active {
+  color: var(--color-yellow);
+}
+
+.demo-header--transparent .demo-hamburger span {
+  background: var(--color-white);
+}
+
+/* Dropdown bleibt weiss */
+.demo-header--transparent .demo-dropdown {
+  background: var(--color-bg);
+}
+
+/* Mobil: Vereinsname ausblenden, Krone in Weiss zeigen */
+@media (max-width: 768px) {
+  .demo-header--transparent .demo-header__brand {
+    font-size: 0;
+    display: flex;
+    align-items: center;
+  }
+  .demo-header--transparent .demo-header__brand::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-image: var(--crown-url-white);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
+/* Mobile Nav im Hero: dunkler Hintergrund */
+.demo-mobile-nav--dark {
+  position: absolute;
+  top: 64px;
+  left: 0;
+  right: 0;
+  z-index: 19;
+  background: rgba(26, 26, 26, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+}
+
+.demo-mobile-nav--dark .demo-mobile-nav__list a {
+  color: var(--color-white);
+}
+
+.demo-mobile-nav--dark .demo-mobile-nav__list a:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Content-Bereich unterhalb des Hero */
+.hero-demo-content {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--space-20) var(--space-8);
+}
+
+.hero-demo-content__inner h2 {
+  font-family: var(--font-headline);
+  font-size: var(--text-4xl);
+  margin-bottom: var(--space-6);
+}
+
+.hero-demo-content__inner p {
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
 }

@@ -17,14 +17,12 @@ get_header();
     <p class="lb-sidebar__label">Komponenten</p>
     <ul class="lb-sidebar__list">
       <li><a href="#navigation" class="lb-sidebar__link">Navigation</a></li>
-      <li><a href="#hero"       class="lb-sidebar__link">Hero</a></li>
       <li><a href="#typografie" class="lb-sidebar__link">Typografie</a></li>
       <li><a href="#farben"     class="lb-sidebar__link">Farben &amp; Krone</a></li>
       <li><a href="#buttons"    class="lb-sidebar__link">Buttons</a></li>
       <li><a href="#karten"     class="lb-sidebar__link">Karten</a></li>
       <li><a href="#formulare"  class="lb-sidebar__link">Formulare</a></li>
       <li><a href="#mach-mit"   class="lb-sidebar__link">Mach mit</a></li>
-      <li><a href="#footer"     class="lb-sidebar__link">Footer</a></li>
     </ul>
 
     <!-- Mobile: Tab-Navigation -->
@@ -59,20 +57,20 @@ get_header();
       <h2 class="lb-section__title">Navigation</h2>
 
       <div class="lb-component">
-        <h3 class="lb-component__label">Header-Demo</h3>
+        <h3 class="lb-component__label">Header — Desktop</h3>
         <div class="lb-component__preview lb-component__preview--flush">
           <div class="demo-header">
-            <div class="demo-header__brand brand-text">Würde Unantastbar</div>
+            <div class="demo-header__brand brand-text">Verein f&uuml;r Menschenw&uuml;rde und Demokratie e.V.</div>
             <nav class="demo-nav" aria-label="Demo Hauptnavigation">
               <ul class="demo-nav__list">
                 <li><a href="#" class="demo-nav__link demo-nav__link--active">Startseite</a></li>
                 <li class="demo-nav__item--dropdown">
-                  <a href="#" class="demo-nav__link demo-nav__link--has-dropdown">
-                    Über uns
+                  <a href="#" class="demo-nav__link demo-nav__link--has-dropdown" aria-expanded="false">
+                    &Uuml;ber uns
                     <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
                   </a>
                   <ul class="demo-dropdown">
-                    <li><a href="#" class="demo-dropdown__link">Verein & Geschichte</a></li>
+                    <li><a href="#" class="demo-dropdown__link">Verein &amp; Geschichte</a></li>
                     <li><a href="#" class="demo-dropdown__link">Vorstand</a></li>
                     <li><a href="#" class="demo-dropdown__link">Satzung</a></li>
                   </ul>
@@ -81,42 +79,35 @@ get_header();
                 <li><a href="#" class="demo-nav__link">Kontakt</a></li>
               </ul>
             </nav>
-            <button class="demo-hamburger" aria-label="Menü öffnen" aria-expanded="false" id="lb-hamburger-demo">
-              <span></span><span></span><span></span>
-            </button>
-          </div>
-          <div class="demo-mobile-nav" id="lb-mobile-nav" aria-hidden="true">
-            <ul class="demo-mobile-nav__list">
-              <li><a href="#">Startseite</a></li>
-              <li><a href="#">Über uns</a></li>
-              <li><a href="#">Mach mit</a></li>
-              <li><a href="#">Kontakt</a></li>
-            </ul>
           </div>
         </div>
       </div>
-
-      
 
       <div class="lb-component">
-        <h3 class="lb-component__label">Dropdown-Demo</h3>
-        <div class="lb-component__preview">
-          <div class="demo-dropdown-standalone">
-            <button class="demo-dropdown__trigger" aria-expanded="false" aria-controls="lb-dropdown-demo">
-              Kategorien
-              <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
-            </button>
-            <ul class="demo-dropdown demo-dropdown--open" id="lb-dropdown-demo" role="menu">
-              <li role="menuitem"><a href="#" class="demo-dropdown__link">Kirche &amp; Glaube</a></li>
-              <li role="menuitem"><a href="#" class="demo-dropdown__link">Bildung &amp; Schule</a></li>
-              <li role="menuitem"><a href="#" class="demo-dropdown__link">Kommunalpolitik</a></li>
-              <li role="menuitem"><a href="#" class="demo-dropdown__link">Handwerk &amp; Beruf</a></li>
-              <li role="menuitem"><a href="#" class="demo-dropdown__link">Gesundheit &amp; Soziales</a></li>
-              <li role="menuitem"><a href="#" class="demo-dropdown__link">Sonstiges</a></li>
-            </ul>
+        <h3 class="lb-component__label">Header — Mobil</h3>
+        <div class="lb-component__preview lb-component__preview--phone">
+          <div class="lb-phone-mock">
+            <div class="lb-phone-mock__screen">
+              <div class="demo-header">
+                <div class="demo-header__brand brand-text">W&uuml;rde Unantastbar</div>
+                <button class="demo-hamburger" aria-label="Men&uuml; &ouml;ffnen" aria-expanded="false" data-hamburger>
+                  <span></span><span></span><span></span>
+                </button>
+              </div>
+              <div class="demo-mobile-nav demo-mobile-nav--fullscreen" aria-hidden="true" data-mobile-nav>
+                <ul class="demo-mobile-nav__list">
+                  <li><a href="#">Startseite</a></li>
+                  <li><a href="#">&#220;ber uns</a></li>
+                  <li><a href="#">Mach mit</a></li>
+                  <li><a href="#">Kontakt</a></li>
+                </ul>
+                <div class="demo-mobile-nav__brand brand-text">Verein f&uuml;r Menschenw&uuml;rde und Demokratie e.V.</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
     </section>
 
     
@@ -473,42 +464,6 @@ get_header();
       <div class="lb-component">
         <h3 class="lb-component__label">Personen / Profil-Elemente</h3>
         <div class="lb-cards-grid">
-          <article class="profile-card">
-            <div class="profile-card__media">
-              <img class="profile-card__avatar" src="https://placehold.co/256x256/00ACA0/FFFFFF?text=Person" alt="Profilbild" width="128" height="128">
-            </div>
-            <div class="profile-card__body">
-              <h3 class="profile-card__name">Dr. Maria Müller</h3>
-              <p class="profile-card__title">Vorsitzende · Verein für Menschenwürde und Demokratie e.V.</p>
-              <p class="profile-card__text">Setzt sich seit vielen Jahren für Bildungsprojekte und gesellschaftlichen Zusammenhalt ein. Schwerpunkt: Demokratiebildung in Schulen.</p>
-              <div class="profile-card__actions">
-                <a class="btn btn--outline" href="#">Kontakt</a>
-                <a class="btn btn-crown btn-crown--outline" href="#">
-                  <span class="btn-crown__icon" aria-hidden="true"></span>
-                  Mitmachen
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <article class="profile-card profile-card--accent">
-            <div class="profile-card__media">
-              <img class="profile-card__avatar" src="https://placehold.co/256x256/F7BC2F/1A1A1A?text=Person" alt="Profilbild" width="128" height="128">
-            </div>
-            <div class="profile-card__body">
-              <h3 class="profile-card__name">Klaus Schmidt</h3>
-              <p class="profile-card__title">Mitgründer · Netzwerk &amp; Aktionen</p>
-              <p class="profile-card__text">Organisiert Veranstaltungen, koordiniert lokale Initiativen und baut Partnerschaften mit Vereinen und Kommunen auf.</p>
-              <div class="profile-card__actions">
-                <a class="btn btn--primary" href="#">Mehr erfahren</a>
-                <a class="btn btn--secondary" href="#">Nächste Termine</a>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div      <div class="lb-component">
-        <h3 class="lb-component__label">Personen / Profil-Elemente</h3>
-        <div class="lb-cards-grid">
 
           <article class="profile-card">
             <div class="profile-card__media" style="--profile-photo:url('https://wuerde-unantastbar.de/wp-content/uploads/2024/02/LS_02405-scaled.jpg');" aria-hidden="true"></div>
@@ -518,8 +473,8 @@ get_header();
               <p class="profile-card__title">Tischler · Dipl. Theologe · Diakon · Bildhauer</p>
               <p class="profile-card__text">Die unantastbare Würde des Menschen ist seit vielen Jahren mein Lebensthema. Es findet Ausdruck in Königsskulpturen aus Eichenholz — und genau daraus entstand der Impuls für diese Initiative.</p>
               <div class="profile-card__actions">
-                <a class="btn btn-crown" href="#"><span class="btn-crown__icon" aria-hidden="true"></span>Mach mit</a>
                 <a class="btn btn--outline" href="#">Mehr erfahren</a>
+                <a class="btn btn-crown" href="#"><span class="btn-crown__icon" aria-hidden="true"></span>Mach mit</a>
               </div>
             </div>
           </article>
@@ -532,8 +487,8 @@ get_header();
               <p class="profile-card__title">Dipl. Theologin · Pastoralreferentin</p>
               <p class="profile-card__text">Mit meinem Engagement möchte ich einen nachhaltigen Beitrag zu einer offenen, vielfältigen und solidarischen Gesellschaft leisten — und sichtbare Zeichen für demokratische, menschenzugewandte Haltungen stärken.</p>
               <div class="profile-card__actions">
-                <a class="btn btn--primary" href="#">Kontakt</a>
-                <a class="btn btn-crown btn-crown--outline" href="#"><span class="btn-crown__icon" aria-hidden="true"></span>Mitmachen</a>
+                <a class="btn btn--outline" href="#">Mehr erfahren</a>
+                <a class="btn btn-crown" href="#"><span class="btn-crown__icon" aria-hidden="true"></span>Mach mit</a>
               </div>
             </div>
           </article>
@@ -544,10 +499,10 @@ get_header();
               <p class="profile-card__meta"><span class="crown-accent" aria-hidden="true"></span> Jahrgang 1993</p>
               <h3 class="profile-card__name">Lukas Schmalenstroer</h3>
               <p class="profile-card__title">Sozialarbeiter · Jugendreferent · Fotograf · Berufungscoach</p>
-              <p class="profile-card__text">Für Vielfalt und Toleranz einzustehen ist nicht optional. Ich mache bei „für Menschenwürde und Demokratie“ mit, weil dieser Ansatz positiv ist: eher FÜR etwas zu stehen, als dagegen.</p>
+              <p class="profile-card__text">Für Vielfalt und Toleranz einzustehen ist nicht optional. Ich mache bei „für Menschenwürde und Demokratie" mit, weil dieser Ansatz positiv ist: eher FÜR etwas zu stehen, als dagegen.</p>
               <div class="profile-card__actions">
-                <a class="btn btn--secondary" href="#">Mehr erfahren</a>
-                <a class="btn btn--outline" href="#">Kontakt</a>
+                <a class="btn btn--outline" href="#">Mehr erfahren</a>
+                <a class="btn btn-crown" href="#"><span class="btn-crown__icon" aria-hidden="true"></span>Mach mit</a>
               </div>
             </div>
           </article>
@@ -560,13 +515,11 @@ get_header();
               <p class="profile-card__title">Dipl. Agr. Ing. · Sonderschullehrer & Heilpädagoge (i.R.)</p>
               <p class="profile-card__text">Ich erlebe, dass Menschlichkeit und gegenseitige Akzeptanz alles andere als selbstverständlich sind. Deshalb engagiere ich mich dafür, dass Menschen unabhängig von Herkunft oder Orientierung in wertschätzendem Miteinander leben können.</p>
               <div class="profile-card__actions">
-                <a class="btn btn--outline" href="#">Kontakt</a>
-                <a class="btn btn-crown btn-crown--outline" href="#"><span class="btn-crown__icon" aria-hidden="true"></span>Mitmachen</a>
+                <a class="btn btn--outline" href="#">Mehr erfahren</a>
+                <a class="btn btn-crown" href="#"><span class="btn-crown__icon" aria-hidden="true"></span>Mach mit</a>
               </div>
             </div>
           </article>
-
-
 
           <article class="profile-card profile-card--no-photo">
             <div class="profile-card__media profile-card__media--solid-teal" aria-hidden="true">
@@ -578,88 +531,80 @@ get_header();
               <p class="profile-card__title">Rolle / Untertitel</p>
               <p class="profile-card__text">Fallback-Variante, wenn kein Portrait verfügbar ist: die linke Fläche ist vollständig in CI-Farbe gefüllt (statt eines kreisförmigen Avatars).</p>
               <div class="profile-card__actions">
-                <a class="btn btn--secondary" href="#">Mehr erfahren</a>
-                <a class="btn btn--outline" href="#">Kontakt</a>
+                <a class="btn btn--outline" href="#">Mehr erfahren</a>
+                <a class="btn btn-crown" href="#"><span class="btn-crown__icon" aria-hidden="true"></span>Mach mit</a>
               </div>
             </div>
           </article>
         </div>
       </div>
 
+      <div class="lb-component">
+        <h3 class="lb-component__label">Personen / Profil-Elemente (vertikal)</h3>
+        <div class="lb-cards-grid">
+
+          <article class="profile-card profile-card--vertical">
+            <div class="profile-card__media" style="--profile-photo:url('https://wuerde-unantastbar.de/wp-content/uploads/2024/02/LS_02405-scaled.jpg');" aria-hidden="true"></div>
+            <div class="profile-card__body">
+              <p class="profile-card__meta"><span class="crown-accent" aria-hidden="true"></span> Jahrgang 1964</p>
+              <h3 class="profile-card__name">Ralf Knoblauch</h3>
+              <p class="profile-card__title">Tischler &middot; Dipl. Theologe &middot; Diakon &middot; Bildhauer</p>
+              <p class="profile-card__text">Die unantastbare Würde des Menschen ist seit vielen Jahren mein Lebensthema.</p>
+              <div class="profile-card__actions">
+                <a class="btn btn--outline" href="#">Mehr erfahren</a>
+                <a class="btn btn-crown" href="#"><span class="btn-crown__icon" aria-hidden="true"></span>Mach mit</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="profile-card profile-card--vertical">
+            <div class="profile-card__media" style="--profile-photo:url('https://wuerde-unantastbar.de/wp-content/uploads/2024/02/LS_02379-scaled.jpg');" aria-hidden="true"></div>
+            <div class="profile-card__body">
+              <p class="profile-card__meta"><span class="crown-accent" aria-hidden="true"></span> Jahrgang 1970</p>
+              <h3 class="profile-card__name">Anja Knoblauch</h3>
+              <p class="profile-card__title">Dipl. Theologin &middot; Pastoralreferentin</p>
+              <p class="profile-card__text">Mit meinem Engagement möchte ich einen nachhaltigen Beitrag zu einer solidarischen Gesellschaft leisten.</p>
+              <div class="profile-card__actions">
+                <a class="btn btn--outline" href="#">Mehr erfahren</a>
+                <a class="btn btn-crown" href="#"><span class="btn-crown__icon" aria-hidden="true"></span>Mach mit</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="profile-card profile-card--vertical">
+            <div class="profile-card__media" style="--profile-photo:url('https://wuerde-unantastbar.de/wp-content/uploads/2024/02/LS_02481-683x1024.jpg');" aria-hidden="true"></div>
+            <div class="profile-card__body">
+              <p class="profile-card__meta"><span class="crown-accent" aria-hidden="true"></span> Jahrgang 1993</p>
+              <h3 class="profile-card__name">Lukas Schmalenstroer</h3>
+              <p class="profile-card__title">Sozialarbeiter &middot; Jugendreferent &middot; Fotograf</p>
+              <p class="profile-card__text">Für Vielfalt und Toleranz einzustehen ist nicht optional.</p>
+              <div class="profile-card__actions">
+                <a class="btn btn--outline" href="#">Mehr erfahren</a>
+                <a class="btn btn-crown" href="#"><span class="btn-crown__icon" aria-hidden="true"></span>Mach mit</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="profile-card profile-card--vertical">
+            <div class="profile-card__media" style="--profile-photo:url('https://wuerde-unantastbar.de/wp-content/uploads/2024/11/LS_06793-683x1024.jpg');" aria-hidden="true"></div>
+            <div class="profile-card__body">
+              <p class="profile-card__meta"><span class="crown-accent" aria-hidden="true"></span> Jahrgang 1952</p>
+              <h3 class="profile-card__name">Christoph Henn</h3>
+              <p class="profile-card__title">Dipl. Agr. Ing. &middot; Sonderschullehrer (i.R.)</p>
+              <p class="profile-card__text">Ich engagiere mich dafür, dass Menschen in wertschätzendem Miteinander leben können.</p>
+              <div class="profile-card__actions">
+                <a class="btn btn--outline" href="#">Mehr erfahren</a>
+                <a class="btn btn-crown" href="#"><span class="btn-crown__icon" aria-hidden="true"></span>Mach mit</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
     </section>
 
     <!-- ====================================================
-         6. HERO
-         ==================================================== -->
-    <section id="hero" class="lb-section">
-      <h2 class="lb-section__title">Hero</h2>
-
-      <div class="lb-component">
-        <h3 class="lb-component__label">Full-Width Hero</h3>
-        <div class="lb-component__preview lb-component__preview--flush">
-          <div class="demo-hero">
-            <div class="demo-hero__content">
-              <span class="section-crown" aria-hidden="true"></span>
-              <p class="demo-hero__eyebrow brand-text">Verein für Menschenwürde und Demokratie e.V.</p>
-              <h1 class="demo-hero__title">Würde ist kein Privileg — sie gehört allen.</h1>
-              <p class="demo-hero__text">Wir stehen auf für eine Gesellschaft, in der jeder Mensch mit Würde leben kann. Mach mit — deine Stimme zählt.</p>
-              <div class="demo-hero__actions">
-                <button class="btn btn--primary btn--lg">Jetzt mitmachen</button>
-                <button class="btn btn--ghost btn--lg">Mehr erfahren</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="lb-component">
-        <h3 class="lb-component__label">Unterseiten-Header</h3>
-        <div class="lb-component__preview lb-component__preview--flush">
-          <div class="demo-subpage-hero">
-            <div class="demo-subpage-hero__content">
-              <nav aria-label="Breadcrumb" class="demo-breadcrumb">
-                <ol>
-                  <li><a href="#">Startseite</a></li>
-                  <li aria-hidden="true">/</li>
-                  <li aria-current="page">Über uns</li>
-                </ol>
-              </nav>
-              <h1 class="demo-subpage-hero__title">Über uns</h1>
-              <p class="demo-subpage-hero__text">Geschichte, Ziele und das Team hinter dem Verein für Menschenwürde und Demokratie e.V.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-            <div class="lb-component">
-        <h3 class="lb-component__label">Hero mit Foto (Device-Mock)</h3>
-        <div class="lb-component__preview lb-component__preview--flush">
-          <div class="demo-hero demo-hero--devices">
-            <div class="demo-hero__layout">
-              <div class="demo-hero__content">
-                <span class="section-crown" aria-hidden="true"></span>
-                <p class="demo-hero__eyebrow brand-text">Menschenwürde ist unantastbar</p>
-                <h1 class="demo-hero__title">Gemeinsam sichtbar werden.</h1>
-                <p class="demo-hero__text">Foto-Inhalte werden hier in Geräte-Mockups gezeigt (iPad + iPhone) — statt Full-Width Hintergrundbild. Der Hero nutzt 100vh.</p>
-                <div class="demo-hero__actions">
-                  <button class="btn btn-crown btn--lg"><span class="btn-crown__icon" aria-hidden="true"></span>Mach mit</button>
-                  <button class="btn btn--ghost btn--lg">Kontakt</button>
-                </div>
-              </div>
-
-              <div class="device-showcase" aria-hidden="true">
-                <figure class="device-mock device-mock--ipad">
-                  <img src="https://wuerde-unantastbar.de/wp-content/uploads/2024/02/LS_02059-1024x683.jpg" alt="">
-                </figure>
-                <figure class="device-mock device-mock--iphone">
-                  <img src="https://wuerde-unantastbar.de/wp-content/uploads/2024/02/LS_02059-1024x683.jpg" alt="">
-                </figure>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-<!-- ====================================================
          7. FORMULARE
          ==================================================== -->
     <section id="formulare" class="lb-section">
@@ -922,31 +867,6 @@ get_header();
 
   
 
-    <!-- ====================================================
-         FOOTER
-         ==================================================== -->
-    <section id="footer" class="lb-section">
-      <h2 class="lb-section__title">Footer</h2>
-
-      <div class="lb-component">
-        <h3 class="lb-component__label">Footer-Demo</h3>
-        <div class="lb-component__preview lb-component__preview--flush">
-          <div class="demo-footer demo-footer--stick-to-bottom">
-            <div class="demo-footer__brand brand-text">Würde Unantastbar</div>
-            <p class="demo-footer__tagline">Verein für Menschenwürde und Demokratie e.V.</p>
-            <nav class="demo-footer__nav" aria-label="Footer Navigation">
-              <ul>
-                <li><a href="#">Impressum</a></li>
-                <li><a href="#">Datenschutz</a></li>
-                <li><a href="#">Satzung</a></li>
-                <li><a href="#">Kontakt</a></li>
-              </ul>
-            </nav>
-            <p class="demo-footer__copy">&copy; 2026 Verein für Menschenwürde und Demokratie e.V.</p>
-          </div>
-        </div>
-      </div>
-    </section>
 </main>
 </div>
 
