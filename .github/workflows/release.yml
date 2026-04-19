@@ -1,0 +1,48 @@
+# ABOUTME: GitHub Actions workflow for building and releasing the WordPress theme.
+# ABOUTME: Pushes to main create releases; feature branches create pre-releases.
+
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+      - 'feat/**'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set version info
+        id: version
+        run: |
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          BRANCH=${GITHUB_REF_NAME}
+          DATE=$(date +%Y.%m.%d)
+
+          if [ "$BRANCH" = "main" ]; then
+            echo "tag=v${DATE}-${SHORT_SHA}" >> $GITHUB_OUTPUT
+            echo "prerelease=false" >> $GITHUB_OUTPUT
+            echo "name=Release ${DATE}" >> $GITHUB_OUTPUT
+          else
+            SAFE_BRANCH=$(echo "$BRANCH" | sed 's/[^a-zA-Z0-9._-]/-/g')
+            echo "tag=pre-${SAFE_BRANCH}-${SHORT_SHA}" >> $GITHUB_OUTPUT
+            echo "prerelease=true" >> $GITHUB_OUTPUT
+            echo "name=Pre-Release ${SAFE_BRANCH} (${SHORT_SHA})" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build theme ZIP
+        run: cd theme && zip -r ../wuerde-unantastbar-theme.zip .
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: ${{ steps.version.outputs.name }}
+          prerelease: ${{ steps.version.outputs.prerelease }}
+          files: wuerde-unantastbar-theme.zip
