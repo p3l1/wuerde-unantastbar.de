@@ -38,8 +38,9 @@ function wuerde_enqueue_assets() {
         wp_get_theme()->get( 'Version' )
     );
 
-    // Lookbook-Assets nur auf der Lookbook-Seite laden
-    if ( is_page_template( 'page-lookbook.php' ) || is_page_template( 'page-hero-demo.php' ) ) {
+    // Lookbook-Assets nur auf Lookbook/Hero-Demo-Seiten laden
+    $template = (string) get_page_template_slug();
+    if ( $template === 'page-lookbook.php' || $template === 'page-hero-demo.php' ) {
         wp_enqueue_style(
             'wuerde-lookbook',
             get_stylesheet_directory_uri() . '/lookbook.css',
