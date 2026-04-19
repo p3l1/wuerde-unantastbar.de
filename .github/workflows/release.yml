@@ -37,7 +37,10 @@ jobs:
           fi
 
       - name: Build theme ZIP
-        run: cd theme && zip -r ../wuerde-unantastbar-theme.zip .
+        run: |
+          cp -r theme wuerde-unantastbar
+          zip -r wuerde-unantastbar-theme.zip wuerde-unantastbar
+          rm -rf wuerde-unantastbar
 
       - name: Create release
         uses: softprops/action-gh-release@v2
