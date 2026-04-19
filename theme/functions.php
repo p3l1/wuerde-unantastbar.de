@@ -53,10 +53,19 @@ function wuerde_enqueue_assets() {
     $inline_css .= '}';
     wp_add_inline_style( 'wuerde-style', $inline_css );
 
-    // Lookbook-JS nur auf Lookbook/Hero-Demo-Seiten laden
-    global $post;
-    $template = $post ? (string) get_post_meta( $post->ID, '_wp_page_template', true ) : '';
-    if ( in_array( $template, [ 'page-lookbook.php', 'page-hero-demo.php' ], true ) ) {
+}
+add_action( 'wp_enqueue_scripts', 'wuerde_enqueue_assets' );
+
+/**
+ * Lookbook-JS auf Template-Seiten laden.
+ * Verwendet template_include — zu diesem Zeitpunkt ist der Template-Pfad bekannt.
+ *
+ * @param string $template Absoluter Pfad zum aktuellen Template.
+ * @return string Unveränderter Template-Pfad.
+ */
+function wuerde_enqueue_lookbook_js( $template ) {
+    $basename = basename( $template );
+    if ( in_array( $basename, [ 'page-lookbook.php', 'page-hero-demo.php' ], true ) ) {
         wp_enqueue_script(
             'wuerde-lookbook',
             get_stylesheet_directory_uri() . '/lookbook.js',
@@ -65,5 +74,6 @@ function wuerde_enqueue_assets() {
             [ 'strategy' => 'defer', 'in_footer' => true ]
         );
     }
+    return $template;
 }
-add_action( 'wp_enqueue_scripts', 'wuerde_enqueue_assets' );
+add_filter( 'template_include', 'wuerde_enqueue_lookbook_js' );

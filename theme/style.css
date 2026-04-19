@@ -452,10 +452,13 @@ p {
   flex-direction: column;
   justify-content: flex-start;
   overflow-y: auto;
+  opacity: 0;
+  transition: opacity 200ms cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .demo-mobile-nav--fullscreen.is-open {
   display: flex;
+  opacity: 1;
 }
 
 .demo-mobile-nav__close {
