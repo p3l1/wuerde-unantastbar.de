@@ -2867,3 +2867,20 @@ body.has-hero-template > .site-header {
   );
   pointer-events: none;
 }
+
+/* Scroll-Indikator: mittig unten im Hero, animiert */
+.site-hero__scroll-indicator {
+  position: absolute;
+  bottom: var(--space-8);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.7);
+  animation: hero-bounce 1.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes hero-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(8px); }
+}
