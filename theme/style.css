@@ -2847,11 +2847,15 @@ body.has-hero-template > .site-header {
   padding-top: 0;
 }
 
-/* Hero-Section: exakt Viewport-Höhe, keine eigene Padding */
+/* Hero-Section: exakt Viewport-Höhe, Content vertikal mittig */
 .site-hero {
   height: 100vh;
   max-height: 100vh;
-  padding: 0;
+  padding: var(--space-20) var(--space-10);
+}
+
+.site-hero.demo-hero--fullscreen-photo {
+  align-items: center;
 }
 
 /* Scrim von oben: Navbar bleibt auf jedem Foto lesbar */
