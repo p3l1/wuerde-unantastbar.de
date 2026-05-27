@@ -62,21 +62,4 @@
 		} );
 	} );
 
-	// =========================================================================
-	// Hero-Template: Header transparent über Hero, solid nach dem Scroll
-	// =========================================================================
-
-	var siteHeader = document.querySelector( '.site-header' );
-	var siteHero   = document.querySelector( '.site-hero' );
-
-	if ( siteHeader && siteHero ) {
-		var observer = new IntersectionObserver(
-			function ( entries ) {
-				var heroVisible = entries[ 0 ].isIntersecting;
-				siteHeader.classList.toggle( 'is-scrolled', ! heroVisible );
-			},
-			{ threshold: 0, rootMargin: '-1px 0px 0px 0px' }
-		);
-		observer.observe( siteHero );
-	}
 } )();

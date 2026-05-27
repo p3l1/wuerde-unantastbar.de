@@ -2827,49 +2827,22 @@ p {
 }
 
 /* ==========================================================================
-   HERO-TEMPLATE — Transparenter Header über Vollbild-Foto
+   HERO-TEMPLATE — Navbar hängt unter Hero, wird beim Hochscrollen sticky
    ========================================================================== */
 
-/* Site-Header schwebt transparent über dem Hero (aus dem Fluss) */
-.has-hero-template .site-header {
-  position: absolute;
+/* Globalen Header (direkt im body, aus header.php) ausblenden */
+body.has-hero-template > .site-header {
+  display: none;
+}
+
+/* Der Header nach dem Hero (in .site-content, aus page-hero.php) ist sticky */
+.site-hero ~ .site-header {
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
   z-index: 200;
-  background: transparent;
-  border-bottom: none;
-  transition: background var(--transition-fast), border-color var(--transition-fast);
 }
 
-/* Nach dem Hero: Header wird sticky und erhält normalen Hintergrund */
-.has-hero-template .site-header.is-scrolled {
-  position: fixed;
-  background: var(--color-bg);
-  border-bottom: 1px solid var(--color-border);
-}
-
-/* Markenname und Nav-Links auf weiss (nur solange transparent) */
-.has-hero-template .site-header:not(.is-scrolled) .site-header__brand {
-  color: var(--color-white);
-}
-
-.has-hero-template .site-header:not(.is-scrolled) .site-nav__link {
-  color: var(--color-white);
-}
-
-.has-hero-template .site-header:not(.is-scrolled) .site-nav__link:hover,
-.has-hero-template .site-header:not(.is-scrolled) .site-nav__link--active {
-  background: rgba(255, 255, 255, 0.12);
-  color: var(--color-white);
-}
-
-/* Hamburger-Linien weiss (nur solange transparent) */
-.has-hero-template .site-header:not(.is-scrolled) .site-hamburger span {
-  background: var(--color-white);
-}
-
-/* site-content braucht keinen eigenen top-offset, da Header aus dem Fluss fällt */
+/* site-content braucht keinen eigenen top-offset */
 .has-hero-template .site-content {
   padding-top: 0;
 }

@@ -1,6 +1,6 @@
 <?php
 // ABOUTME: Seitentemplate mit Fullscreen-Hero aus dem Beitragsbild.
-// ABOUTME: Transparenter Header schwebt über dem Foto; danach normaler Seiteninhalt.
+// ABOUTME: Navbar hängt unter dem Hero und wird beim Hochscrollen sticky.
 /**
  * Template Name: Hero
  */
@@ -18,6 +18,8 @@ $hero_style    = $thumbnail_url
   aria-label="<?php echo esc_attr( get_the_title() ); ?>"
   <?php echo $hero_style; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 ></section>
+
+<?php get_template_part( 'inc/site-header' ); ?>
 
 <main class="page-content" id="main-content" aria-label="Seiteninhalt" tabindex="-1">
 
