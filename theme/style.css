@@ -2825,3 +2825,50 @@ p {
   font-size: 2rem;
   line-height: 1;
 }
+
+/* ==========================================================================
+   HERO-TEMPLATE — Transparenter Header über Vollbild-Foto
+   ========================================================================== */
+
+/* Site-Header wird transparent und schwebt über dem Hero */
+.has-hero-template .site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: transparent;
+  border-bottom: none;
+}
+
+/* Markenname und Nav-Links auf weiss */
+.has-hero-template .site-header .site-header__brand {
+  color: var(--color-white);
+}
+
+.has-hero-template .site-header .site-nav__link {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.has-hero-template .site-header .site-nav__link:hover,
+.has-hero-template .site-header .site-nav__link--active {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--color-white);
+}
+
+/* Hamburger-Linien weiss */
+.has-hero-template .site-header .site-hamburger span {
+  background: var(--color-white);
+}
+
+/* site-content braucht keinen eigenen top-offset, da Header aus dem Fluss fällt */
+.has-hero-template .site-content {
+  padding-top: 0;
+}
+
+/* Hero-Section: exakt Viewport-Höhe, keine eigene Padding */
+.site-hero {
+  height: 100vh;
+  max-height: 100vh;
+  padding: 0;
+}
