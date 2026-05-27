@@ -87,3 +87,11 @@ function wuerde_enqueue_lookbook_js( $template ) {
     return $template;
 }
 add_filter( 'template_include', 'wuerde_enqueue_lookbook_js' );
+
+function wuerde_body_classes( $classes ) {
+    if ( is_page_template( 'page-hero.php' ) ) {
+        $classes[] = 'has-hero-template';
+    }
+    return $classes;
+}
+add_filter( 'body_class', 'wuerde_body_classes' );
