@@ -1,0 +1,42 @@
+/* ABOUTME: Editor-Styles für den Mitmach-Liste-Block (Gutenberg-Canvas).
+   ABOUTME: Wird nur im Block-Editor geladen, nicht im Frontend. */
+
+.wuerde-list-placeholder {
+  background: oklch(95% 0.03 85);
+  border-radius: 8px;
+  padding: 3rem 2rem;
+  margin-top: 0.75rem;
+}
+
+.wuerde-list-placeholder__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: center;
+  color: #7c6a1e;
+}
+
+.wuerde-list-placeholder__icon {
+  opacity: 0.7;
+}
+
+.wuerde-list-placeholder__title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.wuerde-list-placeholder__meta {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.wuerde-list-placeholder__hint {
+  font-size: 0.75rem;
+  color: #64748b;
+  opacity: 0.7;
+  margin: 0;
+}

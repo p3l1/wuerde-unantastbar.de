@@ -1,0 +1,41 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "wuerde/mitmach-map",
+  "title": "Deutschlandkarte",
+  "category": "wuerde",
+  "description": "Interaktive Leaflet-Karte mit Pins für alle Mitmach-Beiträge.",
+  "keywords": ["karte", "map", "leaflet", "deutschland"],
+  "textdomain": "wuerde-unantastbar",
+  "attributes": {
+    "centerLat": {
+      "type": "number",
+      "default": 51.2
+    },
+    "centerLng": {
+      "type": "number",
+      "default": 10.4
+    },
+    "zoom": {
+      "type": "number",
+      "default": 7
+    },
+    "height": {
+      "type": "string",
+      "default": "1000px"
+    },
+    "tileStyle": {
+      "type": "string",
+      "default": "osm"
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "render": "file:./render.php",
+  "viewScript": "file:./view.js",
+  "viewStyle": "file:./view.css",
+  "editorScript": "file:./editor.js",
+  "editorStyle": "file:./editor.css"
+}

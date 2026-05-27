@@ -31,6 +31,7 @@ services:
     volumes:
       - wordpress-data:/var/www/html
       - ./theme:/var/www/html/wp-content/themes/wuerde-unantastbar
+      - ./config/apache-rewrite.conf:/etc/apache2/conf-enabled/wordpress-rewrite.conf:ro
 
   wpcli:
     image: wordpress:cli

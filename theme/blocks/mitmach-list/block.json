@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "wuerde/mitmach-list",
+  "title": "Mitmach-Liste",
+  "category": "wuerde",
+  "description": "Suchfeld, Kategorie-Accordion und Mitmach-Karten aus dem CPT wuerde_beitrag.",
+  "keywords": ["mitmach", "liste", "accordion", "beitraege"],
+  "textdomain": "wuerde-unantastbar",
+  "attributes": {
+    "showSearch": {
+      "type": "boolean",
+      "default": true
+    },
+    "defaultCategory": {
+      "type": "string",
+      "default": ""
+    },
+    "hiddenCategories": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "render": "file:./render.php",
+  "viewScript": "file:./view.js",
+  "editorScript": "file:./editor.js",
+  "editorStyle": "file:./editor.css"
+}

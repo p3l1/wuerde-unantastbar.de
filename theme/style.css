@@ -44,12 +44,12 @@ Text Domain: wuerde-unantastbar
   --color-border:     var(--color-gray-200);
 
   /* Kategoriefarben (Mach-mit-Seite) */
-  --color-cat-kirche:    var(--color-teal);
-  --color-cat-bildung:   var(--color-blue);
-  --color-cat-kommunal:  var(--color-green);
-  --color-cat-handwerk:  var(--color-orange);
-  --color-cat-gesundheit: var(--color-pink);
-  --color-cat-sonstiges: var(--color-gray-400);
+  --color-cat-kirchengemeinden: var(--color-teal);
+  --color-cat-bildung:          var(--color-blue);
+  --color-cat-kommunal:         var(--color-green);
+  --color-cat-handwerk:         var(--color-orange);
+  --color-cat-gesundheit:       var(--color-pink);
+  --color-cat-sonstiges:        var(--color-gray-400);
 
   /* ==========================================================================
      Typografie
@@ -1606,6 +1606,10 @@ p {
    ========================================================================== */
 
 /* Suchfeld */
+.mitmach-search {
+  margin-bottom: var(--space-10);
+}
+
 .mitmach-search__wrapper {
   display: flex;
   align-items: center;
@@ -1614,8 +1618,11 @@ p {
   border-radius: var(--radius-lg);
   padding: var(--space-2) var(--space-2) var(--space-2) var(--space-5);
   gap: var(--space-3);
-  max-width: 560px;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.lb-component__preview .mitmach-search__wrapper {
+  max-width: 560px;
 }
 
 .mitmach-search__wrapper:focus-within {
@@ -1654,6 +1661,9 @@ p {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   overflow: hidden;
+}
+
+.lb-component__preview .category-accordion {
   max-width: 480px;
 }
 
@@ -1739,6 +1749,8 @@ p {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: var(--space-5);
+  padding: var(--space-5);
+  flex-direction: unset;
 }
 
 .mitmach-card {
@@ -2315,4 +2327,501 @@ p {
   line-height: var(--leading-relaxed);
   color: var(--color-text-muted);
   margin-bottom: var(--space-4);
+}
+
+
+/* ==========================================================================
+   MITMACH-KARTE — Block-spezifische Stile
+   ========================================================================== */
+
+.mitmach-card__image {
+  margin: calc(-1 * var(--space-6)) calc(-1 * var(--space-6)) 0;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+}
+
+.mitmach-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mitmach-card__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.mitmach-card__title a:hover {
+  color: var(--color-primary);
+}
+
+/* ==========================================================================
+   DEUTSCHLANDKARTE — Leaflet-Block
+   ========================================================================== */
+
+.mitmach-map-wrapper {
+  margin-block: var(--space-8);
+  isolation: isolate;
+}
+
+.mitmach-map {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.mitmach-map__hint {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-align: right;
+  margin-top: var(--space-2);
+}
+
+.mitmach-map__hint a {
+  color: var(--color-text-muted);
+}
+
+/* Editor-Placeholder für Custom Blocks */
+.wuerde-block-placeholder {
+  border: 2px dashed var(--color-border, #e2e8f0);
+  border-radius: var(--radius-md, 8px);
+  padding: var(--space-8, 2rem);
+  text-align: center;
+  background: var(--color-bg-subtle, #f8fafc);
+}
+
+.wuerde-block-placeholder__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text-muted, #64748b);
+}
+
+.wuerde-block-placeholder__icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.wuerde-map-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3, 0.75rem);
+  padding: var(--space-12, 3rem) var(--space-8, 2rem);
+  color: var(--color-primary, #00aca0);
+  text-align: center;
+  background: oklch(96% 0.02 170);
+  border-radius: var(--radius-md, 8px);
+}
+
+.wuerde-map-placeholder__icon {
+  opacity: 0.7;
+}
+
+.wuerde-map-placeholder__title {
+  font-size: var(--text-lg, 1.125rem);
+  font-weight: 700;
+  color: var(--color-text, #1e293b);
+  margin: 0;
+}
+
+.wuerde-map-placeholder__meta {
+  font-size: var(--text-sm, 0.875rem);
+  color: var(--color-text-muted, #64748b);
+  margin: 0;
+}
+
+.wuerde-map-placeholder__hint {
+  font-size: var(--text-xs, 0.75rem);
+  color: var(--color-text-muted, #64748b);
+  opacity: 0.7;
+  margin: 0;
+}
+
+/* ==========================================================================
+   SITE CHROME — Header, Footer, Layout
+   ========================================================================== */
+
+/* Skip Link */
+.skip-link {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-4);
+  z-index: 9999;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transform: translateY(-120%);
+  transition: transform var(--transition-fast);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* Site Header */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-header__inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--space-3) var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+.site-header__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: none;
+  white-space: nowrap;
+  min-height: 44px;
+}
+
+.site-header__brand img {
+  flex-shrink: 0;
+}
+
+.site-header__brand-break {
+  display: none;
+}
+
+/* Site Nav */
+.site-nav {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.site-nav__list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+/* WordPress generiert ul > li > a Struktur */
+.site-nav .site-nav__list > li > a,
+.site-nav ul > li > a {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.site-nav ul > li > a:hover,
+.site-nav ul > li.current-menu-item > a,
+.site-nav ul > li.current-page-ancestor > a {
+  background: var(--color-bg-subtle);
+  color: var(--color-primary);
+}
+
+/* Dropdown (WordPress generiert .sub-menu) */
+.site-nav ul > li.menu-item-has-children {
+  position: relative;
+}
+
+.site-nav ul > li.menu-item-has-children > .sub-menu {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  left: 0;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  list-style: none;
+  min-width: 200px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  z-index: 100;
+}
+
+.site-nav ul > li.menu-item-has-children:hover > .sub-menu,
+.site-nav ul > li.menu-item-has-children.is-open > .sub-menu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.site-nav .sub-menu > li > a {
+  display: block;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.site-nav .sub-menu > li > a:hover {
+  background: var(--color-bg-subtle);
+  color: var(--color-primary);
+}
+
+/* Hamburger */
+.site-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: var(--space-2);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.site-hamburger span {
+  display: block;
+  height: 2px;
+  background: var(--color-text);
+  border-radius: 2px;
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+.site-hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.site-hamburger.is-open span:nth-child(2) { opacity: 0; }
+.site-hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile Nav */
+.site-mobile-nav {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-4) var(--space-6) var(--space-6);
+  overflow: hidden;
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-top-width: 0;
+  transition: max-height var(--transition-normal), padding var(--transition-normal), border-top-width var(--transition-normal);
+}
+
+.site-mobile-nav.is-open {
+  max-height: 400px;
+  padding-top: var(--space-4);
+  padding-bottom: var(--space-6);
+  border-top-width: 1px;
+}
+
+.site-mobile-nav__list,
+.site-mobile-nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.site-mobile-nav ul > li > a {
+  display: block;
+  padding: var(--space-3);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+}
+
+.site-mobile-nav ul > li > a:hover,
+.site-mobile-nav ul > li.current-menu-item > a {
+  background: var(--color-bg-subtle);
+  color: var(--color-primary);
+}
+
+.site-mobile-nav .sub-menu {
+  padding-left: var(--space-4);
+  margin-top: var(--space-1);
+}
+
+/* Site Content Wrapper */
+.site-content {
+  min-height: 60vh;
+}
+
+/* Page Content */
+.page-content {
+  width: 100%;
+}
+
+.page-content__entry {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--space-12) var(--space-6);
+}
+
+/* Gutenberg Block-Container auf Seiten */
+.page-content .wp-block-group,
+.page-content .entry-content {
+  max-width: none;
+}
+
+/* Site Footer */
+.site-footer {
+  background: var(--color-black);
+  color: var(--color-gray-400);
+  margin-top: var(--space-16);
+}
+
+.site-footer__inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--space-12) var(--space-6) var(--space-8);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  gap: var(--space-6) var(--space-12);
+  align-items: start;
+}
+
+.site-footer__brand {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.site-footer__brand-link {
+  display: inline-block;
+  font-size: var(--text-xl);
+  color: var(--color-primary);
+  text-decoration: none;
+  margin-bottom: var(--space-2);
+}
+
+.site-footer__brand-link:hover {
+  color: var(--color-secondary);
+}
+
+.site-footer__tagline {
+  font-size: var(--text-sm);
+  color: var(--color-gray-600);
+  margin-bottom: 0;
+}
+
+.site-footer__nav {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.site-footer__nav-list,
+.site-footer__nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-5);
+  justify-content: flex-end;
+}
+
+.site-footer__nav ul > li > a {
+  font-size: var(--text-sm);
+  color: var(--color-gray-500);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.site-footer__nav ul > li > a:hover {
+  color: var(--color-white);
+}
+
+.site-footer__actions {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.site-footer__donate {
+  font-size: var(--text-sm);
+}
+
+.site-footer__copy {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  font-size: var(--text-xs);
+  color: var(--color-gray-700);
+  margin-bottom: 0;
+  padding-top: var(--space-6);
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.site-footer__copy a {
+  color: var(--color-gray-600);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.site-footer__copy a:hover {
+  color: var(--color-gray-400);
+}
+
+/* ==========================================================================
+   RESPONSIVE — Site Chrome
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .site-nav {
+    display: none;
+  }
+
+  .site-hamburger {
+    display: flex;
+  }
+
+  .site-header__brand {
+    font-size: var(--text-sm);
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .site-footer__inner {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .site-footer__nav,
+  .site-footer__actions {
+    grid-column: 1;
+    justify-content: flex-start;
+  }
+
+  .site-footer__nav ul {
+    justify-content: flex-start;
+  }
+
+  .page-content__entry {
+    padding: var(--space-8) var(--space-4);
+  }
+}
+
+.wuerde-block-placeholder__icon {
+  font-size: 2rem;
+  line-height: 1;
 }

@@ -1,0 +1,4 @@
+/* ABOUTME: Leaflet-CSS für den Mitmach-Karten-Block (vendored, kein CDN). */
+/* ABOUTME: Importiert leaflet.css relativ zum Theme-Assets-Verzeichnis. */
+
+/* Leaflet CSS wird per PHP enqueued — diese Datei bleibt als Platzhalter für block.json viewStyle. */

@@ -2,6 +2,9 @@
 // ABOUTME: Theme setup and asset registration.
 // ABOUTME: Add theme supports, register menus, and enqueue styles/scripts here.
 
+require_once get_template_directory() . '/inc/cpt.php';
+require_once get_template_directory() . '/inc/blocks.php';
+
 function wuerde_setup() {
     add_theme_support( 'title-tag' );
     add_theme_support( 'post-thumbnails' );
@@ -53,6 +56,13 @@ function wuerde_enqueue_assets() {
     $inline_css .= '}';
     wp_add_inline_style( 'wuerde-style', $inline_css );
 
+    wp_enqueue_script(
+        'wuerde-site',
+        get_stylesheet_directory_uri() . '/site.js',
+        [],
+        wp_get_theme()->get( 'Version' ),
+        [ 'strategy' => 'defer', 'in_footer' => true ]
+    );
 }
 add_action( 'wp_enqueue_scripts', 'wuerde_enqueue_assets' );
 
