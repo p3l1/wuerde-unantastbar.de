@@ -1330,7 +1330,7 @@ p {
   max-width: 680px;
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-8);
 }
 
 .demo-hero__eyebrow {
@@ -1347,14 +1347,16 @@ p {
   font-size: var(--text-5xl);
   color: var(--color-white);
   line-height: var(--leading-tight);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 .demo-hero__text {
-  font-size: var(--text-lg);
-  color: rgba(255,255,255,0.75);
+  font-size: var(--text-xl);
+  color: rgba(255, 255, 255, 0.90);
   line-height: var(--leading-relaxed);
   max-width: 55ch;
   margin-bottom: 0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .demo-hero__actions {
@@ -2129,15 +2131,12 @@ p {
   padding-bottom: var(--space-20);
 }
 
-/* Gradient-Scrim: Foto oben unberuehrt, Text unten lesbar */
+/* Gradient-Scrim: links-unten abdunkeln, Text lesbar */
 .demo-hero--fullscreen-photo::before {
   display: block;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.70) 0%,
-    rgba(0, 0, 0, 0.30) 45%,
-    transparent 72%
-  );
+  background:
+    linear-gradient(to right,  rgba(0, 0, 0, 0.55) 0%, transparent 60%),
+    linear-gradient(to top,    rgba(0, 0, 0, 0.55) 0%, transparent 60%);
   opacity: 1;
 }
 
