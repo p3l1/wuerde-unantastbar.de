@@ -7,17 +7,47 @@
 
 get_header();
 
-$thumbnail_url = get_the_post_thumbnail_url( get_the_ID(), 'full' );
-$hero_style    = $thumbnail_url
+$thumbnail_url  = get_the_post_thumbnail_url( get_the_ID(), 'full' );
+$hero_style     = $thumbnail_url
     ? ' style="--hero-photo: url(\'' . esc_url( $thumbnail_url ) . '\');"'
     : '';
+$button_text    = get_post_meta( get_the_ID(), 'hero_button_text', true );
+$button_url     = get_post_meta( get_the_ID(), 'hero_button_url',  true );
+$excerpt        = get_the_excerpt();
 ?>
 
 <section
   class="site-hero demo-hero demo-hero--fullscreen-photo"
   aria-label="<?php echo esc_attr( get_the_title() ); ?>"
   <?php echo $hero_style; // phpcs:ignore WordPress.Security.EscapeOutput ?>
-></section>
+>
+  <div class="demo-hero__content">
+
+    <h1 class="demo-hero__title"><?php echo esc_html( get_the_title() ); ?></h1>
+
+    <?php if ( $excerpt ) : ?>
+      <p class="demo-hero__text"><?php echo esc_html( $excerpt ); ?></p>
+    <?php endif; ?>
+
+    <?php if ( $button_text && $button_url ) : ?>
+      <div class="demo-hero__actions">
+        <a href="<?php echo esc_url( $button_url ); ?>"
+           class="btn btn-crown btn--lg">
+          <span class="btn-crown__icon" aria-hidden="true"></span>
+          <?php echo esc_html( $button_text ); ?>
+        </a>
+      </div>
+    <?php endif; ?>
+
+  </div>
+
+  <div class="site-hero__scroll-indicator" aria-hidden="true">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+</section>
 
 <?php get_template_part( 'inc/site-header' ); ?>
 
