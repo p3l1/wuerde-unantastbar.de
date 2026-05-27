@@ -11,22 +11,24 @@ $thumbnail_url  = get_the_post_thumbnail_url( get_the_ID(), 'full' );
 $hero_style     = $thumbnail_url
     ? ' style="--hero-photo: url(\'' . esc_url( $thumbnail_url ) . '\');"'
     : '';
-$button_text    = get_post_meta( get_the_ID(), 'hero_button_text', true );
-$button_url     = get_post_meta( get_the_ID(), 'hero_button_url',  true );
-$excerpt        = get_the_excerpt();
+$post_id        = get_the_ID();
+$button_text    = get_post_meta( $post_id, 'hero_button_text', true );
+$button_url     = get_post_meta( $post_id, 'hero_button_url',  true );
+$title          = get_post_meta( $post_id, 'hero_title',       true ) ?: get_bloginfo( 'name' );
+$subtitle       = get_post_meta( $post_id, 'hero_subtitle',    true ) ?: get_bloginfo( 'description' );
 ?>
 
 <section
   class="site-hero demo-hero demo-hero--fullscreen-photo"
-  aria-label="<?php echo esc_attr( get_the_title() ); ?>"
+  aria-label="<?php echo esc_attr( $title ); ?>"
   <?php echo $hero_style; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 >
   <div class="demo-hero__content">
 
-    <h1 class="demo-hero__title"><?php echo esc_html( get_the_title() ); ?></h1>
+    <h1 class="demo-hero__title"><?php echo esc_html( $title ); ?></h1>
 
-    <?php if ( $excerpt ) : ?>
-      <p class="demo-hero__text"><?php echo esc_html( $excerpt ); ?></p>
+    <?php if ( $subtitle ) : ?>
+      <p class="demo-hero__text"><?php echo esc_html( $subtitle ); ?></p>
     <?php endif; ?>
 
     <?php if ( $button_text && $button_url ) : ?>

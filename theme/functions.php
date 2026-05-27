@@ -104,6 +104,8 @@ function wuerde_register_hero_meta() {
         'show_in_rest'   => true,
         'auth_callback'  => function() { return current_user_can( 'edit_posts' ); },
     ];
+    register_meta( 'post', 'hero_title',       $args );
+    register_meta( 'post', 'hero_subtitle',    $args );
     register_meta( 'post', 'hero_button_text', $args );
     register_meta( 'post', 'hero_button_url',  $args );
 }
