@@ -95,3 +95,16 @@ function wuerde_body_classes( $classes ) {
     return $classes;
 }
 add_filter( 'body_class', 'wuerde_body_classes' );
+
+function wuerde_register_hero_meta() {
+    $args = [
+        'object_subtype' => 'page',
+        'type'           => 'string',
+        'single'         => true,
+        'show_in_rest'   => true,
+        'auth_callback'  => function() { return current_user_can( 'edit_posts' ); },
+    ];
+    register_meta( 'post', 'hero_button_text', $args );
+    register_meta( 'post', 'hero_button_url',  $args );
+}
+add_action( 'init', 'wuerde_register_hero_meta' );
