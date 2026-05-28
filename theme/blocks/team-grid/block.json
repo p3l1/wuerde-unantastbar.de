@@ -1,0 +1,37 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "wuerde/team-grid",
+  "title": "Team-Raster",
+  "category": "wuerde",
+  "description": "Zeigt Vereinsmitglieder als Profil-Karten aus dem CPT wuerde_person.",
+  "keywords": ["team", "personen", "profil", "über uns"],
+  "textdomain": "wuerde-unantastbar",
+  "attributes": {
+    "layout": {
+      "type": "string",
+      "default": "horizontal",
+      "enum": ["horizontal", "vertical"]
+    },
+    "showButton": {
+      "type": "boolean",
+      "default": false
+    },
+    "buttonLabel": {
+      "type": "string",
+      "default": "Mehr erfahren"
+    },
+    "selectedIds": {
+      "type": "array",
+      "items": { "type": "number" },
+      "default": []
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "render": "file:./render.php",
+  "editorScript": "file:./editor.js",
+  "editorStyle": "file:./editor.css"
+}

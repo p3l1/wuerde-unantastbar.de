@@ -1,0 +1,4 @@
+/* ABOUTME: Minimal-Stil für den Team-Raster-Block im Block Editor. */
+.wp-block-wuerde-team-grid .components-placeholder {
+    min-height: 120px;
+}

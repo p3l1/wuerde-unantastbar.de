@@ -3,7 +3,7 @@
 // ABOUTME: Fügt die Block-Kategorie "Würde unantastbar" im Editor hinzu.
 
 function wuerde_register_blocks() {
-    foreach ( [ 'mitmach-list', 'mitmach-map' ] as $slug ) {
+    foreach ( [ 'mitmach-list', 'mitmach-map', 'team-grid' ] as $slug ) {
         register_block_type( get_template_directory() . '/blocks/' . $slug );
     }
 
