@@ -3033,3 +3033,116 @@ body.has-hero-template > .site-header {
   0%, 100% { transform: translateX(-50%) translateY(0); }
   50%       { transform: translateX(-50%) translateY(8px); }
 }
+
+/* ==========================================================================
+   GRUNDIDEE-BANNER
+   ========================================================================== */
+
+.grundidee-banner {
+  position: relative;
+  overflow: hidden;
+}
+
+.grundidee-banner .highlight-box__title.grundidee-banner__title {
+  font-family: var(--font-headline);
+  font-size: var(--text-3xl);
+  line-height: var(--leading-tight);
+  max-width: 40ch;
+  margin-bottom: 0;
+}
+
+/* Page-Header für Unterseiten ohne Hero */
+.page-header-section {
+  background: var(--color-bg-subtle);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-12) 0 var(--space-10);
+}
+
+.page-header-section__inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+}
+
+.page-header-section__title {
+  font-family: var(--font-headline);
+  font-size: var(--text-5xl);
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+.page-header-section__lead {
+  font-size: var(--text-xl);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-muted);
+  max-width: 65ch;
+  margin-bottom: 0;
+}
+
+@media (max-width: 767px) {
+  .page-header-section__title {
+    font-size: var(--text-3xl);
+  }
+}
+
+/* ==========================================================================
+   GRUNDIDEE-SEITE — Block-Abstände und Layout
+   ========================================================================== */
+
+.page-content__entry > * {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+}
+
+/* Volle Breite für Page-Header-Section (Group-Block) */
+.page-content__entry > .wp-block-group.page-header-section {
+  max-width: none;
+  padding-inline: 0;
+}
+
+/* Columns: vertikale Abstände */
+.page-content__entry .wp-block-columns {
+  margin-block: var(--space-12);
+}
+
+/* Wide-Bild: leicht über Container hinaus */
+.page-content__entry .wp-block-image.alignwide {
+  max-width: calc(var(--container-max) + 2 * var(--space-10));
+  margin-inline: auto;
+}
+
+/* Quote-Card via WP Block */
+.page-content__entry .wp-block-quote.quote-card {
+  background: var(--color-bg);
+  border-left: 4px solid var(--color-primary);
+  padding: var(--space-6) var(--space-8);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin-block: var(--space-8);
+}
+
+.page-content__entry .wp-block-quote.quote-card p {
+  font-size: var(--text-xl);
+  font-style: italic;
+  line-height: var(--leading-relaxed);
+  color: var(--color-text);
+  max-width: none;
+}
+
+.page-content__entry .wp-block-quote.quote-card cite {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  font-style: normal;
+}
+
+/* Banner-Block: volle Containerbreite */
+.page-content__entry .grundidee-banner {
+  margin-block: var(--space-12);
+}
+
+@media (max-width: 767px) {
+  .page-content__entry > * {
+    padding-inline: var(--space-4);
+  }
+}

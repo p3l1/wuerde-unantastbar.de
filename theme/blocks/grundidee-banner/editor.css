@@ -1,0 +1,31 @@
+/* ABOUTME: Editor-Styles für wuerde/grundidee-banner. */
+/* ABOUTME: Zeigt Vorschau-Styling im Block Editor. */
+
+.grundidee-banner-editor {
+  position: relative;
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.grundidee-banner-editor .highlight-box__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.grundidee-banner-editor__button {
+  margin-top: 1rem;
+}
+
+.grundidee-banner-editor__button .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  background: var(--color-primary, #00ACA0);
+  color: #fff;
+  border: none;
+  cursor: default;
+}
