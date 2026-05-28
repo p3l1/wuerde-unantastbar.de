@@ -32,9 +32,9 @@ function wuerde_register_person_meta() {
         'show_in_rest'   => true,
         'auth_callback'  => function() { return current_user_can( 'edit_posts' ); },
     ];
-    register_meta( 'post', 'person_role',      $args );
-    register_meta( 'post', 'person_birthyear', $args );
-    register_meta( 'post', 'person_button_url', $args );
+    register_meta( 'post', 'person_role',           $args );
+    register_meta( 'post', 'person_birthyear',      $args );
+    register_meta( 'post', 'person_photo_position', $args );
 }
 add_action( 'init', 'wuerde_register_person_meta' );
 
@@ -53,9 +53,8 @@ add_action( 'add_meta_boxes', 'wuerde_person_meta_box' );
 function wuerde_person_meta_box_html( WP_Post $post ) {
     wp_nonce_field( 'wuerde_person_meta', 'wuerde_person_nonce' );
     $fields = [
-        'person_role'       => [ 'label' => 'Rolle / Berufe',  'type' => 'text', 'placeholder' => 'z.B. Tischler · Theologe · Diakon' ],
-        'person_birthyear'  => [ 'label' => 'Jahrgang',        'type' => 'text', 'placeholder' => 'z.B. 1964' ],
-        'person_button_url' => [ 'label' => 'Button-URL',       'type' => 'url',  'placeholder' => 'https://' ],
+        'person_role'       => [ 'label' => 'Rolle / Berufe', 'type' => 'text', 'placeholder' => 'z.B. Tischler · Theologe · Diakon' ],
+        'person_birthyear'  => [ 'label' => 'Jahrgang',       'type' => 'text', 'placeholder' => 'z.B. 1964' ],
     ];
     echo '<table class="form-table" role="presentation"><tbody>';
     foreach ( $fields as $key => $field ) {
@@ -64,6 +63,13 @@ function wuerde_person_meta_box_html( WP_Post $post ) {
         echo "<tr><th scope='row'><label for='{$key}'>{$field['label']}</label></th>";
         echo "<td><input type='{$field['type']}' id='{$key}' name='{$key}' value='{$value}' placeholder='{$ph}' class='regular-text'></td></tr>";
     }
+
+    // Foto-Ausschnitt: object-position für das Beitragsbild
+    $position = get_post_meta( $post->ID, 'person_photo_position', true ) ?: '50% 20%';
+    echo "<tr><th scope='row'><label for='person_photo_position'>Foto-Ausschnitt</label></th>";
+    echo "<td><input type='text' id='person_photo_position' name='person_photo_position' value='" . esc_attr( $position ) . "' placeholder='50% 20%' class='regular-text'>";
+    echo "<p class='description'>CSS <code>object-position</code>: z.B. <code>50% 20%</code> (Mitte/oben), <code>50% 50%</code> (Mitte), <code>50% 10%</code> (ganz oben). Steuert welcher Bildausschnitt sichtbar ist.</p></td></tr>";
+
     echo '</tbody></table>';
     echo '<p class="description">Kurzbiografie: im Textbereich oben eingeben. Portrait: als Beitragsbild (rechte Sidebar) hochladen.</p>';
 }
@@ -74,7 +80,7 @@ function wuerde_save_person_meta( int $post_id ) {
     if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
     if ( ! current_user_can( 'edit_post', $post_id ) ) return;
 
-    $keys = [ 'person_role', 'person_birthyear', 'person_button_url' ];
+    $keys = [ 'person_role', 'person_birthyear', 'person_photo_position' ];
     foreach ( $keys as $key ) {
         if ( isset( $_POST[ $key ] ) ) {
             update_post_meta( $post_id, $key, sanitize_text_field( wp_unslash( $_POST[ $key ] ) ) );

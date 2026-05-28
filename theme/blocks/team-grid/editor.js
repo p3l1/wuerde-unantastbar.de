@@ -3,13 +3,13 @@
 ( function () {
     const { registerBlockType } = wp.blocks;
     const { InspectorControls, useBlockProps } = wp.blockEditor;
-    const { PanelBody, SelectControl, ToggleControl, TextControl, CheckboxControl, Placeholder } = wp.components;
+    const { PanelBody, SelectControl, CheckboxControl, Placeholder } = wp.components;
     const { useSelect } = wp.data;
     const { __ } = wp.i18n;
 
     registerBlockType( 'wuerde/team-grid', {
         edit( { attributes, setAttributes } ) {
-            const { layout, showButton, buttonLabel, selectedIds } = attributes;
+            const { layout, selectedIds } = attributes;
             const blockProps = useBlockProps();
 
             const persons = useSelect( ( select ) => {
@@ -46,20 +46,6 @@
                                 { label: 'Vertikal (kompakt)', value: 'vertical' },
                             ],
                             onChange: ( val ) => setAttributes( { layout: val } ),
-                        } )
-                    ),
-                    wp.element.createElement(
-                        PanelBody,
-                        { title: __( 'Button', 'wuerde-unantastbar' ), initialOpen: false },
-                        wp.element.createElement( ToggleControl, {
-                            label: __( 'Button anzeigen', 'wuerde-unantastbar' ),
-                            checked: showButton,
-                            onChange: ( val ) => setAttributes( { showButton: val } ),
-                        } ),
-                        showButton && wp.element.createElement( TextControl, {
-                            label: __( 'Button-Beschriftung', 'wuerde-unantastbar' ),
-                            value: buttonLabel,
-                            onChange: ( val ) => setAttributes( { buttonLabel: val } ),
                         } )
                     ),
                     wp.element.createElement(

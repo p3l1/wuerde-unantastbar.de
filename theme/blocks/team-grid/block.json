@@ -13,14 +13,6 @@
       "default": "horizontal",
       "enum": ["horizontal", "vertical"]
     },
-    "showButton": {
-      "type": "boolean",
-      "default": false
-    },
-    "buttonLabel": {
-      "type": "string",
-      "default": "Mehr erfahren"
-    },
     "selectedIds": {
       "type": "array",
       "items": { "type": "number" },

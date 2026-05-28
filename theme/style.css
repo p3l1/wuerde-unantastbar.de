@@ -1982,9 +1982,18 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 }
 
 .profile-card__media {
-  background: var(--profile-photo) center / cover no-repeat;
   position: relative;
   min-height: 220px;
+  overflow: hidden;
+}
+
+.profile-card__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 20%;
 }
 
 .profile-card__media::after {
@@ -2080,6 +2089,22 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   width: 100%;
   justify-content: center;
   text-align: center;
+}
+
+/* ==========================================================================
+   TEAM-RASTER (Über-uns-Seite)
+   ========================================================================== */
+
+.team-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.team-grid:has(.profile-card--vertical) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-6);
 }
 
 /* ==========================================================================
@@ -2194,6 +2219,16 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
     align-items: flex-end;
     padding-bottom: var(--space-2);
     border-bottom: 1px solid var(--color-border);
+  }
+
+  .profile-card,
+  .profile-card--vertical {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-card .profile-card__media,
+  .profile-card--vertical .profile-card__media {
+    min-height: 200px;
   }
 }
 
