@@ -702,15 +702,48 @@ p {
   font-weight: 600;
   line-height: 1;
   cursor: pointer;
-  border: 2px solid transparent;
+  border: none;
   text-decoration: none;
-  transition:
-    background var(--transition-fast),
-    color var(--transition-fast),
-    border-color var(--transition-fast),
-    box-shadow var(--transition-fast);
   white-space: nowrap;
   min-height: 44px;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transform: translateX(var(--slide-progress, -100%));
+  transition: transform 0.2s ease;
+}
+
+.btn:hover:not(:disabled)::after {
+  --slide-progress: 0;
+}
+
+/* Slide-Animation für alle WP-Block-Buttons */
+.wp-block-button .wp-block-button__link {
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  transition: color var(--transition-fast) !important;
+}
+
+.wp-block-button .wp-block-button__link::after {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: -1 !important;
+  background: var(--color-secondary) !important;
+  transform: translateX(var(--slide-progress, -100%)) !important;
+  transition: transform 0.2s ease !important;
+}
+
+.wp-block-button .wp-block-button__link:hover::after {
+  --slide-progress: 0;
 }
 
 .btn--lg {
@@ -724,12 +757,12 @@ p {
 .btn--primary {
   background: var(--color-primary);
   color: var(--color-white);
-  border-color: var(--color-primary);
+  transition: color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
+.btn--primary::after { background: #008f85; }
+
 .btn--primary:hover:not(:disabled) {
-  background: #008f85;
-  border-color: #008f85;
   color: var(--color-white);
   box-shadow: var(--shadow-md);
 }
@@ -738,12 +771,12 @@ p {
 .btn--secondary {
   background: var(--color-secondary);
   color: var(--color-black);
-  border-color: var(--color-secondary);
+  transition: color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
+.btn--secondary::after { background: #e5ab1e; }
+
 .btn--secondary:hover:not(:disabled) {
-  background: #e5ab1e;
-  border-color: #e5ab1e;
   box-shadow: var(--shadow-md);
 }
 
@@ -752,10 +785,12 @@ p {
   background: transparent;
   color: var(--color-primary);
   border-color: var(--color-primary);
+  transition: color var(--transition-fast);
 }
 
+.btn--outline::after { background: var(--color-primary); }
+
 .btn--outline:hover:not(:disabled) {
-  background: var(--color-primary);
   color: var(--color-white);
 }
 
@@ -764,11 +799,10 @@ p {
   background: transparent;
   color: var(--color-white);
   border-color: var(--color-white);
+  transition: color var(--transition-fast);
 }
 
-.btn--ghost:hover:not(:disabled) {
-  background: rgba(255,255,255,0.15);
-}
+.btn--ghost::after { background: rgba(255,255,255,0.15); }
 
 /* Disabled */
 .btn:disabled {
@@ -784,16 +818,18 @@ p {
   align-items: center;
 }
 
-/* Krone-Button */
-.btn-crown {
-  background: #00ACA0;
+/* Krone-Button (nur auf a/button-Elementen, nicht auf WP-Block-div) */
+a.btn-crown, button.btn-crown {
+  background: var(--color-primary);
   color: var(--color-white);
-  border-color: #00ACA0;
+  transition: color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.btn-crown:hover:not(:disabled) {
-  background: #F7BC2F;
-  border-color: #F7BC2F;
+a.btn-crown::after, button.btn-crown::after {
+  background: var(--color-secondary);
+}
+
+a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   color: var(--color-black);
   box-shadow: var(--shadow-md);
 }
@@ -805,24 +841,84 @@ p {
   height: 20px;
   background: var(--crown-url-white) center / contain no-repeat;
   flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  transition: background-image var(--transition-fast);
 }
 
 .btn-crown:hover:not(:disabled) .btn-crown__icon {
-  background-image: var(--crown-url-teal);
+  background-image: var(--crown-url-black);
 }
 
-/* Unicode-Fallback wenn kein .btn-crown__icon vorhanden */
-.btn-crown:not(:has(.btn-crown__icon))::before {
-  content: '👑';
-  font-size: 1em;
-  line-height: 1;
+/* WP-Block-Button innerhalb von .btn-crown */
+.wp-block-button.btn-crown .wp-block-button__link {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: var(--space-2) !important;
+  padding: var(--space-3) var(--space-6) !important;
+  border-radius: var(--radius-lg) !important;
+  font-family: var(--font-body) !important;
+  font-size: var(--text-base) !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  min-height: 44px !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+  background: var(--color-primary) !important;
+  color: var(--color-white) !important;
+  border: none !important;
+  box-shadow: none !important;
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  transition: color var(--transition-fast), box-shadow var(--transition-fast) !important;
+}
+
+.wp-block-button.btn-crown .wp-block-button__link::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: var(--crown-url-white) left center / contain no-repeat;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  transition: background-image var(--transition-fast);
+}
+
+.wp-block-button.btn-crown .wp-block-button__link::after {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: var(--color-secondary) !important;
+  transform: translateX(var(--slide-progress, -100%)) !important;
+  transition: transform 0.2s ease !important;
+  z-index: -1 !important;
+}
+
+.wp-block-button.btn-crown .wp-block-button__link:hover {
+  color: var(--color-black) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.wp-block-button.btn-crown .wp-block-button__link:hover::after {
+  --slide-progress: 0 !important;
+}
+
+.wp-block-button.btn-crown .wp-block-button__link:hover::before {
+  background-image: var(--crown-url-black);
+  background-position: left center;
 }
 
 /* Krone-Outline */
 .btn-crown.btn-crown--outline {
   background: transparent;
-  color: #00ACA0;
-  border-color: #00ACA0;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.btn-crown.btn-crown--outline::after {
+  background: var(--color-primary);
 }
 
 .btn-crown.btn-crown--outline .btn-crown__icon {
@@ -830,7 +926,6 @@ p {
 }
 
 .btn-crown.btn-crown--outline:hover:not(:disabled) {
-  background: #00ACA0;
   color: var(--color-white);
   box-shadow: var(--shadow-md);
 }
@@ -2147,8 +2242,11 @@ p {
 /* Krone-Button im Hero: Gelb statt Türkis */
 .demo-hero--fullscreen-photo .btn-crown {
   background: var(--color-yellow);
-  border-color: var(--color-yellow);
   color: var(--color-black);
+}
+
+.demo-hero--fullscreen-photo .btn-crown::after {
+  background: var(--color-primary);
 }
 
 .demo-hero--fullscreen-photo .btn-crown .btn-crown__icon {
@@ -2159,14 +2257,12 @@ p {
 }
 
 .demo-hero--fullscreen-photo .btn-crown:hover:not(:disabled) {
-  background: #d9a81e;
-  border-color: #d9a81e;
-  color: var(--color-black);
+  color: var(--color-white);
   box-shadow: var(--shadow-md);
 }
 
 .demo-hero--fullscreen-photo .btn-crown:hover:not(:disabled) .btn-crown__icon {
-  background-image: var(--crown-url-black);
+  background-image: var(--crown-url-white);
 }
 
 /* Ghost-Button im Hero: subtiles Fill damit er auf hellem Foto lesbar bleibt */
@@ -2490,7 +2586,7 @@ p {
   gap: var(--space-3);
   font-size: var(--text-base);
   font-weight: 700;
-  color: var(--color-primary);
+  color: var(--color-text);
   text-decoration: none;
   white-space: nowrap;
   min-height: 44px;
@@ -2501,7 +2597,7 @@ p {
 }
 
 .site-header__brand-break {
-  display: none;
+  display: inline;
 }
 
 /* Site Nav */
@@ -2659,6 +2755,21 @@ p {
 .site-mobile-nav .sub-menu {
   padding-left: var(--space-4);
   margin-top: var(--space-1);
+}
+
+/* Hero Intro */
+.hero-intro__inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--space-10) var(--space-6) 0;
+}
+
+.hero-intro__text {
+  font-family: var(--font-brand);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
 }
 
 /* Site Content Wrapper */

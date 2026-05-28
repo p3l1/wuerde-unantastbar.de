@@ -157,6 +157,9 @@
           "background": "var(--wp--preset--color--teal)",
           "text": "#FFFFFF"
         },
+        "border": {
+          "radius": "8px"
+        },
         "typography": {
           "fontFamily": "var(--wp--preset--font-family--body)"
         },

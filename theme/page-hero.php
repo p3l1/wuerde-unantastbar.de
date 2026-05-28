@@ -5,7 +5,7 @@
  * Template Name: Hero
  */
 
-get_header();
+get_header( 'hero' );
 
 $thumbnail_url  = get_the_post_thumbnail_url( get_the_ID(), 'full' );
 $hero_style     = $thumbnail_url
@@ -52,6 +52,12 @@ $subtitle       = get_post_meta( $post_id, 'hero_subtitle',    true ) ?: get_blo
 </section>
 
 <?php get_template_part( 'inc/site-header' ); ?>
+
+<div class="hero-intro">
+  <div class="hero-intro__inner">
+    <p class="hero-intro__text"><?php the_title(); ?></p>
+  </div>
+</div>
 
 <main class="page-content" id="main-content" aria-label="Seiteninhalt" tabindex="-1">
 

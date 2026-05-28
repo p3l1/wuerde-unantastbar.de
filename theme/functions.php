@@ -96,6 +96,55 @@ function wuerde_body_classes( $classes ) {
 }
 add_filter( 'body_class', 'wuerde_body_classes' );
 
+function wuerde_hero_meta_box() {
+    add_meta_box(
+        'wuerde_hero_fields',
+        'Hero-Einstellungen',
+        'wuerde_hero_meta_box_html',
+        'page',
+        'normal',
+        'high'
+    );
+}
+add_action( 'add_meta_boxes', 'wuerde_hero_meta_box' );
+
+function wuerde_hero_meta_box_html( $post ) {
+    if ( get_page_template_slug( $post->ID ) !== 'page-hero.php' ) {
+        echo '<p style="color:#666;font-style:italic">Nur verfügbar wenn das Seitentemplate „Hero" ausgewählt ist.</p>';
+        return;
+    }
+    wp_nonce_field( 'wuerde_hero_meta', 'wuerde_hero_nonce' );
+    $fields = [
+        'hero_title'       => [ 'label' => 'Titel',            'type' => 'text',  'placeholder' => get_bloginfo( 'name' ) ],
+        'hero_subtitle'    => [ 'label' => 'Untertitel',       'type' => 'text',  'placeholder' => get_bloginfo( 'description' ) ],
+'hero_button_text' => [ 'label' => 'Button-Text',      'type' => 'text',  'placeholder' => '' ],
+        'hero_button_url'  => [ 'label' => 'Button-URL',       'type' => 'url',   'placeholder' => 'https://' ],
+    ];
+    echo '<table class="form-table" role="presentation"><tbody>';
+    foreach ( $fields as $key => $field ) {
+        $value = esc_attr( get_post_meta( $post->ID, $key, true ) );
+        $ph    = esc_attr( $field['placeholder'] );
+        echo "<tr><th scope='row'><label for='{$key}'>{$field['label']}</label></th>";
+        echo "<td><input type='{$field['type']}' id='{$key}' name='{$key}' value='{$value}' placeholder='{$ph}' class='regular-text'></td></tr>";
+    }
+    echo '</tbody></table>';
+}
+
+function wuerde_save_hero_meta( $post_id ) {
+    if ( ! isset( $_POST['wuerde_hero_nonce'] ) ) return;
+    if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['wuerde_hero_nonce'] ) ), 'wuerde_hero_meta' ) ) return;
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+    if ( ! current_user_can( 'edit_post', $post_id ) ) return;
+
+    $keys = [ 'hero_title', 'hero_subtitle', 'hero_button_text', 'hero_button_url' ];
+    foreach ( $keys as $key ) {
+        if ( isset( $_POST[ $key ] ) ) {
+            update_post_meta( $post_id, $key, sanitize_text_field( wp_unslash( $_POST[ $key ] ) ) );
+        }
+    }
+}
+add_action( 'save_post', 'wuerde_save_hero_meta' );
+
 function wuerde_register_hero_meta() {
     $args = [
         'object_subtype' => 'page',
@@ -106,7 +155,7 @@ function wuerde_register_hero_meta() {
     ];
     register_meta( 'post', 'hero_title',       $args );
     register_meta( 'post', 'hero_subtitle',    $args );
-    register_meta( 'post', 'hero_button_text', $args );
+register_meta( 'post', 'hero_button_text', $args );
     register_meta( 'post', 'hero_button_url',  $args );
 }
 add_action( 'init', 'wuerde_register_hero_meta' );

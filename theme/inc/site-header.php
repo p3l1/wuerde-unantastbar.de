@@ -6,7 +6,7 @@
   <div class="site-header__inner">
 
     <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="site-header__brand brand-text" rel="home">
-      <img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/krone-teal.png' ); ?>"
+      <img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/krone-yellow.png' ); ?>"
            alt="" width="32" height="32" aria-hidden="true" loading="eager">
       <span>Verein für Menschenwürde<span class="site-header__brand-break"> und Demokratie e.V.</span></span>
     </a>
