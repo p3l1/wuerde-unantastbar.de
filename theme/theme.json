@@ -71,8 +71,8 @@
           "fontFamily": "'Pally', sans-serif"
         },
         {
-          "slug": "headline",
-          "name": "Tanker (Headlines)",
+          "slug": "tanker",
+          "name": "Tanker",
           "fontFamily": "'Tanker', sans-serif"
         },
         {
@@ -136,19 +136,19 @@
       },
       "h1": {
         "typography": {
-          "fontFamily": "var(--wp--preset--font-family--headline)",
+          "fontFamily": "var(--wp--preset--font-family--brand)",
           "fontSize": "var(--wp--preset--font-size--xx-large)"
         }
       },
       "h2": {
         "typography": {
-          "fontFamily": "var(--wp--preset--font-family--headline)",
+          "fontFamily": "var(--wp--preset--font-family--brand)",
           "fontSize": "var(--wp--preset--font-size--x-large)"
         }
       },
       "h3": {
         "typography": {
-          "fontFamily": "var(--wp--preset--font-family--headline)",
+          "fontFamily": "var(--wp--preset--font-family--brand)",
           "fontSize": "var(--wp--preset--font-size--large)"
         }
       },
