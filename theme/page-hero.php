@@ -25,7 +25,12 @@ $subtitle       = get_post_meta( $post_id, 'hero_subtitle',    true ) ?: get_blo
 >
   <div class="demo-hero__content">
 
-    <h1 class="demo-hero__title"><?php echo esc_html( $title ); ?></h1>
+    <h1 class="demo-hero__title"><?php
+      $parts = array_filter( array_map( 'trim', explode( '.', $title ) ) );
+      foreach ( $parts as $part ) {
+          echo '<span>' . esc_html( $part ) . '.</span>';
+      }
+    ?></h1>
 
     <?php if ( $subtitle ) : ?>
       <p class="demo-hero__text"><?php echo esc_html( $subtitle ); ?></p>
