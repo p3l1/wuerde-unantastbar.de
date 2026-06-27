@@ -3003,6 +3003,11 @@ body.has-hero-template > .site-header {
   align-items: center;
 }
 
+/* Jeder Satz (span) des Titels auf eigener Zeile */
+.site-hero .demo-hero__title span {
+  display: block;
+}
+
 /* Scrim von oben: Navbar bleibt auf jedem Foto lesbar */
 .site-hero::after {
   content: '';
