@@ -3,7 +3,10 @@
 // ABOUTME: Gibt den Leaflet-Container aus und enqueued CSS/JS nur wenn der Block aktiv ist.
 
 wp_enqueue_style( 'leaflet' );
+wp_enqueue_style( 'leaflet-markercluster' );
+wp_enqueue_style( 'leaflet-markercluster-default' );
 wp_enqueue_script( 'leaflet' );
+wp_enqueue_script( 'leaflet-markercluster' );
 
 $center_lat = (float) ( $attributes['centerLat'] ?? 51.2 );
 $center_lng = (float) ( $attributes['centerLng'] ?? 10.4 );
@@ -21,10 +24,9 @@ $rest_url = rest_url( 'wuerde/v1/map-points' );
          data-zoom="<?php echo esc_attr( $zoom ); ?>"
          data-tile-style="<?php echo esc_attr( $tile_style ); ?>"
          data-rest-url="<?php echo esc_url( $rest_url ); ?>"
+         data-crown-url="<?php echo esc_url( get_template_directory_uri() . '/assets/krone-white.png' ); ?>"
          style="height:<?php echo esc_attr( $height ); ?>"
          aria-label="Deutschlandkarte mit Mitmach-Möglichkeiten">
     </div>
-    <p class="mitmach-map__hint">
-        Kartendaten &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>-Mitwirkende
-    </p>
+
 </div>

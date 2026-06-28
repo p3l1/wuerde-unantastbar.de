@@ -32,7 +32,9 @@ $card_class = 'horizontal' === $layout ? 'profile-card' : 'profile-card profile-
     $role       = esc_html( get_post_meta( $person->ID, 'person_role', true ) );
     $birthyear  = esc_html( get_post_meta( $person->ID, 'person_birthyear', true ) );
     $bio        = wp_kses_post( wpautop( $person->post_content ) );
-    $position   = get_post_meta( $person->ID, 'person_photo_position', true ) ?: '50% 20%';
+    $position        = get_post_meta( $person->ID, 'person_photo_position',        true ) ?: '50% 20%';
+    $position_mobile = get_post_meta( $person->ID, 'person_photo_position_mobile', true );
+    $zoom            = get_post_meta( $person->ID, 'person_photo_zoom',            true ) ?: '1';
 
     $media_extra = $photo_url ? '' : ' profile-card__media--solid-teal';
     $no_photo    = $photo_url ? '' : ' profile-card--no-photo';
@@ -40,9 +42,18 @@ $card_class = 'horizontal' === $layout ? 'profile-card' : 'profile-card profile-
     <article class="<?php echo esc_attr( trim( $card_class . $no_photo ) ); ?>">
         <div class="profile-card__media<?php echo esc_attr( $media_extra ); ?>" aria-hidden="true">
             <?php if ( $photo_url ) : ?>
+                <?php
+                $style = '--photo-pos:' . esc_attr( $position );
+                if ( $position_mobile ) {
+                    $style .= ';--photo-pos-mobile:' . esc_attr( $position_mobile );
+                }
+                if ( $zoom && '1' !== $zoom ) {
+                    $style .= ';--photo-zoom:' . esc_attr( $zoom );
+                }
+                ?>
                 <img src="<?php echo esc_url( $photo_url ); ?>"
                      alt=""
-                     style="object-position: <?php echo esc_attr( $position ); ?>"
+                     style="<?php echo $style; ?>"
                      loading="lazy">
             <?php else : ?>
                 <span class="crown-watermark" aria-hidden="true"></span>

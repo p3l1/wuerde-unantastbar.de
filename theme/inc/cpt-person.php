@@ -32,9 +32,11 @@ function wuerde_register_person_meta() {
         'show_in_rest'   => true,
         'auth_callback'  => function() { return current_user_can( 'edit_posts' ); },
     ];
-    register_meta( 'post', 'person_role',           $args );
-    register_meta( 'post', 'person_birthyear',      $args );
-    register_meta( 'post', 'person_photo_position', $args );
+    register_meta( 'post', 'person_role',                  $args );
+    register_meta( 'post', 'person_birthyear',             $args );
+    register_meta( 'post', 'person_photo_position',        $args );
+    register_meta( 'post', 'person_photo_position_mobile', $args );
+    register_meta( 'post', 'person_photo_zoom',            $args );
 }
 add_action( 'init', 'wuerde_register_person_meta' );
 
@@ -64,11 +66,23 @@ function wuerde_person_meta_box_html( WP_Post $post ) {
         echo "<td><input type='{$field['type']}' id='{$key}' name='{$key}' value='{$value}' placeholder='{$ph}' class='regular-text'></td></tr>";
     }
 
-    // Foto-Ausschnitt: object-position für das Beitragsbild
-    $position = get_post_meta( $post->ID, 'person_photo_position', true ) ?: '50% 20%';
+    // Foto-Ausschnitt Desktop
+    $position        = get_post_meta( $post->ID, 'person_photo_position',        true ) ?: '50% 20%';
+    $position_mobile = get_post_meta( $post->ID, 'person_photo_position_mobile', true );
     echo "<tr><th scope='row'><label for='person_photo_position'>Foto-Ausschnitt</label></th>";
     echo "<td><input type='text' id='person_photo_position' name='person_photo_position' value='" . esc_attr( $position ) . "' placeholder='50% 20%' class='regular-text'>";
-    echo "<p class='description'>CSS <code>object-position</code>: z.B. <code>50% 20%</code> (Mitte/oben), <code>50% 50%</code> (Mitte), <code>50% 10%</code> (ganz oben). Steuert welcher Bildausschnitt sichtbar ist.</p></td></tr>";
+    echo "<p class='description'>CSS <code>object-position</code> für Desktop: z.B. <code>50% 20%</code> (Mitte/oben), <code>50% 50%</code> (Mitte). Steuert welcher Bildausschnitt sichtbar ist.</p></td></tr>";
+
+    // Foto-Ausschnitt Mobil
+    echo "<tr><th scope='row'><label for='person_photo_position_mobile'>Foto-Ausschnitt Mobil</label></th>";
+    echo "<td><input type='text' id='person_photo_position_mobile' name='person_photo_position_mobile' value='" . esc_attr( $position_mobile ) . "' placeholder='50% 50%' class='regular-text'>";
+    echo "<p class='description'>Überschreibt den Ausschnitt auf Smartphones (quadratisches Bild). Leer lassen = Desktop-Wert wird verwendet.</p></td></tr>";
+
+    // Zoom
+    $zoom = get_post_meta( $post->ID, 'person_photo_zoom', true ) ?: '1';
+    echo "<tr><th scope='row'><label for='person_photo_zoom'>Zoom</label></th>";
+    echo "<td><input type='number' id='person_photo_zoom' name='person_photo_zoom' value='" . esc_attr( $zoom ) . "' min='1' max='3' step='0.05' class='small-text'>";
+    echo "<p class='description'>Zoomstufe des Porträtfotos: <code>1</code> = normal, <code>1.5</code> = 50 % näher. Wirkt gemeinsam mit dem Foto-Ausschnitt.</p></td></tr>";
 
     echo '</tbody></table>';
     echo '<p class="description">Kurzbiografie: im Textbereich oben eingeben. Portrait: als Beitragsbild (rechte Sidebar) hochladen.</p>';
@@ -80,7 +94,7 @@ function wuerde_save_person_meta( int $post_id ) {
     if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
     if ( ! current_user_can( 'edit_post', $post_id ) ) return;
 
-    $keys = [ 'person_role', 'person_birthyear', 'person_photo_position' ];
+    $keys = [ 'person_role', 'person_birthyear', 'person_photo_position', 'person_photo_position_mobile', 'person_photo_zoom' ];
     foreach ( $keys as $key ) {
         if ( isset( $_POST[ $key ] ) ) {
             update_post_meta( $post_id, $key, sanitize_text_field( wp_unslash( $_POST[ $key ] ) ) );

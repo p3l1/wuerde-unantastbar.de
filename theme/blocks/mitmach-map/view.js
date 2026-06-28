@@ -10,7 +10,9 @@
 	var zoom      = parseInt( container.dataset.zoom, 10 ) || 6;
 	var restUrl   = container.dataset.restUrl;
 
-	var tileStyle = container.dataset.tileStyle || 'osm';
+	var tileStyle   = container.dataset.tileStyle || 'osm';
+	var interactive = container.dataset.interactive !== 'false';
+	var crownUrl    = container.dataset.crownUrl || '';
 
 	var tileLayers = {
 		osm: {
@@ -38,9 +40,16 @@
 	var layer = tileLayers[ tileStyle ] || tileLayers.osm;
 
 	var map = L.map( 'mitmach-map', {
-		center: [ centerLat, centerLng ],
-		zoom: zoom,
-		scrollWheelZoom: false,
+		center:              [ centerLat, centerLng ],
+		zoom:                zoom,
+		scrollWheelZoom:     false,
+		zoomControl:         interactive,
+		attributionControl:  interactive,
+		dragging:            interactive,
+		touchZoom:           interactive,
+		doubleClickZoom:     interactive,
+		boxZoom:             interactive,
+		keyboard:            interactive,
 	} );
 
 	L.tileLayer( layer.url, {
@@ -48,14 +57,19 @@
 		maxZoom: layer.maxZoom,
 	} ).addTo( map );
 
-	// Farbe per CSS-Variable aus dem Dokument lesen (Fallback: teal).
-	function getCategoryColor( slug ) {
-		var style = getComputedStyle( document.documentElement );
-		var token = style.getPropertyValue( '--color-cat-' + slug ).trim();
-		return token || style.getPropertyValue( '--color-teal' ).trim() || '#00aca0';
-	}
-
 	if ( ! restUrl ) return;
+
+	var clusterGroup = L.markerClusterGroup( {
+		maxClusterRadius: 48,
+		iconCreateFunction: function ( cluster ) {
+			return L.divIcon( {
+				className:  'mitmach-map__cluster',
+				html:       '<div class="mitmach-map__cluster-dot">' + cluster.getChildCount() + '</div>',
+				iconSize:   [ 32, 32 ],
+				iconAnchor: [ 16, 16 ],
+			} );
+		},
+	} );
 
 	fetch( restUrl )
 		.then( function ( res ) { return res.json(); } )
@@ -63,23 +77,29 @@
 			points.forEach( function ( point ) {
 				if ( ! point.lat || ! point.lng ) return;
 
-				var color  = getCategoryColor( point.category_slug );
-				var marker = L.circleMarker( [ point.lat, point.lng ], {
-					radius:      8,
-					color:       color,
-					fillColor:   color,
-					fillOpacity: 0.85,
-					weight:      2,
-					className:   'mitmach-map__marker mitmach-map__marker--' + ( point.category_slug || 'sonstiges' ),
+				var color = point.color || '#00aca0';
+				var icon  = L.divIcon( {
+					className:   'mitmach-map__pin',
+					html:        '<div class="mitmach-map__pin-dot" style="background:' + color + '">'
+					             + ( crownUrl ? '<img src="' + crownUrl + '" alt="" aria-hidden="true">' : '' )
+					             + '</div>',
+					iconSize:    [ 32, 32 ],
+					iconAnchor:  [ 16, 16 ],
+					popupAnchor: [ 0, -18 ],
 				} );
 
-				marker.bindPopup(
-					'<strong>' + point.title + '</strong>' +
-					( point.permalink ? '<br><a href="' + point.permalink + '">Details</a>' : '' )
-				);
+				var popup = '<div class="mitmach-map__popup" style="--popup-color:' + color + '">'
+				          + '<strong>' + point.title + '</strong>'
+				          + ( point.ort ? '<span class="mitmach-card__tag mitmach-map__popup-ort">' + point.ort + '</span>' : '' )
+				          + ( point.permalink ? '<a href="' + point.permalink + '" class="mitmach-map__popup-link">Details →</a>' : '' )
+				          + '</div>';
 
-				marker.addTo( map );
+				L.marker( [ point.lat, point.lng ], { icon: icon } )
+				 .bindPopup( popup, { className: 'mitmach-map__popup-wrap' } )
+				 .addTo( clusterGroup );
 			} );
+
+			clusterGroup.addTo( map );
 		} )
 		.catch( function ( err ) {
 			console.error( 'Mitmach-Karte: Fehler beim Laden der Marker.', err );

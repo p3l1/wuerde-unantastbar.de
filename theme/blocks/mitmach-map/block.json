@@ -22,7 +22,7 @@
     },
     "height": {
       "type": "string",
-      "default": "1000px"
+      "default": "500px"
     },
     "tileStyle": {
       "type": "string",
