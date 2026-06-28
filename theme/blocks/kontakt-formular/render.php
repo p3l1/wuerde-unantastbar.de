@@ -2,8 +2,6 @@
 // ABOUTME: Server-side Rendering des Kontaktformular-Blocks.
 // ABOUTME: Bettet Nonce und REST-Endpoint-URL als data-Attribute ein.
 
-$endpoint = esc_url( rest_url( 'wuerde/v1/kontakt' ) );
-$nonce    = esc_attr( wp_create_nonce( 'wuerde_kontakt' ) );
 $site_key = get_option( 'wuerde_hcaptcha_site_key', '' );
 
 if ( $site_key ) {
@@ -13,8 +11,8 @@ if ( $site_key ) {
 <div class="wuerde-kontakt-formular wp-block-wuerde-kontakt-formular">
     <form
         class="wuerde-kontakt-formular__form"
-        data-endpoint="<?php echo $endpoint; ?>"
-        data-nonce="<?php echo $nonce; ?>"
+        data-endpoint="<?php echo esc_url( rest_url( 'wuerde/v1/kontakt' ) ); ?>"
+        data-nonce="<?php echo esc_attr( wp_create_nonce( 'wuerde_kontakt' ) ); ?>"
         novalidate
     >
         <div class="wuerde-kontakt-formular__field">
