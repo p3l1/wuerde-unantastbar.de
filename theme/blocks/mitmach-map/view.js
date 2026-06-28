@@ -65,11 +65,11 @@
 
 				var color  = getCategoryColor( point.category_slug );
 				var marker = L.circleMarker( [ point.lat, point.lng ], {
-					radius:      8,
-					color:       color,
+					radius:      10,
+					color:       'transparent',
 					fillColor:   color,
-					fillOpacity: 0.85,
-					weight:      2,
+					fillOpacity: 1,
+					weight:      0,
 					className:   'mitmach-map__marker mitmach-map__marker--' + ( point.category_slug || 'sonstiges' ),
 				} );
 
