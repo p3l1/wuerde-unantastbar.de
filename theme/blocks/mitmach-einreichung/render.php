@@ -58,6 +58,17 @@ wp_enqueue_script( 'leaflet' );
             </select>
         </div>
         <div class="wuerde-mitmach-einreichung__field">
+            <label for="wuerde-einr-adresse">Adresse</label>
+            <div class="wuerde-mitmach-einreichung__adresse-row">
+                <input type="text" id="wuerde-einr-adresse" autocomplete="off"
+                       placeholder="z. B. Marktplatz 1, München">
+                <button type="button" class="btn btn--secondary wuerde-mitmach-einreichung__adresse-btn">
+                    Suchen
+                </button>
+            </div>
+            <span class="wuerde-mitmach-einreichung__adresse-hint" aria-live="polite"></span>
+        </div>
+        <div class="wuerde-mitmach-einreichung__field">
             <label for="wuerde-einr-ort">Ort</label>
             <input type="text" id="wuerde-einr-ort" name="ort" autocomplete="off"
                    placeholder="z. B. München">
