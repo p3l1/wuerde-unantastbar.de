@@ -2,7 +2,7 @@
 /* ABOUTME: Felder, Zustände und responsive Anpassung. */
 
 .wuerde-kontakt-formular {
-    max-width: 640px;
+    max-width: 100%;
 }
 
 .wuerde-kontakt-formular__field {
