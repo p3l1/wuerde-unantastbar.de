@@ -122,6 +122,7 @@ function wuerde_render_koordinaten_meta_box( WP_Post $post ) {
                style="flex:1;padding:4px 8px">
         <button type="button" id="wuerde_koordinaten_search_btn" class="button">Suchen</button>
     </div>
+    <div id="wuerde_koordinaten_status" style="display:none;padding:6px 10px;border-radius:4px;font-size:12px;margin-bottom:6px"></div>
     <div id="wuerde_koordinaten_results"
          style="display:none;border:1px solid #ddd;border-radius:4px;max-height:160px;overflow-y:auto;margin-bottom:8px;background:#fff">
     </div>
@@ -160,18 +161,87 @@ function wuerde_render_koordinaten_meta_box( WP_Post $post ) {
     </p>
     <script>
     ( function() {
-        var mapEl   = document.getElementById( 'wuerde_koordinaten_map' );
-        var latEl   = document.getElementById( 'wuerde_lat' );
-        var lngEl   = document.getElementById( 'wuerde_lng' );
-        var ortEl   = document.getElementById( 'wuerde_ort_display' );
+        var mapEl     = document.getElementById( 'wuerde_koordinaten_map' );
+        var latEl     = document.getElementById( 'wuerde_lat' );
+        var lngEl     = document.getElementById( 'wuerde_lng' );
+        var ortEl     = document.getElementById( 'wuerde_ort_display' );
         var searchEl  = document.getElementById( 'wuerde_koordinaten_search' );
         var searchBtn = document.getElementById( 'wuerde_koordinaten_search_btn' );
         var resultsEl = document.getElementById( 'wuerde_koordinaten_results' );
+        var statusEl  = document.getElementById( 'wuerde_koordinaten_status' );
 
         if ( typeof L === 'undefined' || ! mapEl ) return;
 
-        var initLat = parseFloat( latEl.value ) || 51.2;
-        var initLng = parseFloat( lngEl.value ) || 10.4;
+        // ── Rate-Limiter ─────────────────────────────────────────────────────
+        // Nominatim erlaubt max. 1 Anfrage/Sekunde. Anfragen werden sequenziell
+        // in einer Queue abgearbeitet, mit mindestens 1,1 s Abstand.
+        var MIN_INTERVAL = 1100;
+        var lastRequest  = 0;
+        var queue        = [];
+        var queueRunning = false;
+
+        function enqueue( fn ) {
+            queue.push( fn );
+            if ( ! queueRunning ) processQueue();
+        }
+
+        function processQueue() {
+            if ( ! queue.length ) { queueRunning = false; return; }
+            queueRunning = true;
+            var fn    = queue.shift();
+            var now   = Date.now();
+            var delay = Math.max( 0, MIN_INTERVAL - ( now - lastRequest ) );
+            setTimeout( function() {
+                lastRequest = Date.now();
+                fn().finally( processQueue );
+            }, delay );
+        }
+
+        function nominatimFetch( url ) {
+            return new Promise( function( resolve, reject ) {
+                enqueue( function() {
+                    return fetch( url )
+                        .then( function( r ) {
+                            if ( r.status === 429 ) throw new Error( 'rate_limit' );
+                            if ( ! r.ok ) throw new Error( 'http_' + r.status );
+                            return r.json();
+                        } )
+                        .then( resolve )
+                        .catch( reject );
+                } );
+            } );
+        }
+
+        // ── Status-Anzeige ───────────────────────────────────────────────────
+        var statusTimer = null;
+
+        function showStatus( msg, type ) {
+            var colors = {
+                info:    { bg: '#e7f3fe', border: '#b3d7f7', text: '#0a4b8c' },
+                error:   { bg: '#fce8e8', border: '#f5c2c2', text: '#8c1a1a' },
+                success: { bg: '#edfaee', border: '#b8e5bc', text: '#1a5c1f' },
+            };
+            var c = colors[ type ] || colors.info;
+            statusEl.textContent = msg;
+            statusEl.style.cssText = 'display:block;padding:6px 10px;border-radius:4px;font-size:12px;margin-bottom:6px;'
+                + 'background:' + c.bg + ';border:1px solid ' + c.border + ';color:' + c.text;
+            clearTimeout( statusTimer );
+            if ( type === 'success' ) {
+                statusTimer = setTimeout( function() { statusEl.style.display = 'none'; }, 3000 );
+            }
+        }
+
+        function hideStatus() { statusEl.style.display = 'none'; }
+
+        function errorMessage( err ) {
+            if ( err.message === 'rate_limit' ) return 'Zu viele Anfragen — bitte einen Moment warten.';
+            if ( err.message === 'Failed to fetch' || err.name === 'TypeError' ) return 'Netzwerkfehler — bitte Internetverbindung prüfen.';
+            return 'Fehler beim Abrufen der Geodaten (' + err.message + ').';
+        }
+
+        // ── Karte ────────────────────────────────────────────────────────────
+        var initLat  = parseFloat( latEl.value ) || 51.2;
+        var initLng  = parseFloat( lngEl.value ) || 10.4;
         var initZoom = ( latEl.value && lngEl.value ) ? 10 : 6;
 
         var map = L.map( mapEl, { scrollWheelZoom: false } )
@@ -194,16 +264,29 @@ function wuerde_render_koordinaten_meta_box( WP_Post $post ) {
             lngEl.value = lng.toFixed( 6 );
         }
 
+        // Debounce: Karteklicks in schneller Folge lösen nur eine Rücksuche aus.
+        var reverseTimer = null;
+
         function reverseGeocode( lat, lng ) {
-            var url = 'https://nominatim.openstreetmap.org/reverse?lat=' + lat + '&lon=' + lng + '&format=json&accept-language=de';
-            fetch( url )
-                .then( function( r ) { return r.json(); } )
-                .then( function( data ) {
-                    var a = data.address || {};
-                    var city = a.city || a.town || a.village || a.municipality || a.county || '';
-                    ortEl.value = city;
-                } )
-                .catch( function() {} );
+            clearTimeout( reverseTimer );
+            reverseTimer = setTimeout( function() {
+                ortEl.value = '';
+                showStatus( 'Ort wird bestimmt …', 'info' );
+                var url = 'https://nominatim.openstreetmap.org/reverse?lat=' + lat + '&lon=' + lng + '&format=json&accept-language=de';
+                nominatimFetch( url )
+                    .then( function( data ) {
+                        if ( data.error ) { showStatus( 'Kein Ort an dieser Position gefunden.', 'error' ); return; }
+                        var a    = data.address || {};
+                        var city = a.city || a.town || a.village || a.municipality || a.county || '';
+                        if ( city ) {
+                            ortEl.value = city;
+                            showStatus( 'Ort erkannt: ' + city, 'success' );
+                        } else {
+                            showStatus( 'Kein Ortsname gefunden — bitte manuell eintragen.', 'error' );
+                        }
+                    } )
+                    .catch( function( err ) { showStatus( errorMessage( err ), 'error' ); } );
+            }, 400 );
         }
 
         if ( latEl.value && lngEl.value ) {
@@ -216,18 +299,22 @@ function wuerde_render_koordinaten_meta_box( WP_Post $post ) {
             reverseGeocode( e.latlng.lat, e.latlng.lng );
         } );
 
+        // ── Adresssuche ──────────────────────────────────────────────────────
         function doSearch() {
             var q = searchEl.value.trim();
-            if ( ! q ) return;
-            searchBtn.disabled = true;
+            if ( ! q ) { showStatus( 'Bitte einen Suchbegriff eingeben.', 'error' ); return; }
+            searchBtn.disabled   = true;
             searchBtn.textContent = '…';
-            fetch( 'https://nominatim.openstreetmap.org/search?q=' + encodeURIComponent( q ) + '&format=json&limit=5&accept-language=de' )
-                .then( function( r ) { return r.json(); } )
+            resultsEl.style.display = 'none';
+            showStatus( 'Suche läuft …', 'info' );
+
+            var url = 'https://nominatim.openstreetmap.org/search?q=' + encodeURIComponent( q ) + '&format=json&limit=5&accept-language=de';
+            nominatimFetch( url )
                 .then( function( results ) {
+                    hideStatus();
                     resultsEl.innerHTML = '';
                     if ( ! results.length ) {
-                        resultsEl.innerHTML = '<p style="padding:8px;color:#666;margin:0">Keine Ergebnisse.</p>';
-                        resultsEl.style.display = 'block';
+                        showStatus( 'Keine Ergebnisse für „' + q + '"', 'error' );
                         return;
                     }
                     results.forEach( function( item ) {
@@ -249,8 +336,9 @@ function wuerde_render_koordinaten_meta_box( WP_Post $post ) {
                     } );
                     resultsEl.style.display = 'block';
                 } )
+                .catch( function( err ) { showStatus( errorMessage( err ), 'error' ); } )
                 .finally( function() {
-                    searchBtn.disabled = false;
+                    searchBtn.disabled    = false;
                     searchBtn.textContent = 'Suchen';
                 } );
         }
