@@ -1931,6 +1931,7 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   gap: var(--space-3);
   transition: box-shadow var(--transition-normal), transform var(--transition-normal);
   border-top: 3px solid var(--cat-color, var(--color-primary));
+  overflow: hidden;
 }
 
 .mitmach-card:hover {
