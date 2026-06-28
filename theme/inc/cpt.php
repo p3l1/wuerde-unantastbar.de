@@ -61,15 +61,31 @@ function wuerde_register_cpt() {
 }
 add_action( 'init', 'wuerde_register_cpt' );
 
-// Initiale Kategorie-Terms anlegen (idempotent).
+// Initiale Kategorie-Terms anlegen und veraltete Terms entfernen (idempotent).
 function wuerde_seed_categories() {
+    $obsolete = [
+        'kirchengemeinden',
+        'kommunal',
+        'handwerk',
+        'gesundheit',
+        'sonstiges',
+    ];
+
+    foreach ( $obsolete as $slug ) {
+        $term = get_term_by( 'slug', $slug, 'wuerde_kategorie' );
+        if ( $term ) {
+            wp_delete_term( $term->term_id, 'wuerde_kategorie' );
+        }
+    }
+
     $terms = [
-        'kirchengemeinden' => 'Kirchengemeinden',
+        'kunst-kultur'     => 'Kunst und Kultur',
+        'gespraech'        => 'Gespräch und Diskussion',
+        'strasse'          => 'Auf der Straße',
+        'spiel-spass'      => 'Spiel und Spaß',
         'bildung'          => 'Bildungseinrichtungen',
-        'kommunal'         => 'Kommunale Einrichtungen',
-        'handwerk'         => 'Handwerk & Industrie',
-        'gesundheit'       => 'Gesundheitswesen',
-        'sonstiges'        => 'Sonstiges',
+        'soziales'         => 'Soziale Einrichtungen',
+        'betriebe'         => 'Betriebe und Unternehmen',
     ];
 
     foreach ( $terms as $slug => $name ) {
