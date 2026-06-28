@@ -65,7 +65,7 @@ $mach_mit_url = get_permalink( get_page_by_path( 'mach-mit' ) ) ?: home_url( '/m
          data-center-lng="10.4"
          data-zoom="6"
          data-tile-style="osm"
-         data-rest-url="<?php echo esc_url( rest_url( 'wuerde/v1/map-points?kategorie=' . urlencode( $term->slug ) ) ); ?>"
+         data-rest-url="<?php echo esc_url( add_query_arg( 'kategorie', $term->slug, rest_url( 'wuerde/v1/map-points' ) ) ); ?>"
          style="height:380px"
          aria-label="Karte mit Beiträgen in der Kategorie <?php echo esc_attr( $term->name ); ?>">
     </div>

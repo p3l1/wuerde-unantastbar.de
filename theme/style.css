@@ -1885,10 +1885,11 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 /* Mitmach-Karten-Grid */
 .mitmach-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--space-5);
   padding: var(--space-5);
   flex-direction: unset;
+  list-style: none;
 }
 
 .mitmach-card {
