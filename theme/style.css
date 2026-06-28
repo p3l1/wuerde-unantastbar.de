@@ -2550,8 +2550,8 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 }
 
 .mitmach-map__pin-dot {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   border-radius: var(--radius-full);
   display: flex;
   align-items: center;
@@ -2560,8 +2560,8 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 }
 
 .mitmach-map__pin-dot img {
-  width: 13px;
-  height: 13px;
+  width: 17px;
+  height: 17px;
   object-fit: contain;
   display: block;
 }

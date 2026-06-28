@@ -83,9 +83,9 @@
 					html:        '<div class="mitmach-map__pin-dot" style="background:' + color + '">'
 					             + ( crownUrl ? '<img src="' + crownUrl + '" alt="" aria-hidden="true">' : '' )
 					             + '</div>',
-					iconSize:    [ 24, 24 ],
-					iconAnchor:  [ 12, 12 ],
-					popupAnchor: [ 0, -14 ],
+					iconSize:    [ 32, 32 ],
+					iconAnchor:  [ 16, 16 ],
+					popupAnchor: [ 0, -18 ],
 				} );
 
 				var popup = '<div class="mitmach-map__popup" style="--popup-color:' + color + '">'

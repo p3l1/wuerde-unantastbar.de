@@ -265,9 +265,9 @@ function wuerde_render_koordinaten_meta_box( WP_Post $post ) {
         var pinIcon  = L.divIcon( {
             className:   'mitmach-map__pin',
             html:        '<div class="mitmach-map__pin-dot" style="background:#00ACA0"><img src="' + crownUrl + '" alt="" aria-hidden="true"></div>',
-            iconSize:    [ 24, 24 ],
-            iconAnchor:  [ 12, 12 ],
-            popupAnchor: [ 0, -14 ],
+            iconSize:    [ 32, 32 ],
+            iconAnchor:  [ 16, 16 ],
+            popupAnchor: [ 0, -18 ],
         } );
 
         function setMarker( lat, lng ) {
