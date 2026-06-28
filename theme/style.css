@@ -3567,6 +3567,11 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   font-size: var(--text-sm);
   font-weight: 600;
   letter-spacing: 0.01em;
+  text-decoration: none;
+}
+
+.beitrag-detail__kat:hover {
+  opacity: 0.85;
 }
 
 .beitrag-detail__ort {
@@ -3575,6 +3580,11 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   gap: 5px;
   font-size: var(--text-sm);
   color: var(--color-mid);
+  text-decoration: none;
+}
+
+.beitrag-detail__ort:hover {
+  color: var(--color-primary);
 }
 
 .beitrag-detail__content {

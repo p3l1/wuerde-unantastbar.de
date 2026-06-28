@@ -121,8 +121,7 @@ $posts = get_posts( [
     <?php endif; ?>
 
     <div class="kat-archive__back">
-      <a href="<?php echo esc_url( get_post_type_archive_link( 'wuerde_beitrag' ) ?: get_home_url( null, '/mach-mit/' ) ); ?>"
-         class="btn btn--secondary">
+      <a href="<?php echo esc_url( wuerde_machmit_url() ); ?>" class="btn btn--secondary">
         ← Zurück zu „Mach mit"
       </a>
     </div>

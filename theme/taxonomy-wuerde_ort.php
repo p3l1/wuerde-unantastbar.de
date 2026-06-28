@@ -51,7 +51,7 @@ foreach ( $all_posts as $post ) {
     }
 }
 
-$mach_mit_url = get_post_type_archive_link( 'wuerde_beitrag' ) ?: get_home_url( null, '/mach-mit/' );
+$mach_mit_url = wuerde_machmit_url();
 $ort_name     = $term->name;
 ?>
 
