@@ -95,8 +95,8 @@ foreach ( $all_posts as $post ) {
                 <?php if ( ! is_wp_error( $term_url ) ) : ?>
                 <a class="category-accordion__page-link"
                    href="<?php echo esc_url( $term_url ); ?>"
-                   aria-label="Kategorieseite <?php echo esc_attr( $term->name ); ?> öffnen">
-                    Kategorieseite
+                   aria-label="Alle Beiträge in <?php echo esc_attr( $term->name ); ?> anzeigen">
+                    Alle anzeigen
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
                         <path d="M2 10L10 2M10 2H5M10 2v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
