@@ -5,6 +5,8 @@
 require_once get_template_directory() . '/inc/cpt.php';
 require_once get_template_directory() . '/inc/cpt-person.php';
 require_once get_template_directory() . '/inc/blocks.php';
+require_once get_template_directory() . '/inc/settings.php';
+require_once get_template_directory() . '/inc/hcaptcha.php';
 
 function wuerde_setup() {
     add_theme_support( 'title-tag' );
