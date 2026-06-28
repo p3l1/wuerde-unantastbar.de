@@ -74,7 +74,7 @@ function wuerde_handle_kontakt( WP_REST_Request $request ): WP_REST_Response {
         return new WP_REST_Response( [ 'error' => 'Bitte warte eine Stunde vor der nächsten Nachricht.' ], 429 );
     }
 
-    if ( ! wuerde_verify_hcaptcha( $request->get_param( 'captcha_token' ) ) ) {
+    if ( get_option( 'wuerde_hcaptcha_site_key', '' ) && ! wuerde_verify_hcaptcha( $request->get_param( 'captcha_token' ) ) ) {
         return new WP_REST_Response( [ 'error' => 'Captcha-Verifikation fehlgeschlagen.' ], 400 );
     }
 
@@ -111,7 +111,7 @@ function wuerde_handle_einreichung( WP_REST_Request $request ): WP_REST_Response
         return new WP_REST_Response( [ 'error' => 'Bitte warte eine Stunde vor der nächsten Einreichung.' ], 429 );
     }
 
-    if ( ! wuerde_verify_hcaptcha( $request->get_param( 'captcha_token' ) ) ) {
+    if ( get_option( 'wuerde_hcaptcha_site_key', '' ) && ! wuerde_verify_hcaptcha( $request->get_param( 'captcha_token' ) ) ) {
         return new WP_REST_Response( [ 'error' => 'Captcha-Verifikation fehlgeschlagen.' ], 400 );
     }
 
