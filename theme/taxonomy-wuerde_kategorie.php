@@ -1,6 +1,6 @@
 <?php
 // ABOUTME: Archiv-Template für wuerde_kategorie-Terms.
-// ABOUTME: Header zeigt Term-Bild oder gefilterte Karte; danach Karten-Grid aller Beiträge.
+// ABOUTME: Header zeigt Term-Bild oder gefilterte Karte mit überlagertem Titel.
 
 get_header();
 
@@ -25,8 +25,6 @@ $posts = get_posts( [
     'orderby' => 'title',
     'order'   => 'ASC',
 ] );
-
-$mach_mit_url = get_permalink( get_page_by_path( 'mach-mit' ) ) ?: home_url( '/mach-mit/' );
 ?>
 
 <?php if ( $thumbnail_url ) : ?>
@@ -37,10 +35,6 @@ $mach_mit_url = get_permalink( get_page_by_path( 'mach-mit' ) ) ?: home_url( '/m
 >
   <div class="page-banner__overlay" aria-hidden="true"></div>
   <div class="page-banner__content">
-    <div class="kat-archive__breadcrumb">
-      <a href="<?php echo esc_url( $mach_mit_url ); ?>">Mach mit</a>
-      <span aria-hidden="true">›</span>
-    </div>
     <h1 class="page-banner__title page-banner__title--small">
       <span class="kat-archive__dot" style="background:<?php echo esc_attr( $cat_color ); ?>"></span>
       <?php echo esc_html( $term->name ); ?>
@@ -48,39 +42,31 @@ $mach_mit_url = get_permalink( get_page_by_path( 'mach-mit' ) ) ?: home_url( '/m
   </div>
 </section>
 <?php else : ?>
-<div class="kat-archive__map-header">
-  <div class="kat-archive__map-meta">
-    <div class="kat-archive__breadcrumb kat-archive__breadcrumb--dark">
-      <a href="<?php echo esc_url( $mach_mit_url ); ?>">← Mach mit</a>
-    </div>
-    <h1 class="kat-archive__map-title">
+<section class="page-banner page-banner--map" aria-label="<?php echo esc_attr( $term->name ); ?>">
+  <div class="mitmach-map"
+       id="mitmach-map"
+       data-center-lat="51.2"
+       data-center-lng="10.4"
+       data-zoom="6"
+       data-tile-style="osm"
+       data-rest-url="<?php echo esc_url( add_query_arg( 'kategorie', $term->slug, rest_url( 'wuerde/v1/map-points' ) ) ); ?>"
+       style="height:clamp(220px, 35vh, 380px)"
+       aria-label="Karte mit Beiträgen in der Kategorie <?php echo esc_attr( $term->name ); ?>">
+  </div>
+  <div class="page-banner__overlay" aria-hidden="true"></div>
+  <div class="page-banner__content">
+    <h1 class="page-banner__title page-banner__title--small">
       <span class="kat-archive__dot" style="background:<?php echo esc_attr( $cat_color ); ?>"></span>
       <?php echo esc_html( $term->name ); ?>
     </h1>
   </div>
-  <div class="mitmach-map-wrapper">
-    <div class="mitmach-map"
-         id="mitmach-map"
-         data-center-lat="51.2"
-         data-center-lng="10.4"
-         data-zoom="6"
-         data-tile-style="osm"
-         data-rest-url="<?php echo esc_url( add_query_arg( 'kategorie', $term->slug, rest_url( 'wuerde/v1/map-points' ) ) ); ?>"
-         style="height:380px"
-         aria-label="Karte mit Beiträgen in der Kategorie <?php echo esc_attr( $term->name ); ?>">
-    </div>
-  </div>
-</div>
+</section>
 <?php endif; ?>
 
 <main class="page-content" id="main-content" aria-label="Seiteninhalt" tabindex="-1">
   <div class="page-content__entry kat-archive">
 
-    <?php if ( $thumbnail_url && $term->description ) : ?>
-    <p class="kat-archive__description"><?php echo esc_html( $term->description ); ?></p>
-    <?php endif; ?>
-
-    <?php if ( ! $thumbnail_url && $term->description ) : ?>
+    <?php if ( $term->description ) : ?>
     <p class="kat-archive__description"><?php echo esc_html( $term->description ); ?></p>
     <?php endif; ?>
 
@@ -124,12 +110,6 @@ $mach_mit_url = get_permalink( get_page_by_path( 'mach-mit' ) ) ?: home_url( '/m
       <?php endforeach; ?>
     </ul>
     <?php endif; ?>
-
-    <div class="kat-archive__back">
-      <a href="<?php echo esc_url( $mach_mit_url ); ?>" class="btn btn--secondary">
-        ← Zurück zu „Mach mit"
-      </a>
-    </div>
 
   </div>
 </main>

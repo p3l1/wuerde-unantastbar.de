@@ -156,6 +156,13 @@ body {
   color: var(--color-text);
   background-color: var(--color-bg);
   -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.site-content {
+  flex: 1;
 }
 
 img,
@@ -2892,7 +2899,7 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 
 /* Site Content Wrapper */
 .site-content {
-  min-height: 60vh;
+  min-height: 60vh; /* Fallback wenn kein Flex-Layout greift */
 }
 
 /* Page Content */
@@ -3133,6 +3140,21 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   position: absolute;
   inset: 0;
   background: var(--page-banner-photo) var(--page-banner-pos, center 40%) / cover no-repeat;
+}
+
+.page-banner--map {
+  height: auto;
+}
+
+.page-banner--map::before {
+  display: none;
+}
+
+.page-banner--map .mitmach-map {
+  display: block;
+  width: 100%;
+  position: relative;
+  z-index: 0;
 }
 
 .page-banner__overlay {
