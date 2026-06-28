@@ -41,6 +41,25 @@ function wuerde_dashboard_widget_html() {
     echo '<p><a href="' . esc_url( $url ) . '" class="button button-primary">Warteliste anzeigen</a></p>';
 }
 
+function wuerde_beitrag_columns( array $columns ): array {
+    $new = [];
+    foreach ( $columns as $key => $label ) {
+        if ( $key === 'title' ) {
+            $new['wuerde_ref'] = 'Ref.-Nr.';
+        }
+        $new[ $key ] = $label;
+    }
+    return $new;
+}
+add_filter( 'manage_wuerde_beitrag_posts_columns', 'wuerde_beitrag_columns' );
+
+function wuerde_beitrag_column_content( string $column, int $post_id ): void {
+    if ( $column === 'wuerde_ref' ) {
+        echo '<strong style="font-family:monospace">#' . esc_html( (string) $post_id ) . '</strong>';
+    }
+}
+add_action( 'manage_wuerde_beitrag_posts_custom_column', 'wuerde_beitrag_column_content', 10, 2 );
+
 function wuerde_show_mail_error_notice() {
     $notice = get_transient( 'wuerde_mail_fehler' );
     if ( ! $notice ) {
