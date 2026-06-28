@@ -1,0 +1,15 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "wuerde/mitmach-einreichung",
+  "title": "Mitmach-Einreichung",
+  "category": "wuerde",
+  "description": "Formular zum Einreichen von Mitmach-Beiträgen. Erstellt ausstehende Einträge zur Freigabe.",
+  "keywords": ["mitmach", "einreichung", "formular", "beitrag"],
+  "textdomain": "wuerde-unantastbar",
+  "supports": { "html": false, "align": false },
+  "render": "file:./render.php",
+  "viewScript": "file:./view.js",
+  "viewStyle": "file:./view.css",
+  "editorScript": "file:./editor.js"
+}
