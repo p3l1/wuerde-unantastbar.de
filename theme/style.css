@@ -2971,6 +2971,7 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 
 .site-nav .sub-menu > li > a {
   font-size: var(--text-base);
+  border-radius: 0;
 }
 
 /* Hamburger */
