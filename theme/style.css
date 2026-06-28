@@ -2949,10 +2949,12 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   left: 0;
   background: var(--color-bg);
   border: 1px solid var(--color-border);
+  border-top: 2px solid var(--color-primary);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-md);
   list-style: none;
   min-width: 200px;
+  padding: var(--space-2);
   opacity: 0;
   pointer-events: none;
   transform: translateY(-6px);
@@ -2970,9 +2972,11 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 .site-nav .sub-menu > li > a {
   display: block;
   padding: var(--space-3) var(--space-4);
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
+  font-weight: 500;
   color: var(--color-text-muted);
   text-decoration: none;
+  border-radius: var(--radius-sm);
   transition: background var(--transition-fast), color var(--transition-fast);
 }
 
@@ -3057,6 +3061,12 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 .site-mobile-nav .sub-menu {
   padding-left: var(--space-4);
   margin-top: var(--space-1);
+  border-left: 2px solid var(--color-primary);
+}
+
+.site-mobile-nav .sub-menu > li > a {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
 }
 
 /* Transparent über dem Hero (Startseite, oben); JS schaltet .is-scrolled */
@@ -3099,6 +3109,17 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 
 .has-hero-template .site-header:not(.is-scrolled) .site-nav ul > li > a:hover {
   background: rgba(255, 255, 255, 0.12);
+}
+
+/* Submenü-Links sind weiß auf weißem Hintergrund — normale Farben erzwingen */
+.has-hero-template .site-header:not(.is-scrolled) .site-nav .sub-menu > li > a {
+  color: var(--color-text-muted);
+  text-shadow: none;
+}
+
+.has-hero-template .site-header:not(.is-scrolled) .site-nav .sub-menu > li > a:hover {
+  background: var(--color-bg-subtle);
+  color: var(--color-primary);
 }
 
 .has-hero-template .site-header:not(.is-scrolled) .site-nav ul > li.current-menu-item > a,
