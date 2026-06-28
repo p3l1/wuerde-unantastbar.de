@@ -39,7 +39,7 @@ wp_enqueue_script( 'leaflet' );
         <div class="wuerde-mitmach-einreichung__field">
             <label for="wuerde-einr-titel">Titel <span aria-hidden="true">*</span></label>
             <input type="text" id="wuerde-einr-titel" name="titel" required
-                   placeholder="z. B. Kunstprojekt im Bürgerpark">
+                   placeholder="z. B. Kunstprojekt im Stadtmuseum">
         </div>
         <div class="wuerde-mitmach-einreichung__field">
             <label for="wuerde-einr-beschreibung">Beschreibung <span aria-hidden="true">*</span></label>
