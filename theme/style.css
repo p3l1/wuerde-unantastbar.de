@@ -1889,6 +1889,21 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   color: var(--color-primary);
 }
 
+.category-accordion__list .mitmach-card__link {
+  color: var(--color-primary);
+  display: inline;
+  padding: 0;
+}
+
+.category-accordion__list .mitmach-card__link:hover {
+  color: var(--color-secondary);
+}
+
+.category-accordion__list .mitmach-card__tag {
+  display: inline-flex;
+  padding: var(--space-1) var(--space-3);
+}
+
 /* Mitmach-Karten-Grid */
 .mitmach-grid {
   display: grid;
