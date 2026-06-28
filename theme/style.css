@@ -1941,7 +1941,7 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 
 .mitmach-card__title {
   font-family: var(--font-brand);
-  font-size: var(--text-lg);
+  font-size: var(--text-xl);
   color: var(--color-text);
   line-height: var(--leading-snug);
 }
