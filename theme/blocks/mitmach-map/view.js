@@ -56,13 +56,6 @@
 		maxZoom: layer.maxZoom,
 	} ).addTo( map );
 
-	// Farbe per CSS-Variable aus dem Dokument lesen (Fallback: teal).
-	function getCategoryColor( slug ) {
-		var style = getComputedStyle( document.documentElement );
-		var token = style.getPropertyValue( '--color-cat-' + slug ).trim();
-		return token || style.getPropertyValue( '--color-teal' ).trim() || '#00aca0';
-	}
-
 	if ( ! restUrl ) return;
 
 	fetch( restUrl )
@@ -71,7 +64,7 @@
 			points.forEach( function ( point ) {
 				if ( ! point.lat || ! point.lng ) return;
 
-				var color  = getCategoryColor( point.category_slug );
+				var color = point.color || '#00aca0';
 				var marker = L.circleMarker( [ point.lat, point.lng ], {
 					radius:      10,
 					color:       'transparent',

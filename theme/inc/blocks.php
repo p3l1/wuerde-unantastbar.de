@@ -75,14 +75,24 @@ function wuerde_map_points_handler( WP_REST_Request $request ): WP_REST_Response
             continue;
         }
 
-        $terms = wp_get_post_terms( $post->ID, 'wuerde_kategorie', [ 'fields' => 'slugs' ] );
+        $terms = wp_get_post_terms( $post->ID, 'wuerde_kategorie' );
+        $term  = ! is_wp_error( $terms ) && ! empty( $terms ) ? $terms[0] : null;
+
+        $color = '';
+        if ( $term ) {
+            $color = get_term_meta( $term->term_id, 'wuerde_color_token', true );
+        }
+        if ( ! $color ) {
+            $color = '#00ACA0';
+        }
 
         $points[] = [
             'id'            => $post->ID,
             'title'         => $post->post_title,
             'lat'           => $lat,
             'lng'           => $lng,
-            'category_slug' => ! empty( $terms ) ? $terms[0] : '',
+            'category_slug' => $term ? $term->slug : '',
+            'color'         => $color,
             'permalink'     => get_permalink( $post->ID ),
         ];
     }
