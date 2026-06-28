@@ -3392,9 +3392,9 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   background-size: 88px 88px;
   background-color: transparent;
   opacity: 0.13;
-  inset: -100%;
-  width: 300%;
-  height: 300%;
+  inset: -250%;
+  width: 600%;
+  height: 600%;
   transform: rotate(-22deg);
 }
 
