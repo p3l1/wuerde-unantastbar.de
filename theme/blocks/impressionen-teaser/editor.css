@@ -1,0 +1,90 @@
+/* ABOUTME: Editor-Styles für den Impressionen-Teaser-Block im Gutenberg-Editor. */
+
+.impressionen-teaser-editor {
+  padding: 16px;
+}
+
+.impressionen-teaser-preview__heading {
+  margin: 0 0 12px;
+  font-size: 1.4rem;
+}
+
+.impressionen-editor__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.impressionen-editor__preview-item {
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.impressionen-editor__preview-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.impressionen-editor__count {
+  grid-column: 1 / -1;
+  font-size: 12px;
+  color: #757575;
+  margin: 8px 0 0;
+}
+
+.impressionen-editor__empty {
+  padding: 32px;
+  text-align: center;
+  border: 2px dashed #ddd;
+  border-radius: 6px;
+  color: #757575;
+}
+
+.impressionen-editor__thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.impressionen-editor__thumb {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.impressionen-editor__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.impressionen-editor__remove {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 18px;
+  height: 18px;
+  padding: 0 !important;
+  min-height: 0 !important;
+  font-size: 12px;
+  line-height: 1;
+  background: rgba(0,0,0,0.7) !important;
+  color: #fff !important;
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.impressionen-editor__link-hint {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #757575;
+}

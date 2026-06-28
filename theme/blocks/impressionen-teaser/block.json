@@ -1,0 +1,40 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "wuerde/impressionen-teaser",
+  "title": "Impressionen-Teaser",
+  "category": "wuerde",
+  "description": "Zeigt 3 zufällig ausgewählte Bilder aus einem kuratierten Pool mit Link zur Galerieseite.",
+  "keywords": ["galerie", "impressionen", "bilder", "fotos"],
+  "textdomain": "wuerde-unantastbar",
+  "attributes": {
+    "images": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id":  { "type": "number" },
+          "url": { "type": "string" },
+          "alt": { "type": "string" }
+        }
+      },
+      "default": []
+    },
+    "galleryUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "heading": {
+      "type": "string",
+      "default": "Impressionen"
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": false
+  },
+  "render": "file:./render.php",
+  "editorScript": "file:./editor.js",
+  "viewStyle": "file:./view.css",
+  "editorStyle": "file:./editor.css"
+}
