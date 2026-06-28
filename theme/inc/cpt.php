@@ -159,7 +159,7 @@ function wuerde_render_koordinaten_meta_box( WP_Post $post ) {
     <p style="color:#666;font-size:12px;margin-top:4px">
         Klicke in die Karte oder suche nach einer Adresse. Ort und Koordinaten werden automatisch gesetzt.
     </p>
-    <script>
+    <?php ob_start(); ?>
     ( function() {
         var mapEl     = document.getElementById( 'wuerde_koordinaten_map' );
         var latEl     = document.getElementById( 'wuerde_lat' );
@@ -354,8 +354,7 @@ function wuerde_render_koordinaten_meta_box( WP_Post $post ) {
             }
         } );
     } )();
-    </script>
-    <?php
+    <?php wp_add_inline_script( 'leaflet', ob_get_clean(), 'after' );
 }
 
 function wuerde_save_koordinaten_meta( int $post_id ) {
