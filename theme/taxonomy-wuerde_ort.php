@@ -18,14 +18,31 @@ $posts = get_posts( [
     'orderby' => 'title',
     'order'   => 'ASC',
 ] );
+
+// Kartenzentrierung: ersten Post mit Koordinaten suchen.
+$center_lat = '51.2';
+$center_lng = '10.4';
+$map_zoom   = '6';
+foreach ( $posts as $post ) {
+    $lat = get_post_meta( $post->ID, 'wuerde_lat', true );
+    $lng = get_post_meta( $post->ID, 'wuerde_lng', true );
+    if ( $lat && $lng ) {
+        $center_lat = $lat;
+        $center_lng = $lng;
+        $map_zoom   = '11';
+        break;
+    }
+}
+
+$mach_mit_url = get_post_type_archive_link( 'wuerde_beitrag' ) ?: get_home_url( null, '/mach-mit/' );
 ?>
 
 <section class="page-banner page-banner--map" aria-label="<?php echo esc_attr( $term->name ); ?>">
   <div class="mitmach-map"
        id="mitmach-map"
-       data-center-lat="51.2"
-       data-center-lng="10.4"
-       data-zoom="9"
+       data-center-lat="<?php echo esc_attr( (string) $center_lat ); ?>"
+       data-center-lng="<?php echo esc_attr( (string) $center_lng ); ?>"
+       data-zoom="<?php echo esc_attr( $map_zoom ); ?>"
        data-interactive="false"
        data-tile-style="osm"
        data-rest-url="<?php echo esc_url( add_query_arg( 'ort', $term->slug, rest_url( 'wuerde/v1/map-points' ) ) ); ?>"
@@ -94,6 +111,12 @@ $posts = get_posts( [
       <?php endforeach; ?>
     </ul>
     <?php endif; ?>
+
+    <div class="kat-archive__back">
+      <a href="<?php echo esc_url( $mach_mit_url ); ?>" class="btn btn--secondary">
+        ← Zurück zu „Mach mit"
+      </a>
+    </div>
 
   </div>
 </main>
