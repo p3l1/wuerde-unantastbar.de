@@ -275,6 +275,16 @@ function wuerde_enqueue_kategorie_archive_scripts() {
         '1.0.0',
         true
     );
+
+    if ( is_tax( 'wuerde_ort' ) ) {
+        wp_enqueue_script(
+            'wuerde-mitmach-list-view',
+            get_template_directory_uri() . '/blocks/mitmach-list/view.js',
+            [],
+            '1.0.0',
+            true
+        );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'wuerde_enqueue_kategorie_archive_scripts' );
 
