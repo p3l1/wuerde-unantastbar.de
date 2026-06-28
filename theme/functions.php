@@ -279,3 +279,14 @@ function wuerde_enqueue_term_admin_media() {
     }
 }
 add_action( 'admin_enqueue_scripts', 'wuerde_enqueue_term_admin_media' );
+
+// Leaflet im Admin für den Koordinaten-Picker laden.
+function wuerde_enqueue_admin_leaflet() {
+    $screen = get_current_screen();
+    if ( ! $screen || $screen->post_type !== 'wuerde_beitrag' ) {
+        return;
+    }
+    wp_enqueue_style( 'leaflet' );
+    wp_enqueue_script( 'leaflet' );
+}
+add_action( 'admin_enqueue_scripts', 'wuerde_enqueue_admin_leaflet' );

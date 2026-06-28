@@ -96,14 +96,15 @@ function wuerde_seed_categories() {
 }
 add_action( 'init', 'wuerde_seed_categories' );
 
-// Meta-Box für Koordinaten im Beitrags-Editor.
+// Meta-Box für Koordinaten-Picker im Beitrags-Editor.
 function wuerde_register_koordinaten_meta_box() {
     add_meta_box(
         'wuerde_koordinaten',
-        'Kartenposition (Koordinaten)',
+        'Kartenposition',
         'wuerde_render_koordinaten_meta_box',
         'wuerde_beitrag',
-        'side'
+        'normal',
+        'high'
     );
 }
 add_action( 'add_meta_boxes', 'wuerde_register_koordinaten_meta_box' );
@@ -114,19 +115,158 @@ function wuerde_render_koordinaten_meta_box( WP_Post $post ) {
     $lat = get_post_meta( $post->ID, 'wuerde_lat', true );
     $lng = get_post_meta( $post->ID, 'wuerde_lng', true );
     ?>
-    <p>
-        <label for="wuerde_lat"><strong>Breitengrad (lat)</strong></label><br>
-        <input type="number" id="wuerde_lat" name="wuerde_lat"
-               value="<?php echo esc_attr( $lat ); ?>"
-               step="0.000001" min="-90" max="90" style="width:100%">
+    <div style="margin-bottom:8px;display:flex;gap:6px">
+        <input type="text"
+               id="wuerde_koordinaten_search"
+               placeholder="Adresse oder Ort suchen …"
+               style="flex:1;padding:4px 8px">
+        <button type="button" id="wuerde_koordinaten_search_btn" class="button">Suchen</button>
+    </div>
+    <div id="wuerde_koordinaten_results"
+         style="display:none;border:1px solid #ddd;border-radius:4px;max-height:160px;overflow-y:auto;margin-bottom:8px;background:#fff">
+    </div>
+    <div id="wuerde_koordinaten_map"
+         style="height:320px;border-radius:4px;border:1px solid #ddd;margin-bottom:12px">
+    </div>
+    <table class="form-table" style="margin-top:0">
+        <tr>
+            <th style="width:120px;padding:4px 0"><label for="wuerde_lat">Erkannter Ort</label></th>
+            <td style="padding:4px 0">
+                <input type="text" id="wuerde_ort_display" name="wuerde_ort_suggestion"
+                       placeholder="Wird automatisch bestimmt"
+                       style="width:100%;background:#f6f7f7;color:#50575e"
+                       readonly>
+            </td>
+        </tr>
+        <tr>
+            <th style="padding:4px 0"><label for="wuerde_lat">Breitengrad</label></th>
+            <td style="padding:4px 0">
+                <input type="number" id="wuerde_lat" name="wuerde_lat"
+                       value="<?php echo esc_attr( $lat ); ?>"
+                       step="0.000001" min="-90" max="90" style="width:100%">
+            </td>
+        </tr>
+        <tr>
+            <th style="padding:4px 0"><label for="wuerde_lng">Längengrad</label></th>
+            <td style="padding:4px 0">
+                <input type="number" id="wuerde_lng" name="wuerde_lng"
+                       value="<?php echo esc_attr( $lng ); ?>"
+                       step="0.000001" min="-180" max="180" style="width:100%">
+            </td>
+        </tr>
+    </table>
+    <p style="color:#666;font-size:12px;margin-top:4px">
+        Klicke in die Karte oder suche nach einer Adresse. Ort und Koordinaten werden automatisch gesetzt.
     </p>
-    <p>
-        <label for="wuerde_lng"><strong>Längengrad (lng)</strong></label><br>
-        <input type="number" id="wuerde_lng" name="wuerde_lng"
-               value="<?php echo esc_attr( $lng ); ?>"
-               step="0.000001" min="-180" max="180" style="width:100%">
-    </p>
-    <p style="color:#666;font-size:12px">Dezimalgrad, z. B. 48.137154 / 11.576124 für München.</p>
+    <script>
+    ( function() {
+        var mapEl   = document.getElementById( 'wuerde_koordinaten_map' );
+        var latEl   = document.getElementById( 'wuerde_lat' );
+        var lngEl   = document.getElementById( 'wuerde_lng' );
+        var ortEl   = document.getElementById( 'wuerde_ort_display' );
+        var searchEl  = document.getElementById( 'wuerde_koordinaten_search' );
+        var searchBtn = document.getElementById( 'wuerde_koordinaten_search_btn' );
+        var resultsEl = document.getElementById( 'wuerde_koordinaten_results' );
+
+        if ( typeof L === 'undefined' || ! mapEl ) return;
+
+        var initLat = parseFloat( latEl.value ) || 51.2;
+        var initLng = parseFloat( lngEl.value ) || 10.4;
+        var initZoom = ( latEl.value && lngEl.value ) ? 10 : 6;
+
+        var map = L.map( mapEl, { scrollWheelZoom: false } )
+                   .setView( [ initLat, initLng ], initZoom );
+
+        L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap-Mitwirkende',
+            maxZoom: 19,
+        } ).addTo( map );
+
+        var marker = null;
+
+        function setMarker( lat, lng ) {
+            if ( marker ) {
+                marker.setLatLng( [ lat, lng ] );
+            } else {
+                marker = L.marker( [ lat, lng ] ).addTo( map );
+            }
+            latEl.value = lat.toFixed( 6 );
+            lngEl.value = lng.toFixed( 6 );
+        }
+
+        function reverseGeocode( lat, lng ) {
+            var url = 'https://nominatim.openstreetmap.org/reverse?lat=' + lat + '&lon=' + lng + '&format=json&accept-language=de';
+            fetch( url )
+                .then( function( r ) { return r.json(); } )
+                .then( function( data ) {
+                    var a = data.address || {};
+                    var city = a.city || a.town || a.village || a.municipality || a.county || '';
+                    ortEl.value = city;
+                } )
+                .catch( function() {} );
+        }
+
+        if ( latEl.value && lngEl.value ) {
+            setMarker( initLat, initLng );
+            reverseGeocode( initLat, initLng );
+        }
+
+        map.on( 'click', function( e ) {
+            setMarker( e.latlng.lat, e.latlng.lng );
+            reverseGeocode( e.latlng.lat, e.latlng.lng );
+        } );
+
+        function doSearch() {
+            var q = searchEl.value.trim();
+            if ( ! q ) return;
+            searchBtn.disabled = true;
+            searchBtn.textContent = '…';
+            fetch( 'https://nominatim.openstreetmap.org/search?q=' + encodeURIComponent( q ) + '&format=json&limit=5&accept-language=de' )
+                .then( function( r ) { return r.json(); } )
+                .then( function( results ) {
+                    resultsEl.innerHTML = '';
+                    if ( ! results.length ) {
+                        resultsEl.innerHTML = '<p style="padding:8px;color:#666;margin:0">Keine Ergebnisse.</p>';
+                        resultsEl.style.display = 'block';
+                        return;
+                    }
+                    results.forEach( function( item ) {
+                        var btn = document.createElement( 'button' );
+                        btn.type = 'button';
+                        btn.textContent = item.display_name;
+                        btn.style.cssText = 'display:block;width:100%;text-align:left;padding:8px 10px;border:none;border-bottom:1px solid #eee;background:none;cursor:pointer;font-size:13px;line-height:1.3';
+                        btn.addEventListener( 'mouseover', function() { btn.style.background = '#f0f0f0'; } );
+                        btn.addEventListener( 'mouseout',  function() { btn.style.background = 'none'; } );
+                        btn.addEventListener( 'click', function() {
+                            var lat = parseFloat( item.lat );
+                            var lng = parseFloat( item.lon );
+                            map.setView( [ lat, lng ], 12 );
+                            setMarker( lat, lng );
+                            reverseGeocode( lat, lng );
+                            resultsEl.style.display = 'none';
+                        } );
+                        resultsEl.appendChild( btn );
+                    } );
+                    resultsEl.style.display = 'block';
+                } )
+                .finally( function() {
+                    searchBtn.disabled = false;
+                    searchBtn.textContent = 'Suchen';
+                } );
+        }
+
+        searchBtn.addEventListener( 'click', doSearch );
+        searchEl.addEventListener( 'keydown', function( e ) {
+            if ( e.key === 'Enter' ) { e.preventDefault(); doSearch(); }
+        } );
+
+        document.addEventListener( 'click', function( e ) {
+            if ( ! resultsEl.contains( e.target ) && e.target !== searchEl && e.target !== searchBtn ) {
+                resultsEl.style.display = 'none';
+            }
+        } );
+    } )();
+    </script>
     <?php
 }
 
@@ -152,6 +292,12 @@ function wuerde_save_koordinaten_meta( int $post_id ) {
 
     if ( isset( $_POST['wuerde_lng'] ) ) {
         update_post_meta( $post_id, 'wuerde_lng', (float) $_POST['wuerde_lng'] );
+    }
+
+    // Ort aus Reverse-Geocoding automatisch als Term setzen.
+    if ( ! empty( $_POST['wuerde_ort_suggestion'] ) ) {
+        $city = sanitize_text_field( wp_unslash( $_POST['wuerde_ort_suggestion'] ) );
+        wp_set_post_terms( $post_id, [ $city ], 'wuerde_ort' );
     }
 }
 add_action( 'save_post_wuerde_beitrag', 'wuerde_save_koordinaten_meta' );

@@ -1812,18 +1812,17 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   align-items: center;
   gap: 5px;
   padding: 0 var(--space-5);
-  font-size: var(--text-xs);
-  font-weight: 500;
-  color: var(--color-secondary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-teal);
   text-decoration: none;
   white-space: nowrap;
   border-left: 1px solid var(--color-border);
-  transition: background var(--transition-fast), color var(--transition-fast);
+  transition: background var(--transition-fast);
 }
 
 .category-accordion__page-link:hover {
   background: var(--color-bg-subtle);
-  color: var(--color-secondary-dark, var(--color-secondary));
 }
 
 .category-accordion__more {
