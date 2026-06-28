@@ -108,6 +108,9 @@ function wuerde_map_points_handler( WP_REST_Request $request ): WP_REST_Response
             $color = '#00ACA0';
         }
 
+        $ort_terms = wp_get_post_terms( $post->ID, 'wuerde_ort', [ 'fields' => 'names' ] );
+        $ort       = ! is_wp_error( $ort_terms ) && ! empty( $ort_terms ) ? $ort_terms[0] : '';
+
         $points[] = [
             'id'            => $post->ID,
             'title'         => $post->post_title,
@@ -115,6 +118,7 @@ function wuerde_map_points_handler( WP_REST_Request $request ): WP_REST_Response
             'lng'           => $lng,
             'category_slug' => $term ? $term->slug : '',
             'color'         => $color,
+            'ort'           => $ort,
             'permalink'     => get_permalink( $post->ID ),
         ];
     }

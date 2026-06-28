@@ -2612,16 +2612,22 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 .mitmach-map__popup strong {
   display: block;
   color: var(--color-dark);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
-.mitmach-map__popup a {
+.mitmach-map__popup-ort {
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.mitmach-map__popup-link {
+  display: block;
   color: var(--color-teal);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
 }
 
-.mitmach-map__popup a:hover {
+.mitmach-map__popup-link:hover {
   text-decoration: underline;
 }
 

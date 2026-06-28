@@ -90,7 +90,8 @@
 
 				var popup = '<div class="mitmach-map__popup" style="--popup-color:' + color + '">'
 				          + '<strong>' + point.title + '</strong>'
-				          + ( point.permalink ? '<br><a href="' + point.permalink + '">Details →</a>' : '' )
+				          + ( point.ort ? '<span class="mitmach-card__tag mitmach-map__popup-ort">' + point.ort + '</span>' : '' )
+				          + ( point.permalink ? '<a href="' + point.permalink + '" class="mitmach-map__popup-link">Details →</a>' : '' )
 				          + '</div>';
 
 				L.marker( [ point.lat, point.lng ], { icon: icon } )
