@@ -131,12 +131,15 @@ function wuerde_render_koordinaten_meta_box( WP_Post $post ) {
     </div>
     <table class="form-table" style="margin-top:0">
         <tr>
-            <th style="width:120px;padding:4px 0"><label for="wuerde_lat">Erkannter Ort</label></th>
+            <th style="width:120px;padding:4px 0"><label for="wuerde_ort_display">Ort</label></th>
             <td style="padding:4px 0">
                 <input type="text" id="wuerde_ort_display" name="wuerde_ort_suggestion"
+                       value="<?php
+                           $ort_terms = wp_get_post_terms( $post->ID, 'wuerde_ort', [ 'fields' => 'names' ] );
+                           echo esc_attr( ! is_wp_error( $ort_terms ) && ! empty( $ort_terms ) ? $ort_terms[0] : '' );
+                       ?>"
                        placeholder="Wird automatisch bestimmt"
-                       style="width:100%;background:#f6f7f7;color:#50575e"
-                       readonly>
+                       style="width:100%">
             </td>
         </tr>
         <tr>
@@ -388,11 +391,44 @@ function wuerde_save_koordinaten_meta( int $post_id ) {
         update_post_meta( $post_id, 'wuerde_lng', (float) $_POST['wuerde_lng'] );
     }
 
-    // Ort aus Reverse-Geocoding automatisch als Term setzen.
-    if ( ! empty( $_POST['wuerde_ort_suggestion'] ) ) {
-        $city = sanitize_text_field( wp_unslash( $_POST['wuerde_ort_suggestion'] ) );
+    // Ort setzen: entweder aus dem Formularfeld oder server-seitig via Nominatim.
+    $city = sanitize_text_field( wp_unslash( $_POST['wuerde_ort_suggestion'] ?? '' ) );
+
+    if ( empty( $city ) ) {
+        $lat = (float) ( $_POST['wuerde_lat'] ?? 0 );
+        $lng = (float) ( $_POST['wuerde_lng'] ?? 0 );
+
+        if ( $lat && $lng ) {
+            $city = wuerde_reverse_geocode( $lat, $lng );
+        }
+    }
+
+    if ( ! empty( $city ) ) {
         wp_set_post_terms( $post_id, [ $city ], 'wuerde_ort' );
     }
+}
+
+function wuerde_reverse_geocode( float $lat, float $lng ): string {
+    $url = add_query_arg( [
+        'lat'             => $lat,
+        'lon'             => $lng,
+        'format'          => 'json',
+        'accept-language' => 'de',
+    ], 'https://nominatim.openstreetmap.org/reverse' );
+
+    $response = wp_remote_get( $url, [
+        'timeout'    => 5,
+        'user-agent' => 'wuerde-unantastbar.de/1.0 (WordPress; contact@wuerde-unantastbar.de)',
+    ] );
+
+    if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
+        return '';
+    }
+
+    $data = json_decode( wp_remote_retrieve_body( $response ), true );
+    $addr = $data['address'] ?? [];
+
+    return (string) ( $addr['city'] ?? $addr['town'] ?? $addr['village'] ?? $addr['municipality'] ?? $addr['county'] ?? '' );
 }
 add_action( 'save_post_wuerde_beitrag', 'wuerde_save_koordinaten_meta' );
 
