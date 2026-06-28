@@ -24,7 +24,5 @@ $rest_url = rest_url( 'wuerde/v1/map-points' );
          style="height:<?php echo esc_attr( $height ); ?>"
          aria-label="Deutschlandkarte mit Mitmach-Möglichkeiten">
     </div>
-    <p class="mitmach-map__hint">
-        Kartendaten &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>-Mitwirkende
-    </p>
+
 </div>
