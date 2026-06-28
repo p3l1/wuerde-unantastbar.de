@@ -1,0 +1,15 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "wuerde/kontakt-formular",
+  "title": "Kontaktformular",
+  "category": "wuerde",
+  "description": "Kontaktformular mit hCaptcha-Schutz, sendet E-Mail an konfigurierte Adresse.",
+  "keywords": ["kontakt", "formular", "email"],
+  "textdomain": "wuerde-unantastbar",
+  "supports": { "html": false, "align": false },
+  "render": "file:./render.php",
+  "viewScript": "file:./view.js",
+  "viewStyle": "file:./view.css",
+  "editorScript": "file:./editor.js"
+}
