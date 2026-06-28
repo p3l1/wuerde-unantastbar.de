@@ -253,3 +253,29 @@ function wuerde_register_banner_meta() {
     register_meta( 'post', 'banner_image_pos', $args );
 }
 add_action( 'init', 'wuerde_register_banner_meta' );
+
+// Leaflet und Karten-Script auf Kategorie-Archivseiten laden.
+function wuerde_enqueue_kategorie_archive_scripts() {
+    if ( ! is_tax( 'wuerde_kategorie' ) ) {
+        return;
+    }
+    wp_enqueue_style( 'leaflet' );
+    wp_enqueue_script( 'leaflet' );
+    wp_enqueue_script(
+        'wuerde-mitmach-map-view',
+        get_template_directory_uri() . '/blocks/mitmach-map/view.js',
+        [ 'leaflet' ],
+        '1.0.0',
+        true
+    );
+}
+add_action( 'wp_enqueue_scripts', 'wuerde_enqueue_kategorie_archive_scripts' );
+
+// wp_enqueue_media für Kategorie-Admin-Seiten laden (Term-Bild-Picker).
+function wuerde_enqueue_term_admin_media() {
+    $screen = get_current_screen();
+    if ( $screen && 'wuerde_kategorie' === $screen->taxonomy ) {
+        wp_enqueue_media();
+    }
+}
+add_action( 'admin_enqueue_scripts', 'wuerde_enqueue_term_admin_media' );

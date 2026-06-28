@@ -3183,6 +3183,33 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   flex-shrink: 0;
 }
 
+.kat-archive__map-header {
+  position: relative;
+}
+
+.kat-archive__map-meta {
+  padding: var(--space-6) clamp(24px, 5vw, 64px) var(--space-4);
+  background: var(--color-bg);
+}
+
+.kat-archive__map-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-brand);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  margin: 0;
+  color: var(--color-dark);
+}
+
+.kat-archive__map-header .mitmach-map-wrapper {
+  margin: 0;
+}
+
+.kat-archive__map-header .mitmach-map {
+  display: block;
+}
+
 .kat-archive__breadcrumb {
   display: flex;
   align-items: center;
@@ -3198,6 +3225,21 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 }
 
 .kat-archive__breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.kat-archive__breadcrumb--dark {
+  color: var(--color-mid);
+  margin-bottom: var(--space-2);
+}
+
+.kat-archive__breadcrumb--dark a {
+  color: var(--color-secondary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.kat-archive__breadcrumb--dark a:hover {
   text-decoration: underline;
 }
 

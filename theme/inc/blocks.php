@@ -47,12 +47,24 @@ function wuerde_register_rest_routes() {
 }
 add_action( 'rest_api_init', 'wuerde_register_rest_routes' );
 
-function wuerde_map_points_handler(): WP_REST_Response {
-    $posts = get_posts( [
+function wuerde_map_points_handler( WP_REST_Request $request ): WP_REST_Response {
+    $kategorie = sanitize_key( $request->get_param( 'kategorie' ) );
+
+    $query_args = [
         'post_type'      => 'wuerde_beitrag',
         'posts_per_page' => -1,
         'post_status'    => 'publish',
-    ] );
+    ];
+
+    if ( $kategorie ) {
+        $query_args['tax_query'] = [ [
+            'taxonomy' => 'wuerde_kategorie',
+            'field'    => 'slug',
+            'terms'    => $kategorie,
+        ] ];
+    }
+
+    $posts = get_posts( $query_args );
 
     $points = [];
     foreach ( $posts as $post ) {

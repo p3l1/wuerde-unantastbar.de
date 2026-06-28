@@ -189,3 +189,83 @@ function wuerde_save_kategorie_color( int $term_id ) {
     }
 }
 add_action( 'edited_wuerde_kategorie', 'wuerde_save_kategorie_color' );
+
+// Term-Meta für Kategorie-Header-Bild.
+function wuerde_register_kategorie_image_meta() {
+    register_term_meta( 'wuerde_kategorie', 'wuerde_term_image', [
+        'type'         => 'integer',
+        'single'       => true,
+        'show_in_rest' => false,
+    ] );
+}
+add_action( 'init', 'wuerde_register_kategorie_image_meta' );
+
+// Bild-Picker im Kategorie-Bearbeiten-Formular.
+function wuerde_kategorie_image_field( WP_Term $term ) {
+    $image_id  = (int) get_term_meta( $term->term_id, 'wuerde_term_image', true );
+    $image_url = $image_id ? wp_get_attachment_image_url( $image_id, 'medium' ) : '';
+    ?>
+    <tr class="form-field">
+        <th scope="row"><label>Header-Bild</label></th>
+        <td>
+            <div id="wuerde-term-image-wrap">
+                <?php if ( $image_url ) : ?>
+                <img id="wuerde-term-image-preview"
+                     src="<?php echo esc_url( $image_url ); ?>"
+                     style="max-width:200px;display:block;margin-bottom:8px">
+                <?php else : ?>
+                <img id="wuerde-term-image-preview"
+                     src="" alt=""
+                     style="max-width:200px;display:none;margin-bottom:8px">
+                <?php endif; ?>
+            </div>
+            <input type="hidden" id="wuerde_term_image" name="wuerde_term_image"
+                   value="<?php echo esc_attr( $image_id ); ?>">
+            <button type="button" id="wuerde-term-image-btn" class="button">
+                <?php echo $image_id ? 'Bild ändern' : 'Bild auswählen'; ?>
+            </button>
+            <?php if ( $image_id ) : ?>
+            <button type="button" id="wuerde-term-image-remove" class="button" style="margin-left:4px">
+                Entfernen
+            </button>
+            <?php endif; ?>
+            <p class="description">Optionales Headerbild für die Kategorieseite. Ohne Bild wird die gefilterte Karte angezeigt.</p>
+            <script>
+            jQuery( function( $ ) {
+                var frame;
+                $( '#wuerde-term-image-btn' ).on( 'click', function() {
+                    if ( frame ) { frame.open(); return; }
+                    frame = wp.media( { title: 'Header-Bild auswählen', button: { text: 'Bild verwenden' }, multiple: false, library: { type: 'image' } } );
+                    frame.on( 'select', function() {
+                        var att = frame.state().get( 'selection' ).first().toJSON();
+                        $( '#wuerde_term_image' ).val( att.id );
+                        $( '#wuerde-term-image-preview' ).attr( 'src', att.sizes && att.sizes.medium ? att.sizes.medium.url : att.url ).show();
+                        $( '#wuerde-term-image-btn' ).text( 'Bild ändern' );
+                    } );
+                    frame.open();
+                } );
+                $( '#wuerde-term-image-remove' ).on( 'click', function() {
+                    $( '#wuerde_term_image' ).val( '' );
+                    $( '#wuerde-term-image-preview' ).attr( 'src', '' ).hide();
+                    $( this ).hide();
+                    $( '#wuerde-term-image-btn' ).text( 'Bild auswählen' );
+                } );
+            } );
+            </script>
+        </td>
+    </tr>
+    <?php
+}
+add_action( 'wuerde_kategorie_edit_form_fields', 'wuerde_kategorie_image_field' );
+
+function wuerde_save_kategorie_image( int $term_id ) {
+    if ( isset( $_POST['wuerde_term_image'] ) ) {
+        $image_id = (int) $_POST['wuerde_term_image'];
+        if ( $image_id ) {
+            update_term_meta( $term_id, 'wuerde_term_image', $image_id );
+        } else {
+            delete_term_meta( $term_id, 'wuerde_term_image' );
+        }
+    }
+}
+add_action( 'edited_wuerde_kategorie', 'wuerde_save_kategorie_image' );
