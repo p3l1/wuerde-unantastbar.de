@@ -786,6 +786,7 @@ p {
 
 .btn--secondary:hover:not(:disabled) {
   box-shadow: var(--shadow-md);
+  color: var(--color-black);
 }
 
 /* Outline */
