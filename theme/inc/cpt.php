@@ -262,7 +262,10 @@ function wuerde_render_koordinaten_meta_box( WP_Post $post ) {
             if ( marker ) {
                 marker.setLatLng( [ lat, lng ] );
             } else {
-                marker = L.marker( [ lat, lng ] ).addTo( map );
+                marker = L.circleMarker( [ lat, lng ], {
+                    radius: 10, color: '#00ACA0', fillColor: '#00ACA0',
+                    fillOpacity: 1, weight: 0,
+                } ).addTo( map );
             }
             latEl.value = lat.toFixed( 6 );
             lngEl.value = lng.toFixed( 6 );
