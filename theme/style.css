@@ -1889,6 +1889,13 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   color: var(--color-primary);
 }
 
+.category-accordion__list .mitmach-card__title a {
+  font-size: inherit;
+  display: inline;
+  padding: 0;
+  color: inherit;
+}
+
 .category-accordion__list .mitmach-card__link {
   color: var(--color-primary);
   display: inline;
