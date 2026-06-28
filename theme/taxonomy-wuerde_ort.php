@@ -99,8 +99,14 @@ $mach_mit_url = get_post_type_archive_link( 'wuerde_beitrag' ) ?: get_home_url( 
           <p class="mitmach-card__text"><?php echo esc_html( $excerpt ); ?></p>
           <?php endif; ?>
           <div class="mitmach-card__footer">
-            <?php if ( $kat_term ) : ?>
-            <span class="mitmach-card__tag"><?php echo esc_html( $kat_term->name ); ?></span>
+            <?php if ( $kat_term ) :
+                $kat_url = get_term_link( $kat_term, 'wuerde_kategorie' );
+            ?>
+            <a href="<?php echo esc_url( ! is_wp_error( $kat_url ) ? $kat_url : '#' ); ?>"
+               class="mitmach-card__tag"
+               style="background:<?php echo esc_attr( $cat_color ); ?>;color:#fff">
+              <?php echo esc_html( $kat_term->name ); ?>
+            </a>
             <?php endif; ?>
             <a href="<?php echo esc_url( get_permalink( $post->ID ) ); ?>" class="mitmach-card__link">
               Details

@@ -79,8 +79,9 @@ $posts = get_posts( [
       <?php foreach ( $posts as $post ) :
           $thumbnail_url_card = get_the_post_thumbnail_url( $post->ID, 'medium' );
           $excerpt            = get_the_excerpt( $post );
-          $post_ort_terms     = wp_get_post_terms( $post->ID, 'wuerde_ort', [ 'fields' => 'names' ] );
-          $ort_label          = ! is_wp_error( $post_ort_terms ) && ! empty( $post_ort_terms ) ? $post_ort_terms[0] : '';
+          $post_ort_terms     = wp_get_post_terms( $post->ID, 'wuerde_ort' );
+          $ort_term           = ! is_wp_error( $post_ort_terms ) && ! empty( $post_ort_terms ) ? $post_ort_terms[0] : null;
+          $ort_label          = $ort_term ? $ort_term->name : '';
       ?>
       <li>
         <article class="mitmach-card" style="--cat-color:<?php echo esc_attr( $cat_color ); ?>">
@@ -100,8 +101,13 @@ $posts = get_posts( [
           <p class="mitmach-card__text"><?php echo esc_html( $excerpt ); ?></p>
           <?php endif; ?>
           <div class="mitmach-card__footer">
-            <?php if ( $ort_label ) : ?>
-            <span class="mitmach-card__tag"><?php echo esc_html( $ort_label ); ?></span>
+            <?php if ( $ort_term ) :
+                $ort_url = get_term_link( $ort_term, 'wuerde_ort' );
+            ?>
+            <a href="<?php echo esc_url( ! is_wp_error( $ort_url ) ? $ort_url : '#' ); ?>"
+               class="mitmach-card__tag">
+              <?php echo esc_html( $ort_label ); ?>
+            </a>
             <?php endif; ?>
             <a href="<?php echo esc_url( get_permalink( $post->ID ) ); ?>" class="mitmach-card__link">
               Details
