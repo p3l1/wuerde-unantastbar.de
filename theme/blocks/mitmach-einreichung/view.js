@@ -86,7 +86,7 @@
         adresseHint.textContent = 'Suche …';
         adresseHint.className   = 'wuerde-mitmach-einreichung__adresse-hint';
 
-        var url = 'https://nominatim.openstreetmap.org/search?q=' + encodeURIComponent( adresse ) + '&format=json&limit=1&accept-language=de';
+        var url = 'https://nominatim.openstreetmap.org/search?q=' + encodeURIComponent( adresse ) + '&format=json&limit=1&addressdetails=1&accept-language=de';
         fetch( url )
             .then( function ( r ) { return r.json(); } )
             .then( function ( data ) {
@@ -103,10 +103,10 @@
                     leafletMap.setView( [ lat, lng ], 13 );
                 }
 
-                // Ort nur vorausfüllen wenn Feld noch leer.
+                // Ort nur vorausfüllen wenn Feld noch leer — Stadt aus address-Objekt.
                 if ( ! ortEl.value ) {
-                    var display = data[0].display_name || '';
-                    var city    = display.split( ',' )[ 0 ].trim();
+                    var a    = data[0].address || {};
+                    var city = a.city || a.town || a.village || a.municipality || a.county || '';
                     if ( city ) ortEl.value = city;
                 }
 
