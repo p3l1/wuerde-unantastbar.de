@@ -10,6 +10,14 @@ Text Domain: wuerde-unantastbar
 */
 
 /* ==========================================================================
+   Google Fonts / Fontshare Imports — MUSS vor allen Style-Regeln stehen,
+   sonst ignoriert der Browser die @import-Regel.
+   (Produktiv durch lokale Font-Dateien ersetzen, sobald verfügbar)
+   ========================================================================== */
+
+@import url('https://api.fontshare.com/v2/css?f[]=pally@400,500,700&f[]=tanker@400&display=swap');
+
+/* ==========================================================================
    CI-Farben & Design Tokens
    Quelle: Corporate Identity "Würde unantastbar" (Würde_unantastbar_CI.docx)
    ========================================================================== */
@@ -98,7 +106,7 @@ Text Domain: wuerde-unantastbar
 
   --container-max:  1200px;
   --container-wide: 1440px;
-  --container-text: 720px;
+  --container-text: clamp(600px, 60%, 900px);
 
   /* ==========================================================================
      Radien & Schatten
@@ -122,13 +130,6 @@ Text Domain: wuerde-unantastbar
   --transition-normal: 250ms ease;
   --transition-slow:   400ms ease;
 }
-
-/* ==========================================================================
-   Google Fonts / Fontshare Imports
-   (Produktiv durch lokale Font-Dateien ersetzen, sobald verfügbar)
-   ========================================================================== */
-
-@import url('https://api.fontshare.com/v2/css?f[]=pally@400,500,700&f[]=tanker@400&display=swap');
 
 /* ==========================================================================
    Reset & Basis
@@ -2596,19 +2597,18 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   transform: translateY(0);
 }
 
-/* Site Header */
+/* Site Header — weiß (Standard), transparent über dem Hero */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 200;
-  background: var(--color-bg);
-  border-bottom: 1px solid var(--color-border);
+  background: #fff;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05), 0 6px 24px rgba(0, 0, 0, 0.07);
+  transition: background var(--transition-normal), box-shadow var(--transition-normal);
 }
 
 .site-header__inner {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: var(--space-3) var(--space-6);
+  padding: 12px clamp(24px, 5vw, 64px);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2616,19 +2616,30 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 }
 
 .site-header__brand {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: var(--space-3);
-  font-size: var(--text-base);
-  font-weight: 700;
-  color: var(--color-text);
+  gap: 12px;
   text-decoration: none;
   white-space: nowrap;
   min-height: 44px;
 }
 
-.site-header__brand img {
+.site-header__brand .brand-crown {
+  display: block;
+  width: 40px;
+  height: 40px;
   flex-shrink: 0;
+}
+
+.site-header .brand-crown--white { display: none; }
+.site-header .brand-crown--teal  { display: block; }
+
+.site-header__brand-name {
+  font-family: var(--font-brand);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.15;
+  color: var(--color-black);
 }
 
 .site-header__brand-break {
@@ -2637,8 +2648,8 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 
 /* Site Nav */
 .site-nav {
-  flex: 1;
   display: flex;
+  align-items: center;
   justify-content: flex-end;
 }
 
@@ -2646,7 +2657,7 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   list-style: none;
   display: flex;
   align-items: center;
-  gap: var(--space-1);
+  gap: 10px;
 }
 
 /* WordPress generiert ul > li > a Struktur */
@@ -2655,20 +2666,24 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   display: flex;
   align-items: center;
   gap: var(--space-1);
-  padding: var(--space-2) var(--space-3);
-  font-size: var(--text-sm);
+  padding: 10px 18px;
+  font-size: var(--text-lg);
   font-weight: 500;
-  color: var(--color-text-muted);
+  color: var(--color-gray-700);
   text-decoration: none;
-  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  border-radius: 9px;
   transition: background var(--transition-fast), color var(--transition-fast);
 }
 
-.site-nav ul > li > a:hover,
+.site-nav ul > li > a:hover {
+  background: var(--color-bg-subtle);
+}
+
 .site-nav ul > li.current-menu-item > a,
 .site-nav ul > li.current-page-ancestor > a {
-  background: var(--color-bg-subtle);
   color: var(--color-primary);
+  font-weight: 700;
 }
 
 /* Dropdown (WordPress generiert .sub-menu) */
@@ -2732,9 +2747,9 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 .site-hamburger span {
   display: block;
   height: 2px;
-  background: var(--color-text);
+  background: var(--color-black);
   border-radius: 2px;
-  transition: transform var(--transition-fast), opacity var(--transition-fast);
+  transition: transform var(--transition-fast), opacity var(--transition-fast), background var(--transition-fast);
 }
 
 .site-hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -2792,19 +2807,46 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   margin-top: var(--space-1);
 }
 
-/* Hero Intro */
-.hero-intro__inner {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: var(--space-10) var(--space-6) 0;
+/* Transparent über dem Hero (Startseite, oben); JS schaltet .is-scrolled */
+.has-hero-template .site-header {
+  margin-bottom: -72px;
 }
 
-.hero-intro__text {
-  font-family: var(--font-brand);
-  font-size: var(--text-xl);
-  font-weight: 700;
-  color: var(--color-text);
-  margin: 0;
+.has-hero-template .site-header:not(.is-scrolled) {
+  background: transparent;
+  box-shadow: none;
+}
+
+.has-hero-template .site-header:not(.is-scrolled) .brand-crown--white {
+  display: block;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
+}
+
+.has-hero-template .site-header:not(.is-scrolled) .brand-crown--teal {
+  display: none;
+}
+
+.has-hero-template .site-header:not(.is-scrolled) .site-header__brand-name {
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.has-hero-template .site-header:not(.is-scrolled) .site-nav ul > li > a {
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.has-hero-template .site-header:not(.is-scrolled) .site-nav ul > li > a:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.has-hero-template .site-header:not(.is-scrolled) .site-nav ul > li.current-menu-item > a,
+.has-hero-template .site-header:not(.is-scrolled) .site-nav ul > li.current-page-ancestor > a {
+  color: var(--color-secondary);
+}
+
+.has-hero-template .site-header:not(.is-scrolled) .site-hamburger span {
+  background: #fff;
 }
 
 /* Site Content Wrapper */
@@ -2818,7 +2860,7 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 }
 
 .page-content__entry {
-  max-width: var(--container-max);
+  max-width: var(--container-text);
   margin: 0 auto;
   padding: var(--space-12) var(--space-6);
 }
@@ -2829,101 +2871,119 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   max-width: none;
 }
 
-/* Site Footer */
+.page-content__entry p {
+  font-size: 19px;
+  line-height: 1.7;
+  color: #2A2A2A;
+  margin: 0 0 20px;
+  position: relative;
+}
+
+.page-content__entry .wp-block-heading {
+  margin-bottom: 0.5rem;
+}
+
+.page-content__entry ul,
+.page-content__entry ol {
+  padding-left: 1.6em;
+  margin: 0 0 20px;
+}
+
+.page-content__entry li {
+  font-size: 19px;
+  line-height: 1.7;
+  color: #2A2A2A;
+  margin-bottom: 0.4em;
+}
+
+.page-content__entry li:last-child {
+  margin-bottom: 0;
+}
+
+.page-content__entry ul {
+  list-style: disc;
+}
+
+.page-content__entry ol {
+  list-style: decimal;
+}
+
+/* Site Footer — türkis, mit Krone, Social-Icons und Link-Reihe */
 .site-footer {
-  background: var(--color-black);
-  color: var(--color-gray-400);
-  margin-top: var(--space-16);
+  background: var(--color-primary);
+  color: #fff;
 }
 
 .site-footer__inner {
-  max-width: var(--container-max);
+  max-width: var(--container-text);
   margin: 0 auto;
-  padding: var(--space-12) var(--space-6) var(--space-8);
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-template-rows: auto auto;
-  gap: var(--space-6) var(--space-12);
-  align-items: start;
+  padding: 16px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 28px;
 }
 
 .site-footer__brand {
-  grid-column: 1;
-  grid-row: 1;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
 }
 
-.site-footer__brand-link {
-  display: inline-block;
-  font-size: var(--text-xl);
-  color: var(--color-primary);
-  text-decoration: none;
-  margin-bottom: var(--space-2);
-}
-
-.site-footer__brand-link:hover {
-  color: var(--color-secondary);
-}
-
-.site-footer__tagline {
+.site-footer__org {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-size: var(--text-sm);
-  color: var(--color-gray-600);
-  margin-bottom: 0;
+  font-weight: 600;
+  color: #fff;
+}
+
+.site-footer__org img {
+  display: block;
+}
+
+.site-footer__social {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.site-footer__social a {
+  color: #fff;
+  display: inline-flex;
+  transition: opacity var(--transition-fast);
+}
+
+.site-footer__social a:hover {
+  opacity: 0.8;
 }
 
 .site-footer__nav {
-  grid-column: 2;
-  grid-row: 1;
-}
-
-.site-footer__nav-list,
-.site-footer__nav ul {
-  list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-1) var(--space-5);
-  justify-content: flex-end;
+  gap: 18px;
 }
 
-.site-footer__nav ul > li > a {
+.site-footer__nav ul,
+.site-footer__nav li {
+  display: contents;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-footer__nav a {
   font-size: var(--text-sm);
-  color: var(--color-gray-500);
+  color: rgba(255, 255, 255, 0.82);
   text-decoration: none;
   transition: color var(--transition-fast);
 }
 
-.site-footer__nav ul > li > a:hover {
-  color: var(--color-white);
-}
-
-.site-footer__actions {
-  grid-column: 2;
-  grid-row: 2;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.site-footer__donate {
-  font-size: var(--text-sm);
-}
-
-.site-footer__copy {
-  grid-column: 1 / -1;
-  grid-row: 3;
-  font-size: var(--text-xs);
-  color: var(--color-gray-700);
-  margin-bottom: 0;
-  padding-top: var(--space-6);
-  border-top: 1px solid rgba(255,255,255,0.06);
-}
-
-.site-footer__copy a {
-  color: var(--color-gray-600);
-  text-decoration: none;
-  transition: color var(--transition-fast);
-}
-
-.site-footer__copy a:hover {
-  color: var(--color-gray-400);
+.site-footer__nav a:hover {
+  color: #fff;
 }
 
 /* ==========================================================================
@@ -2939,26 +2999,8 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
     display: flex;
   }
 
-  .site-header__brand {
-    font-size: var(--text-sm);
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .site-footer__inner {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-  }
-
-  .site-footer__nav,
-  .site-footer__actions {
-    grid-column: 1;
-    justify-content: flex-start;
-  }
-
-  .site-footer__nav ul {
-    justify-content: flex-start;
+  .site-header__brand-name {
+    display: none;
   }
 
   .page-content__entry {
@@ -2972,78 +3014,194 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 }
 
 /* ==========================================================================
-   HERO-TEMPLATE — Navbar hängt unter Hero, wird beim Hochscrollen sticky
+   STARTSEITEN-HERO — vollflächig, Menü liegt transparent darüber
    ========================================================================== */
-
-/* Globalen Header (direkt im body, aus header.php) ausblenden */
-body.has-hero-template > .site-header {
-  display: none;
-}
-
-/* Der Header nach dem Hero (in .site-content, aus page-hero.php) ist sticky */
-.site-hero ~ .site-header {
-  position: sticky;
-  top: 0;
-  z-index: 200;
-}
 
 /* site-content braucht keinen eigenen top-offset */
 .has-hero-template .site-content {
   padding-top: 0;
 }
 
-/* Hero-Section: exakt Viewport-Höhe, Content vertikal mittig */
 .site-hero {
+  position: relative;
   height: 100vh;
-  max-height: 100vh;
-  padding: var(--space-20) var(--space-10);
+  min-height: 600px;
+  width: 100%;
+  overflow: hidden;
+  padding: 0;
 }
 
-.site-hero.demo-hero--fullscreen-photo {
-  align-items: center;
-}
-
-/* Scrim für Startseiten-Hero deutlich reduziert */
-.site-hero.demo-hero--fullscreen-photo::before {
-  background:
-    linear-gradient(to right,  rgba(0, 0, 0, 0.20) 0%, transparent 60%),
-    linear-gradient(to top,    rgba(0, 0, 0, 0.20) 0%, transparent 60%);
-}
-
-/* Jeder Satz (span) des Titels auf eigener Zeile */
-.site-hero .demo-hero__title span {
-  display: block;
-}
-
-/* Scrim von oben: Navbar bleibt auf jedem Foto lesbar */
-.site-hero::after {
+.site-hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.30) 0%,
-    rgba(0, 0, 0, 0.08) 20%,
-    transparent 40%
-  );
-  pointer-events: none;
+  background: var(--hero-photo) center 42% / cover no-repeat;
 }
 
-/* Scroll-Indikator: mittig unten im Hero, animiert */
-.site-hero__scroll-indicator {
+.site-hero__overlay {
   position: absolute;
-  bottom: var(--space-8);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  color: rgba(255, 255, 255, 0.7);
-  animation: hero-bounce 1.8s ease-in-out infinite;
-  pointer-events: none;
+  inset: 0;
+  background: rgba(20, 20, 20, 0.18);
 }
 
-@keyframes hero-bounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50%       { transform: translateX(-50%) translateY(8px); }
+.site-hero__content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  max-width: 1100px;
+  padding: 0 clamp(24px, 5vw, 64px) clamp(40px, 7vh, 80px);
+}
+
+.site-hero__title {
+  margin: 0;
+  font-family: 'Tanker', 'Pally', system-ui, sans-serif;
+  font-weight: 400;
+  line-height: 0.96;
+  letter-spacing: -0.005em;
+  color: #fff;
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.5);
+  font-size: clamp(2.6rem, 8.4vw, 7rem);
+}
+
+.site-hero__title > span {
+  display: block;
+}
+
+.site-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: clamp(24px, 3.4vh, 40px);
+}
+
+/* ==========================================================================
+   PAGE-BANNER — Unterseiten-Banner mit Beitragsbild und Seitentitel
+   ========================================================================== */
+
+.page-banner {
+  position: relative;
+  width: 100%;
+  height: var(--page-banner-height, clamp(280px, 45vh, 440px));
+  overflow: hidden;
+}
+
+.page-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--page-banner-photo) var(--page-banner-pos, center 40%) / cover no-repeat;
+}
+
+.page-banner__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 20, 20, 0.18);
+}
+
+.page-banner__content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 0 clamp(24px, 5vw, 64px) clamp(32px, 5vh, 56px);
+}
+
+.page-banner__title {
+  margin: 0;
+  font-family: var(--font-brand);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: #fff;
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.5);
+  font-size: clamp(3rem, 8vw, 6rem);
+}
+
+/* ==========================================================================
+   STARTSEITEN-TEXT — Einleitung mit rundem, schwebendem Sticker
+   ========================================================================== */
+
+.page-content__entry > .wp-block-group.startseite-text {
+  max-width: 760px;
+  padding-block: clamp(64px, 10vh, 120px);
+}
+
+.startseite-text {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--color-gray-700);
+}
+
+.startseite-text > * {
+  max-width: none;
+}
+
+.startseite-text .startseite-text__sticker {
+  float: right;
+  width: 120px;
+  margin: 6px 0 14px 28px;
+  transform: rotate(-5deg);
+  shape-outside: circle(52%);
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.10));
+}
+
+.startseite-text .startseite-text__sticker img {
+  width: 120px;
+  height: 120px;
+}
+
+.startseite-text h2 {
+  font-family: var(--font-brand);
+  font-weight: 700;
+  font-size: clamp(30px, 4vw, 40px);
+  line-height: 1.2;
+  margin: 0 0 24px;
+  max-width: 16ch;
+  color: var(--color-black);
+}
+
+.startseite-text p {
+  margin: 0 0 20px;
+}
+
+/* Lead-Absatz: etwas größer und dunkler */
+.startseite-text > p:first-of-type {
+  font-size: 19px;
+  color: #2A2A2A;
+}
+
+.startseite-text .startseite-text__cta-link {
+  margin: 0 0 28px;
+}
+
+.startseite-text .startseite-text__cta-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.startseite-text .startseite-text__lead-out {
+  font-size: 19px;
+  color: var(--color-black);
+  font-weight: 600;
+  margin: 0 0 32px;
+}
+
+.startseite-text .startseite-text__mitmach {
+  margin: 0 0 22px;
+}
+
+.startseite-text .startseite-text__mitmach strong {
+  font-family: var(--font-brand);
+  font-weight: 700;
+  color: var(--color-black);
 }
 
 /* ==========================================================================
@@ -3105,7 +3263,28 @@ body.has-hero-template > .site-header {
 .page-content__entry > * {
   max-width: var(--container-max);
   margin-inline: auto;
-  padding-inline: var(--space-6);
+}
+
+/* Floating-Bild rechts mit Textfluss */
+.page-content__entry .wp-block-image.alignright {
+  float: right;
+  margin: 0 0 1.5rem 2rem;
+  padding-inline: 0;
+  max-width: 150px;
+  width: 150px;
+}
+
+.page-content__entry .wp-block-image.alignright img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Clearfix damit der Container die Floats einschließt */
+.page-content__entry::after {
+  content: '';
+  display: table;
+  clear: both;
 }
 
 /* Volle Breite für Page-Header-Section (Group-Block) */
@@ -3151,6 +3330,43 @@ body.has-hero-template > .site-header {
 /* Banner-Block: volle Containerbreite */
 .page-content__entry .grundidee-banner {
   margin-block: var(--space-12);
+}
+
+/* ==========================================================================
+   MEDIA-FLOAT — Media-Text-Block: Bild oben ausrichten, Padding entfernen
+   ========================================================================== */
+
+.wp-block-media-text.media-float {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 2rem;
+}
+
+.wp-block-media-text.media-float .wp-block-media-text__content {
+  flex: 1;
+  padding: 0;
+}
+
+.wp-block-media-text.media-float .wp-block-media-text__media {
+  flex-shrink: 0;
+  width: 150px;
+  align-self: flex-start !important;
+}
+
+.wp-block-media-text.media-float .wp-block-media-text__media img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .wp-block-media-text.media-float {
+    flex-direction: column !important;
+  }
+
+  .wp-block-media-text.media-float .wp-block-media-text__media {
+    width: 120px;
+  }
 }
 
 @media (max-width: 767px) {

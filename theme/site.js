@@ -3,6 +3,22 @@
 
 ( function () {
 	// =========================================================================
+	// Sticky Header — transparent über dem Hero, weiß darunter
+	// =========================================================================
+
+	var header = document.querySelector( '.site-header' );
+	var hero   = document.querySelector( '.site-hero' );
+
+	if ( header && hero ) {
+		var onHeaderScroll = function () {
+			var past = hero.getBoundingClientRect().bottom <= 80;
+			header.classList.toggle( 'is-scrolled', past );
+		};
+		window.addEventListener( 'scroll', onHeaderScroll, { passive: true } );
+		onHeaderScroll();
+	}
+
+	// =========================================================================
 	// Hamburger / Mobile Nav
 	// =========================================================================
 
