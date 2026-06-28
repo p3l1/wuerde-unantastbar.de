@@ -111,8 +111,9 @@ foreach ( $all_posts as $post ) {
                     <?php foreach ( $shown_posts as $post ) :
                         $thumbnail_url  = get_the_post_thumbnail_url( $post->ID, 'medium' );
                         $excerpt        = get_the_excerpt( $post );
-                        $post_ort_terms = wp_get_post_terms( $post->ID, 'wuerde_ort', [ 'fields' => 'names' ] );
-                        $ort_label      = ! is_wp_error( $post_ort_terms ) && ! empty( $post_ort_terms ) ? $post_ort_terms[0] : '';
+                        $post_ort_terms = wp_get_post_terms( $post->ID, 'wuerde_ort' );
+                        $ort_term       = ! is_wp_error( $post_ort_terms ) && ! empty( $post_ort_terms ) ? $post_ort_terms[0] : null;
+                        $ort_label      = $ort_term ? $ort_term->name : '';
                     ?>
                     <li>
                         <article class="mitmach-card"
@@ -137,8 +138,14 @@ foreach ( $all_posts as $post ) {
                             <p class="mitmach-card__text"><?php echo esc_html( $excerpt ); ?></p>
                             <?php endif; ?>
                             <div class="mitmach-card__footer">
-                                <?php if ( $ort_label ) : ?>
-                                <span class="mitmach-card__tag"><?php echo esc_html( $ort_label ); ?></span>
+                                <?php if ( $ort_term ) :
+                                    $ort_url = get_term_link( $ort_term, 'wuerde_ort' );
+                                ?>
+                                <a href="<?php echo esc_url( ! is_wp_error( $ort_url ) ? $ort_url : '#' ); ?>"
+                                   class="mitmach-card__ort">
+                                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 1C4.79 1 3 2.79 3 5c0 3.5 4 8 4 8s4-4.5 4-8c0-2.21-1.79-4-4-4zm0 5.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" fill="currentColor"/></svg>
+                                  <?php echo esc_html( $ort_label ); ?>
+                                </a>
                                 <?php endif; ?>
                                 <a href="<?php echo esc_url( get_permalink( $post->ID ) ); ?>" class="mitmach-card__link">
                                     Details

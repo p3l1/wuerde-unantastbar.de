@@ -105,7 +105,8 @@ $posts = get_posts( [
                 $ort_url = get_term_link( $ort_term, 'wuerde_ort' );
             ?>
             <a href="<?php echo esc_url( ! is_wp_error( $ort_url ) ? $ort_url : '#' ); ?>"
-               class="mitmach-card__tag">
+               class="mitmach-card__ort">
+              <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 1C4.79 1 3 2.79 3 5c0 3.5 4 8 4 8s4-4.5 4-8c0-2.21-1.79-4-4-4zm0 5.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" fill="currentColor"/></svg>
               <?php echo esc_html( $ort_label ); ?>
             </a>
             <?php endif; ?>
