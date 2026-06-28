@@ -51,6 +51,7 @@ $posts = get_posts( [
        data-interactive="false"
        data-tile-style="osm"
        data-rest-url="<?php echo esc_url( add_query_arg( 'kategorie', $term->slug, rest_url( 'wuerde/v1/map-points' ) ) ); ?>"
+       data-crown-url="<?php echo esc_url( get_template_directory_uri() . '/assets/krone-white.png' ); ?>"
        style="height:clamp(220px, 35vh, 380px)"
        aria-label="Karte mit Beiträgen in der Kategorie <?php echo esc_attr( $term->name ); ?>">
   </div>

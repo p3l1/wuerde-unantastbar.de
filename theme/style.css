@@ -2544,6 +2544,28 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   isolation: isolate;
 }
 
+.mitmach-map__pin {
+  background: none !important;
+  border: none !important;
+}
+
+.mitmach-map__pin-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.35);
+}
+
+.mitmach-map__pin-dot img {
+  width: 13px;
+  height: 13px;
+  object-fit: contain;
+  display: block;
+}
+
 .mitmach-map {
   border-radius: var(--radius-lg);
   overflow: hidden;

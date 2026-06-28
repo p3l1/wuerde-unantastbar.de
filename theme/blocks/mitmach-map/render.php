@@ -21,6 +21,7 @@ $rest_url = rest_url( 'wuerde/v1/map-points' );
          data-zoom="<?php echo esc_attr( $zoom ); ?>"
          data-tile-style="<?php echo esc_attr( $tile_style ); ?>"
          data-rest-url="<?php echo esc_url( $rest_url ); ?>"
+         data-crown-url="<?php echo esc_url( get_template_directory_uri() . '/assets/krone-white.png' ); ?>"
          style="height:<?php echo esc_attr( $height ); ?>"
          aria-label="Deutschlandkarte mit Mitmach-Möglichkeiten">
     </div>

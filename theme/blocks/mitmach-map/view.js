@@ -12,6 +12,7 @@
 
 	var tileStyle   = container.dataset.tileStyle || 'osm';
 	var interactive = container.dataset.interactive !== 'false';
+	var crownUrl    = container.dataset.crownUrl || '';
 
 	var tileLayers = {
 		osm: {
@@ -65,14 +66,16 @@
 				if ( ! point.lat || ! point.lng ) return;
 
 				var color = point.color || '#00aca0';
-				var marker = L.circleMarker( [ point.lat, point.lng ], {
-					radius:      10,
-					color:       'transparent',
-					fillColor:   color,
-					fillOpacity: 1,
-					weight:      0,
-					className:   'mitmach-map__marker mitmach-map__marker--' + ( point.category_slug || 'sonstiges' ),
+				var icon  = L.divIcon( {
+					className:   'mitmach-map__pin',
+					html:        '<div class="mitmach-map__pin-dot" style="background:' + color + '">'
+					             + ( crownUrl ? '<img src="' + crownUrl + '" alt="" aria-hidden="true">' : '' )
+					             + '</div>',
+					iconSize:    [ 24, 24 ],
+					iconAnchor:  [ 12, 12 ],
+					popupAnchor: [ 0, -14 ],
 				} );
+				var marker = L.marker( [ point.lat, point.lng ], { icon: icon } );
 
 				marker.bindPopup(
 					'<strong>' + point.title + '</strong>' +

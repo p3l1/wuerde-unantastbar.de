@@ -261,14 +261,20 @@ function wuerde_render_koordinaten_meta_box( WP_Post $post ) {
 
         var marker = null;
 
+        var crownUrl = '<?php echo esc_url( get_template_directory_uri() . '/assets/krone-white.png' ); ?>';
+        var pinIcon  = L.divIcon( {
+            className:   'mitmach-map__pin',
+            html:        '<div class="mitmach-map__pin-dot" style="background:#00ACA0"><img src="' + crownUrl + '" alt="" aria-hidden="true"></div>',
+            iconSize:    [ 24, 24 ],
+            iconAnchor:  [ 12, 12 ],
+            popupAnchor: [ 0, -14 ],
+        } );
+
         function setMarker( lat, lng ) {
             if ( marker ) {
                 marker.setLatLng( [ lat, lng ] );
             } else {
-                marker = L.circleMarker( [ lat, lng ], {
-                    radius: 10, color: '#00ACA0', fillColor: '#00ACA0',
-                    fillOpacity: 1, weight: 0,
-                } ).addTo( map );
+                marker = L.marker( [ lat, lng ], { icon: pinIcon } ).addTo( map );
             }
             latEl.value = lat.toFixed( 6 );
             lngEl.value = lng.toFixed( 6 );
