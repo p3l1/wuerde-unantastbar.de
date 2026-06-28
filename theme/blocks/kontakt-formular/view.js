@@ -36,7 +36,6 @@
                 if ( result.ok ) {
                     form.hidden = true;
                     setStatus( 'Vielen Dank! Deine Nachricht wurde gesendet. Wir melden uns bald bei dir.', false );
-                    status.hidden = false;
                 } else {
                     setStatus( result.data.error || 'Fehler beim Senden. Bitte versuche es erneut.', true );
                     btn.disabled    = false;

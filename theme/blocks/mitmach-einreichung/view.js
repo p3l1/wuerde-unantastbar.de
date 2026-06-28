@@ -127,11 +127,21 @@
         var bodyTxt = encodeURIComponent( 'Bitte füge diesem E-Mail deine Fotos oder Dokumente als Anhang bei.' );
         var mailto  = 'mailto:' + email + '?subject=' + subject + '&body=' + bodyTxt;
 
-        erfolg.innerHTML =
-            '<p><strong>Vielen Dank!</strong> Dein Beitrag wurde gespeichert (Referenz <strong>#' +
-            safeId + '</strong>).</p>' +
-            '<p>Um Fotos oder Dokumente beizufügen, sende uns eine E-Mail:</p>' +
-            '<a href="' + mailto + '" class="btn btn--secondary">📎 Dateien per E-Mail zusenden</a>';
+        var p1 = document.createElement( 'p' );
+        p1.innerHTML = '<strong>Vielen Dank!</strong> Dein Beitrag wurde gespeichert (Referenz <strong>#' + safeId + '</strong>).';
+
+        var p2 = document.createElement( 'p' );
+        p2.textContent = 'Um Fotos oder Dokumente beizufügen, sende uns eine E-Mail:';
+
+        var link = document.createElement( 'a' );
+        link.setAttribute( 'href', mailto );
+        link.className = 'btn btn--secondary';
+        link.textContent = '📎 Dateien per E-Mail zusenden';
+
+        erfolg.innerHTML = '';
+        erfolg.appendChild( p1 );
+        erfolg.appendChild( p2 );
+        erfolg.appendChild( link );
         erfolg.hidden = false;
     }
 
