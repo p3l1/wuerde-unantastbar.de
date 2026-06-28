@@ -71,6 +71,7 @@ add_action( 'rest_api_init', 'wuerde_register_rest_routes' );
 
 function wuerde_map_points_handler( WP_REST_Request $request ): WP_REST_Response {
     $kategorie = sanitize_key( $request->get_param( 'kategorie' ) );
+    $ort       = sanitize_key( $request->get_param( 'ort' ) );
 
     $query_args = [
         'post_type'      => 'wuerde_beitrag',
@@ -83,6 +84,12 @@ function wuerde_map_points_handler( WP_REST_Request $request ): WP_REST_Response
             'taxonomy' => 'wuerde_kategorie',
             'field'    => 'slug',
             'terms'    => $kategorie,
+        ] ];
+    } elseif ( $ort ) {
+        $query_args['tax_query'] = [ [
+            'taxonomy' => 'wuerde_ort',
+            'field'    => 'slug',
+            'terms'    => $ort,
         ] ];
     }
 

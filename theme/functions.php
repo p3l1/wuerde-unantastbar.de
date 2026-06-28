@@ -258,9 +258,9 @@ function wuerde_register_banner_meta() {
 }
 add_action( 'init', 'wuerde_register_banner_meta' );
 
-// Leaflet und Karten-Script auf Kategorie-Archivseiten laden.
+// Leaflet und Karten-Script auf Taxonomie-Archivseiten laden.
 function wuerde_enqueue_kategorie_archive_scripts() {
-    if ( ! is_tax( 'wuerde_kategorie' ) ) {
+    if ( ! is_tax( 'wuerde_kategorie' ) && ! is_tax( 'wuerde_ort' ) ) {
         return;
     }
     wp_enqueue_style( 'leaflet' );
