@@ -264,7 +264,7 @@ function wuerde_render_koordinaten_meta_box( WP_Post $post ) {
         var crownUrl = '<?php echo esc_url( get_template_directory_uri() . '/assets/krone-white.png' ); ?>';
         var pinIcon  = L.divIcon( {
             className:   'mitmach-map__pin',
-            html:        '<div class="mitmach-map__pin-dot" style="background:#00ACA0"><img src="' + crownUrl + '" alt="" aria-hidden="true"></div>',
+            html:        '<div class="mitmach-map__pin-dot" style="background:#00ACA0;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 5px rgba(0,0,0,.35)"><img src="' + crownUrl + '" alt="" aria-hidden="true" style="width:17px;height:17px;object-fit:contain;display:block"></div>',
             iconSize:    [ 32, 32 ],
             iconAnchor:  [ 16, 16 ],
             popupAnchor: [ 0, -18 ],
