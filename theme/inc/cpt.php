@@ -551,3 +551,49 @@ function wuerde_save_kategorie_image( int $term_id ) {
     }
 }
 add_action( 'edited_wuerde_kategorie', 'wuerde_save_kategorie_image' );
+
+// Einsender-Metadaten für öffentliche Einreichungen.
+function wuerde_register_einreichung_meta() {
+    $args = [
+        'type'         => 'string',
+        'single'       => true,
+        'show_in_rest' => false,
+    ];
+    register_post_meta( 'wuerde_beitrag', 'wuerde_einreichung_name',  $args );
+    register_post_meta( 'wuerde_beitrag', 'wuerde_einreichung_email', $args );
+}
+add_action( 'init', 'wuerde_register_einreichung_meta' );
+
+function wuerde_einreichung_meta_box() {
+    add_meta_box(
+        'wuerde_einreichung',
+        'Einsender',
+        'wuerde_einreichung_meta_box_html',
+        'wuerde_beitrag',
+        'side',
+        'high'
+    );
+}
+add_action( 'add_meta_boxes', 'wuerde_einreichung_meta_box' );
+
+function wuerde_einreichung_meta_box_html( WP_Post $post ) {
+    $name  = get_post_meta( $post->ID, 'wuerde_einreichung_name',  true );
+    $email = get_post_meta( $post->ID, 'wuerde_einreichung_email', true );
+
+    echo '<table style="border-collapse:collapse;width:100%"><tbody>';
+    echo '<tr><th style="text-align:left;padding:3px 0;width:80px;font-weight:600">Ref.-Nr.</th>';
+    echo '<td style="padding:3px 0"><strong>#' . esc_html( (string) $post->ID ) . '</strong></td></tr>';
+
+    if ( $name ) {
+        echo '<tr><th style="text-align:left;padding:3px 0;font-weight:600">Name</th>';
+        echo '<td style="padding:3px 0">' . esc_html( $name ) . '</td></tr>';
+    }
+    if ( $email ) {
+        echo '<tr><th style="text-align:left;padding:3px 0;font-weight:600">E-Mail</th>';
+        echo '<td style="padding:3px 0"><a href="mailto:' . esc_attr( $email ) . '">' . esc_html( $email ) . '</a></td></tr>';
+    }
+    if ( ! $name && ! $email ) {
+        echo '<tr><td colspan="2" style="padding:3px 0;color:#666;font-style:italic">Manuell erfasster Beitrag</td></tr>';
+    }
+    echo '</tbody></table>';
+}
