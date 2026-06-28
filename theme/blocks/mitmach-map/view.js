@@ -10,7 +10,8 @@
 	var zoom      = parseInt( container.dataset.zoom, 10 ) || 6;
 	var restUrl   = container.dataset.restUrl;
 
-	var tileStyle = container.dataset.tileStyle || 'osm';
+	var tileStyle   = container.dataset.tileStyle || 'osm';
+	var interactive = container.dataset.interactive !== 'false';
 
 	var tileLayers = {
 		osm: {
@@ -38,9 +39,16 @@
 	var layer = tileLayers[ tileStyle ] || tileLayers.osm;
 
 	var map = L.map( 'mitmach-map', {
-		center: [ centerLat, centerLng ],
-		zoom: zoom,
-		scrollWheelZoom: false,
+		center:              [ centerLat, centerLng ],
+		zoom:                zoom,
+		scrollWheelZoom:     false,
+		zoomControl:         interactive,
+		attributionControl:  interactive,
+		dragging:            interactive,
+		touchZoom:           interactive,
+		doubleClickZoom:     interactive,
+		boxZoom:             interactive,
+		keyboard:            interactive,
 	} );
 
 	L.tileLayer( layer.url, {
