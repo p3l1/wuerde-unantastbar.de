@@ -2969,6 +2969,10 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   transform: translateY(0);
 }
 
+.site-nav .sub-menu > li > a {
+  font-size: var(--text-base);
+  padding-left: 10px;
+}
 
 /* Hamburger */
 .site-hamburger {
