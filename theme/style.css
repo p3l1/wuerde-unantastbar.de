@@ -1950,10 +1950,15 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 .mitmach-card__tag {
   font-size: var(--text-xs);
   font-weight: 600;
-  color: var(--color-text-muted);
-  background: var(--color-bg-subtle);
+  color: #fff;
+  background: var(--cat-color, var(--color-teal));
   padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-full);
+  text-decoration: none;
+}
+
+.mitmach-card__tag:hover {
+  opacity: 0.85;
 }
 
 .mitmach-card__link {
