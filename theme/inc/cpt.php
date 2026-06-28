@@ -252,6 +252,10 @@ function wuerde_render_koordinaten_meta_box( WP_Post $post ) {
             maxZoom: 19,
         } ).addTo( map );
 
+        // Admin-Layout kann den Container erst nach dem Rendering auf die
+        // richtige Größe bringen — invalidateSize lädt fehlende Tiles nach.
+        setTimeout( function() { map.invalidateSize(); }, 200 );
+
         var marker = null;
 
         function setMarker( lat, lng ) {
