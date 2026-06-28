@@ -67,36 +67,52 @@ foreach ( $all_posts as $post ) {
     <div class="category-accordion" id="mitmach-accordion" data-default-category="<?php echo esc_attr( $default_category ); ?>">
 
         <?php foreach ( $terms as $term ) :
-            $term_posts = $posts_by_term[ $term->slug ] ?? [];
-            $color      = get_term_meta( $term->term_id, 'wuerde_color_token', true );
+            $term_posts  = $posts_by_term[ $term->slug ] ?? [];
+            $total_count = count( $term_posts );
+            $color       = get_term_meta( $term->term_id, 'wuerde_color_token', true );
             if ( ! $color ) {
                 $color = 'var(--color-cat-' . esc_attr( $term->slug ) . ')';
             }
-            $panel_id   = 'mitmach-cat-' . esc_attr( $term->slug );
-            $has_posts  = ! empty( $term_posts );
-            $is_open    = $has_posts && ( empty( $default_category ) || $default_category === $term->slug );
+            $panel_id    = 'mitmach-cat-' . esc_attr( $term->slug );
+            $has_posts   = ! empty( $term_posts );
+            $is_open     = $has_posts && ( empty( $default_category ) || $default_category === $term->slug );
+            $term_url    = get_term_link( $term, 'wuerde_kategorie' );
+            $shown_posts = array_slice( $term_posts, 0, 4 );
+            $has_more    = $total_count > 4;
         ?>
         <div class="category-accordion__item" data-category="<?php echo esc_attr( $term->slug ); ?>">
-            <button class="category-accordion__trigger"
-                    aria-expanded="<?php echo $is_open ? 'true' : 'false'; ?>"
-                    aria-controls="<?php echo esc_attr( $panel_id ); ?>">
-                <span class="category-accordion__dot" style="background:<?php echo esc_attr( $color ); ?>"></span>
-                <?php echo esc_html( $term->name ); ?>
-                <span class="category-accordion__count">(<?php echo count( $term_posts ); ?>)</span>
-                <svg class="category-accordion__chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-                    <path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-                </svg>
-            </button>
+            <div class="category-accordion__header">
+                <button class="category-accordion__trigger"
+                        aria-expanded="<?php echo $is_open ? 'true' : 'false'; ?>"
+                        aria-controls="<?php echo esc_attr( $panel_id ); ?>">
+                    <span class="category-accordion__dot" style="background:<?php echo esc_attr( $color ); ?>"></span>
+                    <?php echo esc_html( $term->name ); ?>
+                    <span class="category-accordion__count">(<?php echo $total_count; ?>)</span>
+                    <svg class="category-accordion__chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <?php if ( ! is_wp_error( $term_url ) ) : ?>
+                <a class="category-accordion__page-link"
+                   href="<?php echo esc_url( $term_url ); ?>"
+                   aria-label="Kategorieseite <?php echo esc_attr( $term->name ); ?> öffnen">
+                    Kategorieseite
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                        <path d="M2 10L10 2M10 2H5M10 2v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+                <?php endif; ?>
+            </div>
             <div class="category-accordion__panel<?php echo $is_open ? '' : ' category-accordion__panel--closed'; ?>"
                  id="<?php echo esc_attr( $panel_id ); ?>">
 
-                <?php if ( ! empty( $term_posts ) ) : ?>
+                <?php if ( ! empty( $shown_posts ) ) : ?>
                 <ul class="category-accordion__list mitmach-grid">
-                    <?php foreach ( $term_posts as $post ) :
-                        $thumbnail_url = get_the_post_thumbnail_url( $post->ID, 'medium' );
-                        $excerpt       = get_the_excerpt( $post );
+                    <?php foreach ( $shown_posts as $post ) :
+                        $thumbnail_url  = get_the_post_thumbnail_url( $post->ID, 'medium' );
+                        $excerpt        = get_the_excerpt( $post );
                         $post_ort_terms = wp_get_post_terms( $post->ID, 'wuerde_ort', [ 'fields' => 'names' ] );
-                        $ort_label     = ! is_wp_error( $post_ort_terms ) && ! empty( $post_ort_terms ) ? $post_ort_terms[0] : '';
+                        $ort_label      = ! is_wp_error( $post_ort_terms ) && ! empty( $post_ort_terms ) ? $post_ort_terms[0] : '';
                     ?>
                     <li>
                         <article class="mitmach-card"
@@ -132,6 +148,13 @@ foreach ( $all_posts as $post ) {
                     </li>
                     <?php endforeach; ?>
                 </ul>
+                <?php if ( $has_more && ! is_wp_error( $term_url ) ) : ?>
+                <div class="category-accordion__more">
+                    <a href="<?php echo esc_url( $term_url ); ?>" class="category-accordion__more-link">
+                        Alle <?php echo $total_count; ?> Beiträge in dieser Kategorie anzeigen →
+                    </a>
+                </div>
+                <?php endif; ?>
                 <?php else : ?>
                 <p class="category-accordion__empty">Noch keine Beiträge in dieser Kategorie.</p>
                 <?php endif; ?>
