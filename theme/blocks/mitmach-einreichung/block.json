@@ -20,7 +20,7 @@
     "placeholderBeschreibung": { "type": "string", "default": "Was habt ihr gemacht? Was war besonders?" },
     "placeholderAdresse":      { "type": "string", "default": "z. B. Marktplatz 1, München" },
     "placeholderOrt":          { "type": "string", "default": "z. B. München" },
-    "placeholderKategorie":    { "type": "string", "default": "— Bitte wählen (optional) —" },
+    "placeholderKategorie":    { "type": "string", "default": "— Bitte wählen —" },
     "btnAdresse":              { "type": "string", "default": "Suchen" },
     "btnSubmit":               { "type": "string", "default": "Beitrag einreichen" },
     "karteToggle":             { "type": "string", "default": "Ort auf Karte auswählen (optional)" },

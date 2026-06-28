@@ -31,7 +31,7 @@ $attr = wp_parse_args( $attributes, [
     'placeholderBeschreibung' => 'Was habt ihr gemacht? Was war besonders?',
     'placeholderAdresse'      => 'z. B. Marktplatz 1, München',
     'placeholderOrt'          => 'z. B. München',
-    'placeholderKategorie'    => '— Bitte wählen (optional) —',
+    'placeholderKategorie'    => '— Bitte wählen —',
     'btnAdresse'              => 'Suchen',
     'btnSubmit'               => 'Beitrag einreichen',
     'karteToggle'             => 'Ort auf Karte auswählen (optional)',
@@ -67,8 +67,8 @@ $attr = wp_parse_args( $attributes, [
                       placeholder="<?php echo esc_attr( $attr['placeholderBeschreibung'] ); ?>"></textarea>
         </div>
         <div class="wuerde-mitmach-einreichung__field">
-            <label for="wuerde-einr-kategorie"><?php echo esc_html( $attr['labelKategorie'] ); ?></label>
-            <select id="wuerde-einr-kategorie" name="kategorie_id">
+            <label for="wuerde-einr-kategorie"><?php echo esc_html( $attr['labelKategorie'] ); ?> <span aria-hidden="true">*</span></label>
+            <select id="wuerde-einr-kategorie" name="kategorie_id" required>
                 <option value=""><?php echo esc_html( $attr['placeholderKategorie'] ); ?></option>
                 <?php foreach ( (array) $kategorien as $term ) : ?>
                 <option value="<?php echo esc_attr( (string) $term->term_id ); ?>">
