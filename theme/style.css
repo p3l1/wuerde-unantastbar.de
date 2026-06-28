@@ -2947,12 +2947,17 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   position: absolute;
   top: 100%;
   left: 0;
+  background: var(--color-bg);
   list-style: none;
   opacity: 0;
   pointer-events: none;
   transform: translateY(-6px);
   transition: opacity var(--transition-fast), transform var(--transition-fast);
   z-index: 100;
+}
+
+.has-hero-template .site-header:not(.is-scrolled) .site-nav ul > li.menu-item-has-children > .sub-menu {
+  background: transparent;
 }
 
 .site-nav ul > li.menu-item-has-children:hover > .sub-menu,
