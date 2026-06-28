@@ -82,7 +82,7 @@ $attr = wp_parse_args( $attributes, [
             <div class="wuerde-mitmach-einreichung__adresse-row">
                 <input type="text" id="wuerde-einr-adresse" autocomplete="off"
                        placeholder="<?php echo esc_attr( $attr['placeholderAdresse'] ); ?>">
-                <button type="button" class="btn btn--secondary wuerde-mitmach-einreichung__adresse-btn">
+                <button type="button" class="btn btn--primary wuerde-mitmach-einreichung__adresse-btn">
                     <?php echo esc_html( $attr['btnAdresse'] ); ?>
                 </button>
             </div>
