@@ -78,4 +78,64 @@
 		} );
 	} );
 
+	// =========================================================================
+	// Profil-Karten — Custom Scrollbalken mit fester Thumb-Höhe
+	// =========================================================================
+
+	var THUMB_H = 40;
+
+	document.querySelectorAll( '.profile-card__text' ).forEach( function ( el ) {
+		var body = el.closest( '.profile-card__body' );
+		if ( ! body ) return;
+
+		var track = document.createElement( 'div' );
+		track.className = 'card-scrollbar';
+		var thumb = document.createElement( 'div' );
+		thumb.className = 'card-scrollbar__thumb';
+		track.appendChild( thumb );
+		body.appendChild( track );
+
+		// Bündig mit Oberkante des Text-Elements setzen
+		track.style.top = el.offsetTop + 'px';
+
+		function update() {
+			var scrollable = el.scrollHeight > el.clientHeight + 2;
+			track.style.display = scrollable ? '' : 'none';
+
+			if ( scrollable ) {
+				var ratio   = el.scrollTop / ( el.scrollHeight - el.clientHeight );
+				var trackH  = track.clientHeight;
+				thumb.style.top = ( ratio * ( trackH - THUMB_H ) ) + 'px';
+			}
+
+			var atEnd = ! scrollable || el.scrollTop + el.clientHeight >= el.scrollHeight - 2;
+			body.classList.toggle( 'is-scroll-end', atEnd );
+		}
+
+		el.addEventListener( 'scroll', update, { passive: true } );
+		update();
+
+		// Drag
+		var dragging = false, startY = 0, startScroll = 0;
+
+		thumb.addEventListener( 'mousedown', function ( e ) {
+			dragging    = true;
+			startY      = e.clientY;
+			startScroll = el.scrollTop;
+			e.preventDefault();
+		} );
+
+		document.addEventListener( 'mousemove', function ( e ) {
+			if ( ! dragging ) return;
+			var trackH    = track.clientHeight;
+			var thumbRange  = trackH - THUMB_H;
+			var scrollRange = el.scrollHeight - el.clientHeight;
+			el.scrollTop  = startScroll + ( e.clientY - startY ) / thumbRange * scrollRange;
+		} );
+
+		document.addEventListener( 'mouseup', function () {
+			dragging = false;
+		} );
+	} );
+
 } )();

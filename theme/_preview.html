@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Krone-Asset-URLs wie von functions.php injiziert */
+  :root {
+    --crown-url-white:  url('assets/krone-white.png');
+    --crown-url-teal:   url('assets/krone-teal.png');
+    --crown-url-yellow: url('assets/krone-yellow.png');
+    --crown-url-black:  url('assets/krone-black.png');
+    --crown-url-svg:    url('assets/krone.svg');
+  }
+</style>
+</head>
+<body class="has-hero-template">
+
+<a class="skip-link" href="#main-content">Zum Inhalt springen</a>
+
+<header class="site-header" role="banner">
+  <div class="site-header__inner">
+    <a href="#" class="site-header__brand brand-text" rel="home">
+      <img class="brand-crown brand-crown--white" src="assets/krone-white.png" alt="" width="40" height="40">
+      <img class="brand-crown brand-crown--teal" src="assets/krone-teal.png" alt="" width="40" height="40">
+      <span class="site-header__brand-name">Verein für Menschenwürde<span class="site-header__brand-break"> und Demokratie e.V.</span></span>
+    </a>
+    <nav class="site-nav" id="site-nav">
+      <ul id="site-nav" class="site-nav__list" role="list">
+        <li class="menu-item"><a href="#">Grundidee</a></li>
+        <li class="menu-item current-menu-item"><a href="#">Mach mit</a></li>
+        <li class="menu-item"><a href="#">Würdetafeln</a></li>
+        <li class="menu-item"><a href="#">Über uns</a></li>
+        <li class="menu-item"><a href="#">Kontakt</a></li>
+      </ul>
+    </nav>
+    <button class="site-hamburger" aria-label="Menü öffnen" aria-expanded="false" data-site-hamburger>
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="site-mobile-nav" data-site-mobile-nav aria-hidden="true">
+    <ul class="site-mobile-nav__list">
+      <li><a href="#">Grundidee</a></li><li><a href="#">Mach mit</a></li>
+      <li><a href="#">Würdetafeln</a></li><li><a href="#">Über uns</a></li><li><a href="#">Kontakt</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="site-content">
+
+<section class="site-hero" aria-label="Menschenwürde. Eingebrannt. Unverhandelbar." style="--hero-photo: url('assets/img/hero-prev.jpg');">
+  <div class="site-hero__overlay" aria-hidden="true"></div>
+  <div class="site-hero__content">
+    <h1 class="site-hero__title"><span>Menschenwürde<span class="site-hero__dot" style="color:#00ACA0">.</span></span><span>Eingebrannt<span class="site-hero__dot" style="color:#e76503">.</span></span><span>Unverhandelbar<span class="site-hero__dot" style="color:#F7BC2F">.</span></span></h1>
+    <div class="site-hero__actions">
+      <a href="#" class="btn btn-crown btn--lg"><span class="btn-crown__icon" aria-hidden="true"></span>Jetzt mitmachen</a>
+    </div>
+  </div>
+</section>
+
+<main class="page-content" id="main-content">
+  <div class="page-content__entry">
+    <div class="wp-block-group startseite-text">
+      <figure class="wp-block-image startseite-text__sticker" style="width:120px"><img src="assets/sticker-menschenwuerde.png" alt="Ich wähle Menschenwürde"></figure>
+      <h2 class="wp-block-heading">Gemeinsam mit euch</h2>
+      <p>Seit Anfang 2024 engagiert sich unser „Verein für Menschenwürde und Demokratie“ dafür, dass die Würde eines jeden Menschen unantastbar ist und nicht zur Diskussion stehen darf. Viele wirken inzwischen deutschlandweit daran mit. <strong>Mehr als 50 000 Würdetafeln</strong> sind bereits gebrannt und in Politik, Bildung, Kultur und Gesellschaft sichtbar. Unzählige Aktionen haben schon dazu stattgefunden.</p>
+      <p class="startseite-text__cta-link"><a href="#">Hier geht es zu unserer Grundidee →</a></p>
+      <p class="startseite-text__muted">Unsere Aktionen sind alle überparteilich und entsprechen dem Unparteilichkeitsgrundsatz.</p>
+      <p class="startseite-text__muted">Die Würde aller Menschen ist in Artikel 1 unseres Grundgesetzes fest verankert und somit zentraler Bestandteil unserer Demokratie. Leider wird die Menschenwürde immer noch angetastet, sei es durch soziale Ungerechtigkeit, Diskriminierung oder politische Entwicklungen.</p>
+      <p class="startseite-text__muted">Wir danken allen, die sich durch die vielen verschiedenen Aktionen für die Menschenwürde einsetzen. Sei es durch das Brennen und Verteilen von Würdetafeln, das Aufhängen von Plakaten, die Organisation von Veranstaltungen und vieles mehr.</p>
+      <p class="startseite-text__lead-out">Wir machen weiter und hoffen, ihr auch.</p>
+      <p class="startseite-text__mitmach"><strong>Mach mit:</strong> Teile deine Idee für mehr Würde.</p>
+      <div class="wp-block-buttons"><div class="wp-block-button btn-crown"><a class="wp-block-button__link wp-element-button" href="#">Idee teilen</a></div></div>
+    </div>
+  </div>
+</main>
+
+</div><!-- .site-content -->
+
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer__inner">
+    <div class="site-footer__brand">
+      <span class="site-footer__org">
+        <img src="assets/krone-white.png" alt="" width="18" height="18">
+        Verein für Menschenwürde und Demokratie e.V.
+      </span>
+      <div class="site-footer__social">
+        <a href="#" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.5V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19 5 12 5 12 5s-7 0-8.9.4A3 3 0 0 0 1 7.5 31 31 0 0 0 .6 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1C5 19 12 19 12 19s7 0 8.9-.4a3 3 0 0 0 2.1-2.1A31 31 0 0 0 23.4 12 31 31 0 0 0 23 7.5zM9.8 15.3V8.7l5.7 3.3-5.7 3.3z"/></svg></a>
+      </div>
+    </div>
+    <nav class="site-footer__nav" aria-label="Footer-Navigation">
+      <a href="#">Onlineshop</a><a href="#">Spenden</a><a href="#">Impressum</a><a href="#">Datenschutz</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>

@@ -28,18 +28,19 @@ $displayed = array_slice( $pool, 0, 3 );
 
   <div class="impressionen-teaser__grid">
     <?php foreach ( $displayed as $image ) :
-        $url = esc_url( $image['url'] ?? '' );
-        $alt = esc_attr( $image['alt'] ?? '' );
-        if ( ! $url ) continue;
+        $id  = (int) ( $image['id'] ?? 0 );
+        $alt = $image['alt'] ?? '';
+        if ( ! $id ) continue;
     ?>
     <div class="impressionen-teaser__item">
       <?php if ( $gallery_url ) : ?>
       <a href="<?php echo esc_url( $gallery_url ); ?>" class="impressionen-teaser__link" tabindex="-1" aria-hidden="true">
       <?php endif; ?>
-        <img class="impressionen-teaser__img"
-             src="<?php echo $url; ?>"
-             alt="<?php echo $alt; ?>"
-             loading="lazy">
+        <?php echo wp_get_attachment_image( $id, 'large', false, [
+            'class'   => 'impressionen-teaser__img',
+            'alt'     => esc_attr( $alt ),
+            'loading' => 'lazy',
+        ] ); ?>
       <?php if ( $gallery_url ) : ?>
       </a>
       <?php endif; ?>

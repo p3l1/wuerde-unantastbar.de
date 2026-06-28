@@ -14,13 +14,22 @@ $banner_height_map = [
 $banner_height_key = get_post_meta( get_the_ID(), 'banner_height', true ) ?: 'md';
 $banner_height     = $banner_height_map[ $banner_height_key ] ?? $banner_height_map['md'];
 $banner_pos        = get_post_meta( get_the_ID(), 'banner_image_pos', true ) ?: 'center 40%';
+
+$banner_aspect = '';
+$thumb_id      = get_post_thumbnail_id( get_the_ID() );
+if ( $thumb_id ) {
+    $meta = wp_get_attachment_metadata( $thumb_id );
+    if ( ! empty( $meta['width'] ) && ! empty( $meta['height'] ) ) {
+        $banner_aspect = esc_attr( $meta['width'] ) . ' / ' . esc_attr( $meta['height'] );
+    }
+}
 ?>
 
 <?php if ( $thumbnail_url ) : ?>
 <section
   class="page-banner"
   aria-label="<?php echo esc_attr( get_the_title() ); ?>"
-  style="--page-banner-photo: url('<?php echo esc_url( $thumbnail_url ); ?>'); --page-banner-height: <?php echo esc_attr( $banner_height ); ?>; --page-banner-pos: <?php echo esc_attr( $banner_pos ); ?>;"
+  style="--page-banner-photo: url('<?php echo esc_url( $thumbnail_url ); ?>'); --page-banner-height: <?php echo esc_attr( $banner_height ); ?>; --page-banner-pos: <?php echo esc_attr( $banner_pos ); ?>;<?php if ( $banner_aspect ) echo '--banner-aspect:' . $banner_aspect . ';'; ?>"
 >
   <div class="page-banner__overlay" aria-hidden="true"></div>
   <div class="page-banner__content">
