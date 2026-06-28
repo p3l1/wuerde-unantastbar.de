@@ -8,6 +8,7 @@ require_once get_template_directory() . '/inc/blocks.php';
 require_once get_template_directory() . '/inc/settings.php';
 require_once get_template_directory() . '/inc/hcaptcha.php';
 require_once get_template_directory() . '/inc/submissions-admin.php';
+require_once get_template_directory() . '/inc/rest-api.php';
 
 function wuerde_setup() {
     add_theme_support( 'title-tag' );
