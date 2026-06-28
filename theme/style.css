@@ -3039,7 +3039,6 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 .site-mobile-nav .sub-menu {
   padding-left: var(--space-4);
   margin-top: var(--space-1);
-  border-left: 2px solid var(--color-primary);
 }
 
 .site-mobile-nav .sub-menu > li > a {
