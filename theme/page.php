@@ -36,6 +36,16 @@ if ( $thumb_id ) {
     <h1 class="page-banner__title"><?php the_title(); ?></h1>
   </div>
 </section>
+<?php else : ?>
+<section
+  class="page-banner page-banner--kategorie"
+  aria-label="<?php echo esc_attr( get_the_title() ); ?>"
+  style="--cat-color: var(--color-teal); --crown-url: url('<?php echo esc_url( get_template_directory_uri() . '/assets/krone-black.png' ); ?>'); --page-banner-height: <?php echo esc_attr( $banner_height ); ?>;"
+>
+  <div class="page-banner__content">
+    <h1 class="page-banner__title"><?php the_title(); ?></h1>
+  </div>
+</section>
 <?php endif; ?>
 
 <main class="page-content" id="main-content" aria-label="Seiteninhalt" tabindex="-1">
