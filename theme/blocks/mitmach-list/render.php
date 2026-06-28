@@ -129,11 +129,11 @@ foreach ( $all_posts as $post ) {
                                      loading="lazy">
                             </div>
                             <?php endif; ?>
-                            <h3 class="mitmach-card__title">
+                            <h2 class="mitmach-card__title">
                                 <a href="<?php echo esc_url( get_permalink( $post->ID ) ); ?>">
                                     <?php echo esc_html( $post->post_title ); ?>
                                 </a>
-                            </h3>
+                            </h2>
                             <?php if ( $excerpt ) : ?>
                             <p class="mitmach-card__text"><?php echo esc_html( $excerpt ); ?></p>
                             <?php endif; ?>
