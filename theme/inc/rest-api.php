@@ -54,6 +54,23 @@ function wuerde_register_form_routes() {
 }
 add_action( 'rest_api_init', 'wuerde_register_form_routes' );
 
+// Nonce-Hilfsfunktionen für öffentliche Formulare (immer User 0, unabhängig vom eingeloggten Admin).
+function wuerde_public_nonce( string $action ): string {
+    $prev = get_current_user_id();
+    wp_set_current_user( 0 );
+    $nonce = wp_create_nonce( $action );
+    wp_set_current_user( $prev );
+    return $nonce;
+}
+
+function wuerde_verify_public_nonce( string $nonce, string $action ): bool {
+    $prev  = get_current_user_id();
+    wp_set_current_user( 0 );
+    $valid = (bool) wp_verify_nonce( $nonce, $action );
+    wp_set_current_user( $prev );
+    return $valid;
+}
+
 // Gibt false zurück wenn das Limit für diese IP und Aktion bereits erreicht ist.
 function wuerde_check_rate_limit( string $action ): bool {
     $ip  = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
@@ -66,7 +83,7 @@ function wuerde_check_rate_limit( string $action ): bool {
 }
 
 function wuerde_handle_kontakt( WP_REST_Request $request ): WP_REST_Response {
-    if ( ! wp_verify_nonce( $request->get_param( 'nonce' ), 'wuerde_kontakt' ) ) {
+    if ( ! wuerde_verify_public_nonce( $request->get_param( 'nonce' ), 'wuerde_kontakt' ) ) {
         return new WP_REST_Response( [ 'error' => 'Ungültige Anfrage.' ], 403 );
     }
 
@@ -103,7 +120,7 @@ function wuerde_handle_kontakt( WP_REST_Request $request ): WP_REST_Response {
 }
 
 function wuerde_handle_einreichung( WP_REST_Request $request ): WP_REST_Response {
-    if ( ! wp_verify_nonce( $request->get_param( 'nonce' ), 'wuerde_einreichung' ) ) {
+    if ( ! wuerde_verify_public_nonce( $request->get_param( 'nonce' ), 'wuerde_einreichung' ) ) {
         return new WP_REST_Response( [ 'error' => 'Ungültige Anfrage.' ], 403 );
     }
 

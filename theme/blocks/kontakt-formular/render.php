@@ -12,7 +12,7 @@ if ( $site_key ) {
     <form
         class="wuerde-kontakt-formular__form"
         data-endpoint="<?php echo esc_url( rest_url( 'wuerde/v1/kontakt' ) ); ?>"
-        data-nonce="<?php echo esc_attr( wp_create_nonce( 'wuerde_kontakt' ) ); ?>"
+        data-nonce="<?php echo esc_attr( wuerde_public_nonce( 'wuerde_kontakt' ) ); ?>"
         novalidate
     >
         <div class="wuerde-kontakt-formular__field">

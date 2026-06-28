@@ -23,7 +23,7 @@ wp_enqueue_script( 'leaflet' );
     <form
         class="wuerde-mitmach-einreichung__form"
         data-endpoint="<?php echo esc_url( rest_url( 'wuerde/v1/einreichung' ) ); ?>"
-        data-nonce="<?php echo esc_attr( wp_create_nonce( 'wuerde_einreichung' ) ); ?>"
+        data-nonce="<?php echo esc_attr( wuerde_public_nonce( 'wuerde_einreichung' ) ); ?>"
         data-notify-email="<?php echo esc_attr( $notify_email ); ?>"
         data-crown="<?php echo esc_url( get_template_directory_uri() . '/assets/krone-white.png' ); ?>"
         novalidate
