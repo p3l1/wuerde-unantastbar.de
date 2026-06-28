@@ -260,7 +260,10 @@ function wuerde_enqueue_kategorie_archive_scripts() {
         return;
     }
     wp_enqueue_style( 'leaflet' );
+    wp_enqueue_style( 'leaflet-markercluster' );
+    wp_enqueue_style( 'leaflet-markercluster-default' );
     wp_enqueue_script( 'leaflet' );
+    wp_enqueue_script( 'leaflet-markercluster' );
     wp_enqueue_script(
         'wuerde-mitmach-map-view',
         get_template_directory_uri() . '/blocks/mitmach-map/view.js',
@@ -287,6 +290,9 @@ function wuerde_enqueue_admin_leaflet() {
         return;
     }
     wp_enqueue_style( 'leaflet' );
+    wp_enqueue_style( 'leaflet-markercluster' );
+    wp_enqueue_style( 'leaflet-markercluster-default' );
     wp_enqueue_script( 'leaflet' );
+    wp_enqueue_script( 'leaflet-markercluster' );
 }
 add_action( 'admin_enqueue_scripts', 'wuerde_enqueue_admin_leaflet' );

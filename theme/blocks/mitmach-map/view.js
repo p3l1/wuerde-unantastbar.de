@@ -59,6 +59,18 @@
 
 	if ( ! restUrl ) return;
 
+	var clusterGroup = L.markerClusterGroup( {
+		maxClusterRadius: 48,
+		iconCreateFunction: function ( cluster ) {
+			return L.divIcon( {
+				className:  'mitmach-map__cluster',
+				html:       '<div class="mitmach-map__cluster-dot">' + cluster.getChildCount() + '</div>',
+				iconSize:   [ 32, 32 ],
+				iconAnchor: [ 16, 16 ],
+			} );
+		},
+	} );
+
 	fetch( restUrl )
 		.then( function ( res ) { return res.json(); } )
 		.then( function ( points ) {
@@ -75,15 +87,18 @@
 					iconAnchor:  [ 12, 12 ],
 					popupAnchor: [ 0, -14 ],
 				} );
-				var marker = L.marker( [ point.lat, point.lng ], { icon: icon } );
 
-				marker.bindPopup(
-					'<strong>' + point.title + '</strong>' +
-					( point.permalink ? '<br><a href="' + point.permalink + '">Details</a>' : '' )
-				);
+				var popup = '<div class="mitmach-map__popup" style="--popup-color:' + color + '">'
+				          + '<strong>' + point.title + '</strong>'
+				          + ( point.permalink ? '<br><a href="' + point.permalink + '">Details →</a>' : '' )
+				          + '</div>';
 
-				marker.addTo( map );
+				L.marker( [ point.lat, point.lng ], { icon: icon } )
+				 .bindPopup( popup, { className: 'mitmach-map__popup-wrap' } )
+				 .addTo( clusterGroup );
 			} );
+
+			clusterGroup.addTo( map );
 		} )
 		.catch( function ( err ) {
 			console.error( 'Mitmach-Karte: Fehler beim Laden der Marker.', err );

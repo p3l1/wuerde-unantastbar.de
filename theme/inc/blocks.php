@@ -14,11 +14,33 @@ function wuerde_register_blocks() {
         '1.9.4'
     );
 
+    wp_register_style(
+        'leaflet-markercluster',
+        get_template_directory_uri() . '/assets/leaflet/MarkerCluster.css',
+        [ 'leaflet' ],
+        '1.5.3'
+    );
+
+    wp_register_style(
+        'leaflet-markercluster-default',
+        get_template_directory_uri() . '/assets/leaflet/MarkerCluster.Default.css',
+        [ 'leaflet-markercluster' ],
+        '1.5.3'
+    );
+
     wp_register_script(
         'leaflet',
         get_template_directory_uri() . '/assets/leaflet/leaflet.js',
         [],
         '1.9.4',
+        true
+    );
+
+    wp_register_script(
+        'leaflet-markercluster',
+        get_template_directory_uri() . '/assets/leaflet/leaflet.markercluster.js',
+        [ 'leaflet' ],
+        '1.5.3',
         true
     );
 }

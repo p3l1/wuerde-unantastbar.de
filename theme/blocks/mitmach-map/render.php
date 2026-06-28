@@ -3,7 +3,10 @@
 // ABOUTME: Gibt den Leaflet-Container aus und enqueued CSS/JS nur wenn der Block aktiv ist.
 
 wp_enqueue_style( 'leaflet' );
+wp_enqueue_style( 'leaflet-markercluster' );
+wp_enqueue_style( 'leaflet-markercluster-default' );
 wp_enqueue_script( 'leaflet' );
+wp_enqueue_script( 'leaflet-markercluster' );
 
 $center_lat = (float) ( $attributes['centerLat'] ?? 51.2 );
 $center_lng = (float) ( $attributes['centerLng'] ?? 10.4 );
