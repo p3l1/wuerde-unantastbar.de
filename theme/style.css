@@ -2900,11 +2900,11 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   margin-bottom: 0;
 }
 
-.page-content__entry ul {
+.page-content__entry ul:not([class]) {
   list-style: disc;
 }
 
-.page-content__entry ol {
+.page-content__entry ol:not([class]) {
   list-style: decimal;
 }
 
