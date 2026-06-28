@@ -2949,7 +2949,7 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   left: 0;
   background: var(--color-bg);
   border-radius: 0 0 var(--radius-md) var(--radius-md);
-  padding: 0 var(--space-2) var(--space-2);
+  padding: 0 0 var(--space-2);
   list-style: none;
   opacity: 0;
   pointer-events: none;
@@ -2971,7 +2971,6 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 
 .site-nav .sub-menu > li > a {
   font-size: var(--text-base);
-  padding-left: 10px;
 }
 
 /* Hamburger */
