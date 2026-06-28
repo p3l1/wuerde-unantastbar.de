@@ -119,15 +119,17 @@
     } );
 
     function zeigErfolg( postId ) {
+        var safeId = parseInt( postId, 10 );
+        if ( ! safeId || safeId <= 0 ) return;
         form.hidden = true;
         var email   = form.dataset.notifyEmail;
-        var subject = encodeURIComponent( 'Anhänge zu Einreichung #' + postId );
+        var subject = encodeURIComponent( 'Anhänge zu Einreichung #' + safeId );
         var bodyTxt = encodeURIComponent( 'Bitte füge diesem E-Mail deine Fotos oder Dokumente als Anhang bei.' );
         var mailto  = 'mailto:' + email + '?subject=' + subject + '&body=' + bodyTxt;
 
         erfolg.innerHTML =
             '<p><strong>Vielen Dank!</strong> Dein Beitrag wurde gespeichert (Referenz <strong>#' +
-            postId + '</strong>).</p>' +
+            safeId + '</strong>).</p>' +
             '<p>Um Fotos oder Dokumente beizufügen, sende uns eine E-Mail:</p>' +
             '<a href="' + mailto + '" class="btn btn--secondary">📎 Dateien per E-Mail zusenden</a>';
         erfolg.hidden = false;
