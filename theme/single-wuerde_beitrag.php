@@ -21,6 +21,12 @@ if ( $kategorie ) {
 }
 ?>
 
+<?php
+$crown_url     = get_template_directory_uri() . '/assets/krone-black.png';
+$fallback_color = 'var(--color-teal)';
+$banner_color   = $cat_color ?: $fallback_color;
+?>
+
 <?php if ( $thumbnail_url ) : ?>
 <section
   class="page-banner"
@@ -28,6 +34,16 @@ if ( $kategorie ) {
   style="--page-banner-photo: url('<?php echo esc_url( $thumbnail_url ); ?>'); --page-banner-height: clamp(280px, 40vh, 420px);"
 >
   <div class="page-banner__overlay" aria-hidden="true"></div>
+  <div class="page-banner__content">
+    <h1 class="page-banner__title"><?php the_title(); ?></h1>
+  </div>
+</section>
+<?php else : ?>
+<section
+  class="page-banner page-banner--kategorie"
+  aria-label="<?php echo esc_attr( get_the_title() ); ?>"
+  style="--cat-color: <?php echo esc_attr( $banner_color ); ?>; --crown-url: url('<?php echo esc_url( $crown_url ); ?>'); --page-banner-height: clamp(280px, 40vh, 420px);"
+>
   <div class="page-banner__content">
     <h1 class="page-banner__title"><?php the_title(); ?></h1>
   </div>
@@ -40,9 +56,6 @@ if ( $kategorie ) {
 
     <div class="page-content__entry beitrag-detail">
 
-      <?php if ( ! $thumbnail_url ) : ?>
-      <h1 class="beitrag-detail__title"><?php the_title(); ?></h1>
-      <?php endif; ?>
 
       <?php if ( $kategorie || $ort ) : ?>
       <div class="beitrag-detail__meta">

@@ -3237,6 +3237,22 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   display: none;
 }
 
+.page-banner--kategorie {
+  background-color: var(--cat-color, var(--color-teal));
+}
+
+.page-banner--kategorie::before {
+  background-image: var(--crown-url);
+  background-repeat: repeat;
+  background-size: 88px 88px;
+  background-color: transparent;
+  opacity: 0.13;
+  inset: -60%;
+  width: 220%;
+  height: 220%;
+  transform: rotate(-22deg);
+}
+
 .page-banner--map .mitmach-map {
   display: block;
   width: 100%;
