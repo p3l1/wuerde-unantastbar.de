@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.3.0](https://github.com/p3l1/wuerde-unantastbar.de/compare/v0.2.0...v0.3.0) (2026-06-29)
+
+
+### Features
+
+* **theme:** add GitHub release update checker ([45b3dc0](https://github.com/p3l1/wuerde-unantastbar.de/commit/45b3dc09891e081a9a8382bf754991c4a9831707))
+* **theme:** add GitHub release update checker ([#29](https://github.com/p3l1/wuerde-unantastbar.de/issues/29)) ([3e5da14](https://github.com/p3l1/wuerde-unantastbar.de/commit/3e5da14b245897f77b6220d080d8aba8868b000b))
+
+
+### Bug Fixes
+
+* **release:** add x-release-please-version annotation to style.css ([8a6d296](https://github.com/p3l1/wuerde-unantastbar.de/commit/8a6d2968690c5f2a0194e18521bfe4a66143f661))
+* **release:** sync style.css to v0.2.0 and fix extra-files config ([e01eeac](https://github.com/p3l1/wuerde-unantastbar.de/commit/e01eeacdf97f01303f5e3fc704106b42e3a4404b))
+
 ## [0.2.0](https://github.com/p3l1/wuerde-unantastbar.de/compare/v0.1.1...v0.2.0) (2026-06-29)
 
 
