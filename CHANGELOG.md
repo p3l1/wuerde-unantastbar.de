@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.1](https://github.com/p3l1/wuerde-unantastbar.de/compare/v0.3.0...v0.3.1) (2026-06-29)
+
+
+### Bug Fixes
+
+* **ci:** move theme version sync into release workflow ([09836f0](https://github.com/p3l1/wuerde-unantastbar.de/commit/09836f0a70cc0364e754c3d22a0bc3cdcc70ad2e))
+* **ci:** move theme version sync into release workflow ([#35](https://github.com/p3l1/wuerde-unantastbar.de/issues/35)) ([979a406](https://github.com/p3l1/wuerde-unantastbar.de/commit/979a40678167c5452c6627afc3449880b6cd2ac6))
+* **ci:** remove actor guard from sync-theme-version workflow ([0b60fd6](https://github.com/p3l1/wuerde-unantastbar.de/commit/0b60fd6aec33c4eba22dfc06802e3c6ff87c4f8d))
+* **ci:** remove actor guard from sync-theme-version workflow ([#33](https://github.com/p3l1/wuerde-unantastbar.de/issues/33)) ([5fb0875](https://github.com/p3l1/wuerde-unantastbar.de/commit/5fb087553b141c495608b6742427e0f48a4c9b10))
+* **release:** replace annotation approach with dedicated version sync workflow ([6838202](https://github.com/p3l1/wuerde-unantastbar.de/commit/68382023492e0156e86dc24c2c6c4c5accee2d5a))
+* **release:** replace annotation approach with version sync workflow ([#31](https://github.com/p3l1/wuerde-unantastbar.de/issues/31)) ([57b6a37](https://github.com/p3l1/wuerde-unantastbar.de/commit/57b6a37db209978d64ee26190cf2af5e8c4f3aec))
+
 ## [0.3.0](https://github.com/p3l1/wuerde-unantastbar.de/compare/v0.2.0...v0.3.0) (2026-06-29)
 
 
