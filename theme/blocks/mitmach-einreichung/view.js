@@ -1,19 +1,28 @@
-// ABOUTME: Mitmach-Einreichungsformular: Submit-Handler, Leaflet-Karte und Erfolgsanzeige.
+// ABOUTME: Mitmach-Einreichungsformular: Submit-Handler, Adresssuche, Leaflet-Karte und Erfolgsanzeige.
 // ABOUTME: Die Karte wird erst beim Öffnen des <details>-Elements initialisiert.
 
 ( function () {
     var wrapper = document.querySelector( '.wuerde-mitmach-einreichung' );
     if ( ! wrapper ) return;
 
-    var form   = wrapper.querySelector( '.wuerde-mitmach-einreichung__form' );
-    var erfolg = wrapper.querySelector( '.wuerde-mitmach-einreichung__erfolg' );
-    var status = form.querySelector( '.wuerde-mitmach-einreichung__status' );
-    var btn    = form.querySelector( 'button[type="submit"]' );
-    var latEl  = form.querySelector( '[name="lat"]' );
-    var lngEl  = form.querySelector( '[name="lng"]' );
-    var ortEl  = form.querySelector( '[name="ort"]' );
-    var mapEl  = document.getElementById( 'wuerde-einr-map' );
+    var form    = wrapper.querySelector( '.wuerde-mitmach-einreichung__form' );
+    var erfolg  = wrapper.querySelector( '.wuerde-mitmach-einreichung__erfolg' );
+    var status  = form.querySelector( '.wuerde-mitmach-einreichung__status' );
+    var btn     = form.querySelector( 'button[type="submit"]' );
+    var latEl   = form.querySelector( '[name="lat"]' );
+    var lngEl   = form.querySelector( '[name="lng"]' );
+    var ortEl   = form.querySelector( '[name="ort"]' );
+    var mapEl   = document.getElementById( 'wuerde-einr-map' );
     var details = form.querySelector( '.wuerde-mitmach-einreichung__karte-toggle' );
+
+    var adresseEl   = document.getElementById( 'wuerde-einr-adresse' );
+    var adresseBtn  = form.querySelector( '.wuerde-mitmach-einreichung__adresse-btn' );
+    var adresseHint = form.querySelector( '.wuerde-mitmach-einreichung__adresse-hint' );
+
+    // Karte und Marker im äußeren Scope, damit Adresssuche den Marker setzen kann.
+    var leafletMap    = null;
+    var leafletMarker = null;
+    var pinIcon       = null;
 
     // Karte erst beim Öffnen des <details> laden.
     var mapReady = false;
@@ -26,34 +35,99 @@
     }
 
     function initMap() {
-        mapReady = true;
-        var map = L.map( mapEl, { scrollWheelZoom: false } ).setView( [ 51.2, 10.4 ], 6 );
+        mapReady  = true;
+        leafletMap = L.map( mapEl, { scrollWheelZoom: false } ).setView( [ 51.2, 10.4 ], 6 );
         L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap-Mitwirkende',
             maxZoom: 19,
-        } ).addTo( map );
-        setTimeout( function () { map.invalidateSize(); }, 200 );
+        } ).addTo( leafletMap );
+        setTimeout( function () { leafletMap.invalidateSize(); }, 200 );
 
-        var pinIcon = L.divIcon( {
+        pinIcon = L.divIcon( {
             className:   'mitmach-map__pin',
             html:        '<div class="mitmach-map__pin-dot" style="background:#00ACA0"><img src="' + form.dataset.crown + '" alt="" aria-hidden="true"></div>',
             iconSize:    [ 32, 32 ],
             iconAnchor:  [ 16, 16 ],
         } );
 
-        var marker = null;
+        // Falls Koordinaten bereits gesetzt (z. B. durch Adresssuche vor Kartenöffnung).
+        if ( latEl.value && lngEl.value ) {
+            placeMarker( parseFloat( latEl.value ), parseFloat( lngEl.value ) );
+            leafletMap.setView( [ parseFloat( latEl.value ), parseFloat( lngEl.value ) ], 13 );
+        }
 
-        map.on( 'click', function ( e ) {
+        leafletMap.on( 'click', function ( e ) {
             var lat = e.latlng.lat;
             var lng = e.latlng.lng;
-            latEl.value = lat.toFixed( 6 );
-            lngEl.value = lng.toFixed( 6 );
-            if ( marker ) {
-                marker.setLatLng( e.latlng );
-            } else {
-                marker = L.marker( e.latlng, { icon: pinIcon } ).addTo( map );
-            }
+            setKoordinaten( lat, lng );
             reverseGeocode( lat, lng );
+        } );
+    }
+
+    function placeMarker( lat, lng ) {
+        if ( ! leafletMap || ! pinIcon ) return;
+        var latlng = L.latLng( lat, lng );
+        if ( leafletMarker ) {
+            leafletMarker.setLatLng( latlng );
+        } else {
+            leafletMarker = L.marker( latlng, { icon: pinIcon } ).addTo( leafletMap );
+        }
+    }
+
+    function setKoordinaten( lat, lng ) {
+        latEl.value = lat.toFixed( 6 );
+        lngEl.value = lng.toFixed( 6 );
+        placeMarker( lat, lng );
+    }
+
+    // Adresssuche (Vorwärts-Geocodierung via Nominatim).
+    function forwardGeocode( adresse ) {
+        if ( ! adresse.trim() ) return;
+        adresseHint.textContent = 'Suche …';
+        adresseHint.className   = 'wuerde-mitmach-einreichung__adresse-hint';
+
+        var url = 'https://nominatim.openstreetmap.org/search?q=' + encodeURIComponent( adresse ) + '&format=json&limit=1&addressdetails=1&accept-language=de';
+        fetch( url )
+            .then( function ( r ) { return r.json(); } )
+            .then( function ( data ) {
+                if ( ! data || ! data.length ) {
+                    adresseHint.textContent = 'Adresse nicht gefunden.';
+                    adresseHint.className   = 'wuerde-mitmach-einreichung__adresse-hint is-error';
+                    return;
+                }
+                var lat = parseFloat( data[0].lat );
+                var lng = parseFloat( data[0].lon );
+                setKoordinaten( lat, lng );
+
+                if ( leafletMap ) {
+                    leafletMap.setView( [ lat, lng ], 13 );
+                }
+
+                // Ort nur vorausfüllen wenn Feld noch leer — Stadt aus address-Objekt.
+                if ( ! ortEl.value ) {
+                    var a    = data[0].address || {};
+                    var city = a.city || a.town || a.village || a.municipality || a.county || '';
+                    if ( city ) ortEl.value = city;
+                }
+
+                adresseHint.textContent = 'Gefunden: ' + data[0].display_name;
+                adresseHint.className   = 'wuerde-mitmach-einreichung__adresse-hint is-success';
+            } )
+            .catch( function () {
+                adresseHint.textContent = 'Suche fehlgeschlagen.';
+                adresseHint.className   = 'wuerde-mitmach-einreichung__adresse-hint is-error';
+            } );
+    }
+
+    if ( adresseBtn && adresseEl ) {
+        adresseBtn.addEventListener( 'click', function () {
+            forwardGeocode( adresseEl.value );
+        } );
+        adresseEl.addEventListener( 'keydown', function ( e ) {
+            if ( e.key === 'Enter' ) {
+                e.preventDefault();
+                forwardGeocode( adresseEl.value );
+            }
         } );
     }
 

@@ -2945,19 +2945,19 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 
 .site-nav ul > li.menu-item-has-children > .sub-menu {
   position: absolute;
-  top: calc(100% + var(--space-2));
+  top: 100%;
   left: 0;
   background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-lg);
   list-style: none;
-  min-width: 200px;
   opacity: 0;
   pointer-events: none;
   transform: translateY(-6px);
   transition: opacity var(--transition-fast), transform var(--transition-fast);
   z-index: 100;
+}
+
+.has-hero-template .site-header:not(.is-scrolled) .site-nav ul > li.menu-item-has-children > .sub-menu {
+  background: transparent;
 }
 
 .site-nav ul > li.menu-item-has-children:hover > .sub-menu,
@@ -2968,17 +2968,8 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 }
 
 .site-nav .sub-menu > li > a {
-  display: block;
-  padding: var(--space-3) var(--space-4);
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  text-decoration: none;
-  transition: background var(--transition-fast), color var(--transition-fast);
-}
-
-.site-nav .sub-menu > li > a:hover {
-  background: var(--color-bg-subtle);
-  color: var(--color-primary);
+  font-size: var(--text-base);
+  border-radius: 0;
 }
 
 /* Hamburger */
@@ -3059,6 +3050,11 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   margin-top: var(--space-1);
 }
 
+.site-mobile-nav .sub-menu > li > a {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+}
+
 /* Transparent über dem Hero (Startseite, oben); JS schaltet .is-scrolled */
 .has-hero-template .site-header {
   margin-bottom: -72px;
@@ -3100,6 +3096,7 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 .has-hero-template .site-header:not(.is-scrolled) .site-nav ul > li > a:hover {
   background: rgba(255, 255, 255, 0.12);
 }
+
 
 .has-hero-template .site-header:not(.is-scrolled) .site-nav ul > li.current-menu-item > a,
 .has-hero-template .site-header:not(.is-scrolled) .site-nav ul > li.current-page-ancestor > a {

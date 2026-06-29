@@ -39,6 +39,37 @@
     resize: vertical;
 }
 
+.wuerde-mitmach-einreichung__adresse-row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.wuerde-mitmach-einreichung__adresse-row input {
+    flex: 1;
+    min-width: 0;
+}
+
+.wuerde-mitmach-einreichung__adresse-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.wuerde-mitmach-einreichung__adresse-hint {
+    display: block;
+    font-size: 0.8125rem;
+    margin-top: 0.3rem;
+    min-height: 1.2em;
+    color: #555;
+}
+
+.wuerde-mitmach-einreichung__adresse-hint.is-error {
+    color: #8c1a1a;
+}
+
+.wuerde-mitmach-einreichung__adresse-hint.is-success {
+    color: #1a5c1f;
+}
+
 .wuerde-mitmach-einreichung__karte-toggle {
     margin-bottom: 1.25rem;
 }

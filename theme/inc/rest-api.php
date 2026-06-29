@@ -33,7 +33,11 @@ function wuerde_register_form_routes() {
             ],
             'titel'         => [ 'required' => true,  'sanitize_callback' => 'sanitize_text_field' ],
             'beschreibung'  => [ 'required' => true,  'sanitize_callback' => 'sanitize_textarea_field' ],
-            'kategorie_id'  => [ 'required' => false, 'sanitize_callback' => 'absint', 'default' => 0 ],
+            'kategorie_id'  => [
+                'required'          => true,
+                'sanitize_callback' => 'absint',
+                'validate_callback' => function ( $v ) { return absint( $v ) > 0; },
+            ],
             'ort'           => [ 'required' => false, 'sanitize_callback' => 'sanitize_text_field', 'default' => '' ],
             'lat'           => [
                 'required'          => false,
