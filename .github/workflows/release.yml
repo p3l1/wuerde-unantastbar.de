@@ -1,5 +1,5 @@
-# ABOUTME: GitHub Actions workflow for building and releasing the WordPress theme.
-# ABOUTME: Pushes to main create releases; feature branches create pre-releases.
+# ABOUTME: Erstellt automatisch Release-PRs und GitHub Releases basierend auf Conventional Commits.
+# ABOUTME: Semver-Bump (patch/minor/major) wird aus den Commit-Typen abgeleitet.
 
 name: Release
 
@@ -7,34 +7,32 @@ on:
   push:
     branches:
       - main
-      - 'feat/**'
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
-  release:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  build:
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
-
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set version info
-        id: version
-        run: |
-          SHORT_SHA=$(git rev-parse --short HEAD)
-          BRANCH=${GITHUB_REF_NAME}
-          DATE=$(date +%Y.%m.%d)
-
-          if [ "$BRANCH" = "main" ]; then
-            echo "tag=v${DATE}-${SHORT_SHA}" >> $GITHUB_OUTPUT
-            echo "prerelease=false" >> $GITHUB_OUTPUT
-            echo "name=Release ${DATE}" >> $GITHUB_OUTPUT
-          else
-            SAFE_BRANCH=$(echo "$BRANCH" | sed 's/[^a-zA-Z0-9._-]/-/g')
-            echo "tag=pre-${SAFE_BRANCH}-${SHORT_SHA}" >> $GITHUB_OUTPUT
-            echo "prerelease=true" >> $GITHUB_OUTPUT
-            echo "name=Pre-Release ${SAFE_BRANCH} (${SHORT_SHA})" >> $GITHUB_OUTPUT
-          fi
 
       - name: Build theme ZIP
         run: |
@@ -42,10 +40,8 @@ jobs:
           zip -r wuerde-unantastbar-theme.zip wuerde-unantastbar
           rm -rf wuerde-unantastbar
 
-      - name: Create release
+      - name: Upload ZIP to release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.version.outputs.tag }}
-          name: ${{ steps.version.outputs.name }}
-          prerelease: ${{ steps.version.outputs.prerelease }}
+          tag_name: ${{ needs.release-please.outputs.tag_name }}
           files: wuerde-unantastbar-theme.zip
