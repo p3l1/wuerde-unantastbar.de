@@ -2,6 +2,7 @@
 // ABOUTME: Theme setup and asset registration.
 // ABOUTME: Add theme supports, register menus, and enqueue styles/scripts here.
 
+require_once get_template_directory() . '/inc/updates.php';
 require_once get_template_directory() . '/inc/cpt.php';
 require_once get_template_directory() . '/inc/cpt-person.php';
 require_once get_template_directory() . '/inc/blocks.php';
