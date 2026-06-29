@@ -19,12 +19,35 @@ jobs:
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
       tag_name: ${{ steps.release.outputs.tag_name }}
+      pr: ${{ steps.release.outputs.pr }}
     steps:
       - uses: googleapis/release-please-action@v4
         id: release
         with:
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+
+  sync-theme-version:
+    needs: release-please
+    if: ${{ needs.release-please.outputs.pr != '' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ fromJson(needs.release-please.outputs.pr).headBranchName }}
+
+      - name: Sync version in theme/style.css
+        run: |
+          VERSION=$(jq -r '.["."]' .release-please-manifest.json)
+          sed -i "s/^Version: .*/Version: $VERSION/" theme/style.css
+          git diff --quiet theme/style.css && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add theme/style.css
+          git commit -m "chore: sync theme version to $VERSION"
+          git push
 
   build:
     needs: release-please
