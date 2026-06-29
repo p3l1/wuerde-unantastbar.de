@@ -4,7 +4,10 @@
     ".": {
       "release-type": "simple",
       "extra-files": [
-        "theme/style.css"
+        {
+          "type": "generic",
+          "path": "theme/style.css"
+        }
       ]
     }
   }
