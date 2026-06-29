@@ -3,7 +3,7 @@ Theme Name: Würde Unantastbar
 Theme URI: https://wuerde-unantastbar.de
 Author: Philipp
 Description: Theme for wuerde-unantastbar.de
-Version: 0.1.0
+Version: 0.1.1
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: wuerde-unantastbar
@@ -2373,11 +2373,14 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   .profile-card .profile-card__media,
   .profile-card--vertical .profile-card__media {
     min-height: unset;
-    aspect-ratio: 1 / 1;
   }
 
   .profile-card .profile-card__media img,
   .profile-card--vertical .profile-card__media img {
+    position: static;
+    display: block;
+    height: auto;
+    aspect-ratio: 1 / 1;
     object-position: var(--photo-pos-mobile, var(--photo-pos, 50% center));
   }
 
