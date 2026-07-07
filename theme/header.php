@@ -6,6 +6,8 @@
 <head>
   <meta charset="<?php bloginfo( 'charset' ); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <?php // Browser-Chrome (Statusleiste/Toolbar) auf Mobilgeräten in Markengelb. ?>
+  <meta name="theme-color" content="#F7BC2F">
   <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
