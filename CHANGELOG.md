@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.0](https://github.com/p3l1/wuerde-unantastbar.de/compare/v0.3.2...v0.4.0) (2026-07-07)
+
+
+### Features
+
+* **theme:** Mobile Systembereiche in Markenfarben + responsiver Hero-Titel ([#38](https://github.com/p3l1/wuerde-unantastbar.de/issues/38)) ([0dbbd20](https://github.com/p3l1/wuerde-unantastbar.de/commit/0dbbd20e97e134857cc186cec48e943a6556e4d5))
+* **theme:** Systembereiche auf Mobilgeräten in Markenfarben ([bb942bd](https://github.com/p3l1/wuerde-unantastbar.de/commit/bb942bdbd38bae1b62d6a86d6f23351ab2d505cc))
+
 ## [0.3.2](https://github.com/p3l1/wuerde-unantastbar.de/compare/v0.3.1...v0.3.2) (2026-07-07)
 
 
