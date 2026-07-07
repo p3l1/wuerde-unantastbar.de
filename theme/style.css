@@ -3348,6 +3348,24 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   display: block;
 }
 
+/* Der Holzblock mit dem Schriftzug "Würde unantastbar" und der Krone liegt in
+   der Bildmitte. Ab Desktop-Breite skaliert der Titel fluide mit der Breite und
+   bleibt klein genug, dass die längste Zeile den Block nicht überlagert.
+   Mobil-/Tablet-Größe bleibt unverändert. */
+@media (min-width: 1024px) {
+  .site-hero__title {
+    font-size: clamp(3.6rem, 5.2vw + 0.4rem, 6rem);
+  }
+}
+
+/* Auf sehr breiten Bildschirmen wandert der Block weit genug nach rechts,
+   sodass der Titel wieder bis zur vollen Größe wachsen darf. */
+@media (min-width: 1800px) {
+  .site-hero__title {
+    font-size: clamp(6rem, 4.4vw, 7rem);
+  }
+}
+
 .site-hero__actions {
   display: flex;
   flex-wrap: wrap;
