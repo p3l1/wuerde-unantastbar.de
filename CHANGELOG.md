@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.2](https://github.com/p3l1/wuerde-unantastbar.de/compare/v0.3.1...v0.3.2) (2026-07-07)
+
+
+### Bug Fixes
+
+* **hero:** Titel skaliert responsiv und überlagert den Holzblock nicht mehr ([12010db](https://github.com/p3l1/wuerde-unantastbar.de/commit/12010db79e7064e97bd21922aadf2319da9c9ef3)), closes [#23](https://github.com/p3l1/wuerde-unantastbar.de/issues/23)
+* **hero:** Titel skaliert responsiv und überlagert den Holzblock nicht mehr ([#36](https://github.com/p3l1/wuerde-unantastbar.de/issues/36)) ([ec1aade](https://github.com/p3l1/wuerde-unantastbar.de/commit/ec1aadedfaefe485957bd39a55c9ef811c71d505))
+
 ## [0.3.1](https://github.com/p3l1/wuerde-unantastbar.de/compare/v0.3.0...v0.3.1) (2026-06-29)
 
 
