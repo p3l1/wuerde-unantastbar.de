@@ -37,3 +37,18 @@ dem sachlichen und zugänglichen Charakter des Vereinsauftritts.
 
 **Begründung:** Vorgabe aus dem Kundenbriefing (`PROJECT.md`). Vereinfacht die
 Navigation und hebt „Mach mit" als wichtigsten Einstiegspunkt hervor.
+
+---
+
+## Overscroll-Farben auf Mobilgeräten
+
+**Entscheidung:** Der Bereich außerhalb der Seite (Browser-Chrome und
+Overscroll-Bounce auf iOS) wird eingefärbt: oben Gelb, unten Türkis. Ist nur
+eine Farbe möglich (Browser-Chrome via `theme-color`), gilt Gelb.
+
+**Begründung:** Der `theme-color`-Meta-Tag unterstützt nur eine Farbe und färbt
+Statusleiste/Toolbar in Markengelb. Der Zwei-Farben-Effekt (oben Gelb, unten
+Türkis) entsteht über einen fixierten Verlauf am `html`-Element, den der opake
+`body` verdeckt — sichtbar nur beim Über-den-Rand-Ziehen. Dies ist ein
+technischer Kniff für die Systembereiche, kein sichtbarer Design-Verlauf, und
+steht daher nicht im Widerspruch zu „Keine Farbverläufe".

@@ -147,6 +147,9 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  /* Overscroll-Bounce auf iOS: oben Gelb, unten Türkis. Der opake
+     body verdeckt den Verlauf, sichtbar nur beim Über-den-Rand-Ziehen. */
+  background: linear-gradient(180deg, #F7BC2F 0 50%, #00ACA0 50% 100%) fixed;
 }
 
 body {
