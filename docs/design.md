@@ -95,3 +95,17 @@ gleich hohe Karten in der Vorschau, versetztes Mosaik auf der vollständigen
 Kategorieseite. CSS-Columns erreichen den Mosaik-Effekt nativ, ohne
 JavaScript — passend zum bestehenden Architekturprinzip, auf ein
 JS-Build-System zu verzichten (siehe `docs/architecture.md`).
+
+---
+
+## Ladeanimation für Bilder: pulsierende gelbe Krone
+
+**Entscheidung:** Solange ein `img[loading="lazy"]`-Bild noch lädt, zeigt ein
+generischer Mechanismus in `site.js`/`style.css` an dessen Stelle eine
+pulsierende gelbe Krone auf dezentem Hintergrund; nach dem Laden blendet das
+Bild sanft ein. Der Mechanismus greift automatisch auf jedes lazy-geladene
+Bild im Theme, ohne Änderungen an den einzelnen Templates.
+
+**Begründung:** Kundenwunsch. Ein generischer JS-Durchlauf statt manueller
+Markup-Änderungen in den fünf betroffenen Templates vermeidet Redundanz und
+erfasst auch künftig neu hinzukommende Bildstellen ohne Zusatzaufwand.

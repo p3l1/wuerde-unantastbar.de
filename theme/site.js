@@ -138,4 +138,34 @@
 		} );
 	} );
 
+	// =========================================================================
+	// Bild-Ladeanimation — pulsierende Krone, solange img[loading=lazy] lädt
+	// =========================================================================
+
+	document.querySelectorAll( 'img[loading="lazy"]' ).forEach( function ( img ) {
+		if ( img.complete && img.naturalWidth > 0 ) return;
+
+		var parent = img.parentElement;
+		if ( ! parent ) return;
+
+		if ( getComputedStyle( parent ).position === 'static' ) {
+			parent.style.position = 'relative';
+		}
+
+		var loader = document.createElement( 'span' );
+		loader.className = 'img-loader';
+		loader.setAttribute( 'aria-hidden', 'true' );
+		parent.insertBefore( loader, img );
+		img.classList.add( 'img-loader-pending' );
+
+		var onSettle = function () {
+			loader.remove();
+			img.classList.remove( 'img-loader-pending' );
+			img.classList.add( 'img-loader-loaded' );
+		};
+
+		img.addEventListener( 'load', onSettle, { once: true } );
+		img.addEventListener( 'error', onSettle, { once: true } );
+	} );
+
 } )();
