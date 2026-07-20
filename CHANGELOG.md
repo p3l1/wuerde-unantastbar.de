@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.7.0](https://github.com/p3l1/wuerde-unantastbar.de/compare/v0.6.0...v0.7.0) (2026-07-20)
+
+
+### Features
+
+* **theme:** Ladeanimation mit pulsierender Krone für lazy-geladene Bilder ([cf625ad](https://github.com/p3l1/wuerde-unantastbar.de/commit/cf625ad567f1b19c2dbc735fb32ea062f6f1e272))
+
+
+### Bug Fixes
+
+* **mitmach:** make Ort a required field in the submission form ([4808b33](https://github.com/p3l1/wuerde-unantastbar.de/commit/4808b33d43ce9f95507e0396ef0ba781a86afeb1))
+
 ## [0.6.0](https://github.com/p3l1/wuerde-unantastbar.de/compare/v0.5.0...v0.6.0) (2026-07-20)
 
 
