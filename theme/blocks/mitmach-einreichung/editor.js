@@ -35,16 +35,21 @@
                         f( 'E-Mail', 'labelEmail' ),
                         f( 'Titel', 'labelTitel' ),
                         f( 'Beschreibung', 'labelBeschreibung' ),
-                        f( 'Kategorie', 'labelKategorie' ),
+                        f( 'Kurzbeschreibung', 'labelKurzbeschreibung' ),
+                        f( 'Kategorie(n)', 'labelKategorie' ),
+                        f( 'Telefonnummer', 'labelTelefon' ),
                         f( 'Adresse', 'labelAdresse' ),
-                        f( 'Ort', 'labelOrt' )
+                        f( 'Ort', 'labelOrt' ),
+                        f( 'Zustimmung E-Mail veröffentlichen', 'labelEmailPublic' ),
+                        f( 'Zustimmung Telefon veröffentlichen', 'labelTelefonPublic' )
                     ),
                     el( PanelBody, { title: 'Platzhalter', initialOpen: false },
                         f( 'Titel', 'placeholderTitel' ),
                         f( 'Beschreibung', 'placeholderBeschreibung' ),
+                        f( 'Kurzbeschreibung', 'placeholderKurzbeschreibung' ),
+                        f( 'Telefonnummer', 'placeholderTelefon' ),
                         f( 'Adresse', 'placeholderAdresse' ),
-                        f( 'Ort', 'placeholderOrt' ),
-                        f( 'Kategorie-Dropdown', 'placeholderKategorie' )
+                        f( 'Ort', 'placeholderOrt' )
                     ),
                     el( PanelBody, { title: 'Schaltflächen', initialOpen: false },
                         f( 'Adresssuche', 'btnAdresse' ),

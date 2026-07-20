@@ -54,7 +54,7 @@ foreach ( $all_posts as $post ) {
                 <path d="m15 15 3 3" stroke-linecap="round"/>
             </svg>
             <input class="mitmach-search__input" type="search"
-                   placeholder="Suche nach Möglichkeiten …"
+                   placeholder="Anregungen finden…"
                    aria-label="Mitmach-Suche"
                    id="mitmach-search-input"
                    autocomplete="off">
@@ -75,7 +75,8 @@ foreach ( $all_posts as $post ) {
             }
             $panel_id    = 'mitmach-cat-' . esc_attr( $term->slug );
             $has_posts   = ! empty( $term_posts );
-            $is_open     = $has_posts && ( empty( $default_category ) || $default_category === $term->slug );
+            // Kategorien starten immer zugeklappt (Akkordion öffnet sich erst per Klick).
+            $is_open     = false;
             $term_url    = get_term_link( $term, 'wuerde_kategorie' );
             $shown_posts = array_slice( $term_posts, 0, 4 );
             $has_more    = $total_count > 4;

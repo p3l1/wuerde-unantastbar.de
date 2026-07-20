@@ -39,6 +39,17 @@
     resize: vertical;
 }
 
+.wuerde-mitmach-einreichung__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+}
+
+.wuerde-mitmach-einreichung__row > .wuerde-mitmach-einreichung__field {
+    flex: 1 1 240px;
+    min-width: 0;
+}
+
 .wuerde-mitmach-einreichung__adresse-row {
     display: flex;
     gap: 0.5rem;
@@ -52,6 +63,40 @@
 .wuerde-mitmach-einreichung__adresse-btn {
     white-space: nowrap;
     flex-shrink: 0;
+}
+
+.wuerde-mitmach-einreichung__kategorien {
+    border: none;
+    padding: 0;
+    margin: 0 0 1.25rem;
+}
+
+.wuerde-mitmach-einreichung__kategorien legend {
+    padding: 0;
+    margin-bottom: 0.375rem;
+    font-weight: 600;
+}
+
+.wuerde-mitmach-einreichung__checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+}
+
+.wuerde-mitmach-einreichung__checkbox input[type="checkbox"] {
+    width: auto;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+}
+
+.wuerde-mitmach-einreichung__zustimmungen .wuerde-mitmach-einreichung__checkbox {
+    font-size: 0.9375rem;
 }
 
 .wuerde-mitmach-einreichung__adresse-hint {

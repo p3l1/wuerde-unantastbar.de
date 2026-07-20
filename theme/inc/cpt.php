@@ -559,8 +559,21 @@ function wuerde_register_einreichung_meta() {
         'single'       => true,
         'show_in_rest' => false,
     ];
-    register_post_meta( 'wuerde_beitrag', 'wuerde_einreichung_name',  $args );
-    register_post_meta( 'wuerde_beitrag', 'wuerde_einreichung_email', $args );
+    register_post_meta( 'wuerde_beitrag', 'wuerde_einreichung_name',    $args );
+    register_post_meta( 'wuerde_beitrag', 'wuerde_einreichung_email',   $args );
+    register_post_meta( 'wuerde_beitrag', 'wuerde_einreichung_telefon', $args );
+    register_post_meta( 'wuerde_beitrag', 'wuerde_kurzbeschreibung',    $args );
+
+    register_post_meta( 'wuerde_beitrag', 'wuerde_einreichung_email_public', [
+        'type'         => 'boolean',
+        'single'       => true,
+        'show_in_rest' => false,
+    ] );
+    register_post_meta( 'wuerde_beitrag', 'wuerde_einreichung_telefon_public', [
+        'type'         => 'boolean',
+        'single'       => true,
+        'show_in_rest' => false,
+    ] );
 }
 add_action( 'init', 'wuerde_register_einreichung_meta' );
 
@@ -577,8 +590,11 @@ function wuerde_einreichung_meta_box() {
 add_action( 'add_meta_boxes', 'wuerde_einreichung_meta_box' );
 
 function wuerde_einreichung_meta_box_html( WP_Post $post ) {
-    $name  = get_post_meta( $post->ID, 'wuerde_einreichung_name',  true );
-    $email = get_post_meta( $post->ID, 'wuerde_einreichung_email', true );
+    $name           = get_post_meta( $post->ID, 'wuerde_einreichung_name',    true );
+    $email          = get_post_meta( $post->ID, 'wuerde_einreichung_email',   true );
+    $telefon        = get_post_meta( $post->ID, 'wuerde_einreichung_telefon', true );
+    $email_public   = (bool) get_post_meta( $post->ID, 'wuerde_einreichung_email_public',   true );
+    $telefon_public = (bool) get_post_meta( $post->ID, 'wuerde_einreichung_telefon_public', true );
 
     echo '<table style="border-collapse:collapse;width:100%"><tbody>';
     echo '<tr><th style="text-align:left;padding:3px 0;width:80px;font-weight:600">Ref.-Nr.</th>';
@@ -590,7 +606,15 @@ function wuerde_einreichung_meta_box_html( WP_Post $post ) {
     }
     if ( $email ) {
         echo '<tr><th style="text-align:left;padding:3px 0;font-weight:600">E-Mail</th>';
-        echo '<td style="padding:3px 0"><a href="mailto:' . esc_attr( $email ) . '">' . esc_html( $email ) . '</a></td></tr>';
+        echo '<td style="padding:3px 0"><a href="mailto:' . esc_attr( $email ) . '">' . esc_html( $email ) . '</a>'
+            . ( $email_public ? ' <span style="color:#1a5c1f">(öffentlich)</span>' : ' <span style="color:#666">(nicht öffentlich)</span>' )
+            . '</td></tr>';
+    }
+    if ( $telefon ) {
+        echo '<tr><th style="text-align:left;padding:3px 0;font-weight:600">Telefon</th>';
+        echo '<td style="padding:3px 0">' . esc_html( $telefon )
+            . ( $telefon_public ? ' <span style="color:#1a5c1f">(öffentlich)</span>' : ' <span style="color:#666">(nicht öffentlich)</span>' )
+            . '</td></tr>';
     }
     if ( ! $name && ! $email ) {
         echo '<tr><td colspan="2" style="padding:3px 0;color:#666;font-style:italic">Manuell erfasster Beitrag</td></tr>';

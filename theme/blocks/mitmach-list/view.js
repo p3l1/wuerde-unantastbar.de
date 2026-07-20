@@ -10,13 +10,21 @@
 	var cards       = Array.from( accordion.querySelectorAll( '.mitmach-card' ) );
 	var triggers    = Array.from( accordion.querySelectorAll( '.category-accordion__trigger' ) );
 
-	// Accordion-Toggle: Trigger öffnet/schließt zugehöriges Panel.
+	// Accordion-Toggle: Trigger öffnet/schließt zugehöriges Panel, alle anderen werden geschlossen.
 	triggers.forEach( function ( trigger ) {
 		trigger.addEventListener( 'click', function () {
 			var expanded = trigger.getAttribute( 'aria-expanded' ) === 'true';
 			var panelId  = trigger.getAttribute( 'aria-controls' );
 			var panel    = document.getElementById( panelId );
 			if ( ! panel ) return;
+
+			triggers.forEach( function ( otherTrigger ) {
+				if ( otherTrigger === trigger ) return;
+				var otherPanelId = otherTrigger.getAttribute( 'aria-controls' );
+				var otherPanel   = otherPanelId && document.getElementById( otherPanelId );
+				otherTrigger.setAttribute( 'aria-expanded', 'false' );
+				if ( otherPanel ) otherPanel.classList.add( 'category-accordion__panel--closed' );
+			} );
 
 			trigger.setAttribute( 'aria-expanded', String( ! expanded ) );
 			panel.classList.toggle( 'category-accordion__panel--closed', expanded );

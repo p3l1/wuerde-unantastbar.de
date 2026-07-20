@@ -20,23 +20,28 @@ wp_enqueue_style( 'leaflet' );
 wp_enqueue_script( 'leaflet' );
 
 $attr = wp_parse_args( $attributes, [
-    'labelName'               => 'Name',
-    'labelEmail'              => 'E-Mail-Adresse',
-    'labelTitel'              => 'Titel',
-    'labelBeschreibung'       => 'Beschreibung',
-    'labelKategorie'          => 'Kategorie',
-    'labelAdresse'            => 'Adresse',
-    'labelOrt'                => 'Ort',
-    'placeholderTitel'        => 'z. B. Kunstprojekt im Stadtmuseum',
-    'placeholderBeschreibung' => 'Was habt ihr gemacht? Was war besonders?',
-    'placeholderAdresse'      => 'z. B. Marktplatz 1, München',
-    'placeholderOrt'          => 'z. B. München',
-    'placeholderKategorie'    => '— Bitte wählen —',
-    'btnAdresse'              => 'Suchen',
-    'btnSubmit'               => 'Beitrag einreichen',
-    'karteToggle'             => 'Ort auf Karte auswählen (optional)',
-    'dateiHinweisVor'         => 'Fotos und Dokumente bitte per E-Mail an',
-    'dateiHinweisNach'        => 'senden — nach dem Absenden erhältst du eine Referenznummer.',
+    'labelName'                   => 'Name',
+    'labelEmail'                  => 'E-Mail-Adresse',
+    'labelTitel'                  => 'Titel',
+    'labelBeschreibung'           => 'Beschreibung',
+    'labelKategorie'              => 'Kategorie(n)',
+    'labelKurzbeschreibung'       => 'Kurzbeschreibung des Angebots (freiwillig)',
+    'labelTelefon'                => 'Telefonnummer',
+    'labelAdresse'                => 'Adresse',
+    'labelOrt'                    => 'Ort',
+    'labelEmailPublic'            => 'Ich bin einverstanden, dass meine E-Mail-Adresse auf der Beitragsseite veröffentlicht wird.',
+    'labelTelefonPublic'          => 'Ich bin einverstanden, dass meine Telefonnummer auf der Beitragsseite veröffentlicht wird.',
+    'placeholderTitel'            => 'z. B. Kunstprojekt im Stadtmuseum',
+    'placeholderBeschreibung'     => 'Was habt ihr gemacht? Was war besonders?',
+    'placeholderKurzbeschreibung' => 'Max. zwei Sätze, z. B. für die Übersicht',
+    'placeholderTelefon'          => 'z. B. 0151 23456789',
+    'placeholderAdresse'          => 'z. B. Marktplatz 1, München',
+    'placeholderOrt'              => 'z. B. München',
+    'btnAdresse'                  => 'Suchen',
+    'btnSubmit'                   => 'Beitrag einreichen',
+    'karteToggle'                 => 'Ort auf Karte auswählen (optional)',
+    'dateiHinweisVor'             => 'Fotos und Dokumente bitte per E-Mail an',
+    'dateiHinweisNach'            => 'senden — nach dem Absenden erhältst du eine Referenznummer.',
 ] );
 ?>
 <div class="wuerde-mitmach-einreichung wp-block-wuerde-mitmach-einreichung">
@@ -67,31 +72,51 @@ $attr = wp_parse_args( $attributes, [
                       placeholder="<?php echo esc_attr( $attr['placeholderBeschreibung'] ); ?>"></textarea>
         </div>
         <div class="wuerde-mitmach-einreichung__field">
-            <label for="wuerde-einr-kategorie"><?php echo esc_html( $attr['labelKategorie'] ); ?> <span aria-hidden="true">*</span></label>
-            <select id="wuerde-einr-kategorie" name="kategorie_id" required>
-                <option value=""><?php echo esc_html( $attr['placeholderKategorie'] ); ?></option>
-                <?php foreach ( (array) $kategorien as $term ) : ?>
-                <option value="<?php echo esc_attr( (string) $term->term_id ); ?>">
-                    <?php echo esc_html( $term->name ); ?>
-                </option>
-                <?php endforeach; ?>
-            </select>
+            <label for="wuerde-einr-kurzbeschreibung"><?php echo esc_html( $attr['labelKurzbeschreibung'] ); ?></label>
+            <textarea id="wuerde-einr-kurzbeschreibung" name="kurzbeschreibung" rows="2"
+                      placeholder="<?php echo esc_attr( $attr['placeholderKurzbeschreibung'] ); ?>"></textarea>
         </div>
-        <div class="wuerde-mitmach-einreichung__field">
-            <label for="wuerde-einr-adresse"><?php echo esc_html( $attr['labelAdresse'] ); ?></label>
-            <div class="wuerde-mitmach-einreichung__adresse-row">
-                <input type="text" id="wuerde-einr-adresse" autocomplete="off"
-                       placeholder="<?php echo esc_attr( $attr['placeholderAdresse'] ); ?>">
-                <button type="button" class="btn btn--primary wuerde-mitmach-einreichung__adresse-btn">
-                    <?php echo esc_html( $attr['btnAdresse'] ); ?>
-                </button>
+        <fieldset class="wuerde-mitmach-einreichung__field wuerde-mitmach-einreichung__kategorien">
+            <legend><?php echo esc_html( $attr['labelKategorie'] ); ?> <span aria-hidden="true">*</span></legend>
+            <?php foreach ( (array) $kategorien as $term ) : ?>
+            <label class="wuerde-mitmach-einreichung__checkbox">
+                <input type="checkbox" name="kategorie_ids[]" value="<?php echo esc_attr( (string) $term->term_id ); ?>">
+                <?php echo esc_html( $term->name ); ?>
+            </label>
+            <?php endforeach; ?>
+        </fieldset>
+        <div class="wuerde-mitmach-einreichung__row">
+            <div class="wuerde-mitmach-einreichung__field wuerde-mitmach-einreichung__field--adresse">
+                <label for="wuerde-einr-adresse"><?php echo esc_html( $attr['labelAdresse'] ); ?></label>
+                <div class="wuerde-mitmach-einreichung__adresse-row">
+                    <input type="text" id="wuerde-einr-adresse" autocomplete="off"
+                           placeholder="<?php echo esc_attr( $attr['placeholderAdresse'] ); ?>">
+                    <button type="button" class="btn btn--primary wuerde-mitmach-einreichung__adresse-btn">
+                        <?php echo esc_html( $attr['btnAdresse'] ); ?>
+                    </button>
+                </div>
+                <span class="wuerde-mitmach-einreichung__adresse-hint" aria-live="polite"></span>
             </div>
-            <span class="wuerde-mitmach-einreichung__adresse-hint" aria-live="polite"></span>
+            <div class="wuerde-mitmach-einreichung__field wuerde-mitmach-einreichung__field--ort">
+                <label for="wuerde-einr-ort"><?php echo esc_html( $attr['labelOrt'] ); ?></label>
+                <input type="text" id="wuerde-einr-ort" name="ort" autocomplete="off"
+                       placeholder="<?php echo esc_attr( $attr['placeholderOrt'] ); ?>">
+            </div>
         </div>
         <div class="wuerde-mitmach-einreichung__field">
-            <label for="wuerde-einr-ort"><?php echo esc_html( $attr['labelOrt'] ); ?></label>
-            <input type="text" id="wuerde-einr-ort" name="ort" autocomplete="off"
-                   placeholder="<?php echo esc_attr( $attr['placeholderOrt'] ); ?>">
+            <label for="wuerde-einr-telefon"><?php echo esc_html( $attr['labelTelefon'] ); ?></label>
+            <input type="tel" id="wuerde-einr-telefon" name="telefon" autocomplete="tel"
+                   placeholder="<?php echo esc_attr( $attr['placeholderTelefon'] ); ?>">
+        </div>
+        <div class="wuerde-mitmach-einreichung__field wuerde-mitmach-einreichung__zustimmungen">
+            <label class="wuerde-mitmach-einreichung__checkbox">
+                <input type="checkbox" id="wuerde-einr-email-public" name="email_public">
+                <?php echo esc_html( $attr['labelEmailPublic'] ); ?>
+            </label>
+            <label class="wuerde-mitmach-einreichung__checkbox">
+                <input type="checkbox" id="wuerde-einr-telefon-public" name="telefon_public">
+                <?php echo esc_html( $attr['labelTelefonPublic'] ); ?>
+            </label>
         </div>
         <details class="wuerde-mitmach-einreichung__karte-toggle">
             <summary><?php echo esc_html( $attr['karteToggle'] ); ?></summary>

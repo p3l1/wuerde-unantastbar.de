@@ -33,11 +33,18 @@ function wuerde_register_form_routes() {
             ],
             'titel'         => [ 'required' => true,  'sanitize_callback' => 'sanitize_text_field' ],
             'beschreibung'  => [ 'required' => true,  'sanitize_callback' => 'sanitize_textarea_field' ],
-            'kategorie_id'  => [
+            'kurzbeschreibung' => [ 'required' => false, 'sanitize_callback' => 'sanitize_textarea_field', 'default' => '' ],
+            'telefon'       => [ 'required' => false, 'sanitize_callback' => 'sanitize_text_field', 'default' => '' ],
+            'kategorie_ids' => [
                 'required'          => true,
-                'sanitize_callback' => 'absint',
-                'validate_callback' => function ( $v ) { return absint( $v ) > 0; },
+                'sanitize_callback' => function ( $v ) { return array_map( 'absint', (array) $v ); },
+                'validate_callback' => function ( $v ) {
+                    $ids = array_filter( array_map( 'absint', (array) $v ) );
+                    return ! empty( $ids );
+                },
             ],
+            'email_public'   => [ 'required' => false, 'sanitize_callback' => 'rest_sanitize_boolean', 'default' => false ],
+            'telefon_public' => [ 'required' => false, 'sanitize_callback' => 'rest_sanitize_boolean', 'default' => false ],
             'ort'           => [ 'required' => false, 'sanitize_callback' => 'sanitize_text_field', 'default' => '' ],
             'lat'           => [
                 'required'          => false,
@@ -150,6 +157,19 @@ function wuerde_handle_einreichung( WP_REST_Request $request ): WP_REST_Response
     update_post_meta( $post_id, 'wuerde_einreichung_name',  $request->get_param( 'name' ) );
     update_post_meta( $post_id, 'wuerde_einreichung_email', $request->get_param( 'email' ) );
 
+    $telefon = $request->get_param( 'telefon' );
+    if ( $telefon ) {
+        update_post_meta( $post_id, 'wuerde_einreichung_telefon', $telefon );
+    }
+
+    $kurzbeschreibung = $request->get_param( 'kurzbeschreibung' );
+    if ( $kurzbeschreibung ) {
+        update_post_meta( $post_id, 'wuerde_kurzbeschreibung', $kurzbeschreibung );
+    }
+
+    update_post_meta( $post_id, 'wuerde_einreichung_email_public',   (bool) $request->get_param( 'email_public' ) );
+    update_post_meta( $post_id, 'wuerde_einreichung_telefon_public', $telefon && (bool) $request->get_param( 'telefon_public' ) );
+
     $lat = (float) $request->get_param( 'lat' );
     $lng = (float) $request->get_param( 'lng' );
     if ( $lat && $lng ) {
@@ -157,9 +177,11 @@ function wuerde_handle_einreichung( WP_REST_Request $request ): WP_REST_Response
         update_post_meta( $post_id, 'wuerde_lng', $lng );
     }
 
-    $kategorie_id = (int) $request->get_param( 'kategorie_id' );
-    if ( $kategorie_id && term_exists( $kategorie_id, 'wuerde_kategorie' ) ) {
-        wp_set_post_terms( $post_id, [ $kategorie_id ], 'wuerde_kategorie' );
+    $kategorie_ids = array_filter( array_map( 'absint', (array) $request->get_param( 'kategorie_ids' ) ), function ( $id ) {
+        return $id && term_exists( $id, 'wuerde_kategorie' );
+    } );
+    if ( ! empty( $kategorie_ids ) ) {
+        wp_set_post_terms( $post_id, array_values( $kategorie_ids ), 'wuerde_kategorie' );
     }
 
     $ort = $request->get_param( 'ort' );
@@ -172,7 +194,9 @@ function wuerde_handle_einreichung( WP_REST_Request $request ): WP_REST_Response
     $titel   = $request->get_param( 'titel' );
     $to      = wuerde_notification_email();
     $subject = "Neue Einreichung: {$titel} (Referenz #{$post_id})";
-    $body    = "Referenz-Nr.: #{$post_id}\nName: {$name}\nE-Mail: {$email}\n\nTitel: {$titel}\n\nBeschreibung:\n" . $request->get_param( 'beschreibung' );
+    $body    = "Referenz-Nr.: #{$post_id}\nName: {$name}\nE-Mail: {$email}"
+             . ( $telefon ? "\nTelefon: {$telefon}" : '' )
+             . "\n\nTitel: {$titel}\n\nBeschreibung:\n" . $request->get_param( 'beschreibung' );
     $headers = [ 'Content-Type: text/plain; charset=UTF-8' ];
 
     $sent = wp_mail( $to, $subject, $body, $headers );
