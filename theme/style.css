@@ -3,7 +3,7 @@ Theme Name: Würde Unantastbar
 Theme URI: https://wuerde-unantastbar.de
 Author: Philipp
 Description: Theme for wuerde-unantastbar.de
-Version: 0.3.1
+Version: 0.4.0
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: wuerde-unantastbar
@@ -147,6 +147,9 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  /* Overscroll-Bounce auf iOS: oben Gelb, unten Türkis. Der opake
+     body verdeckt den Verlauf, sichtbar nur beim Über-den-Rand-Ziehen. */
+  background: linear-gradient(180deg, #F7BC2F 0 50%, #00ACA0 50% 100%) fixed;
 }
 
 body {
@@ -3346,6 +3349,24 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 
 .site-hero__title > span {
   display: block;
+}
+
+/* Der Holzblock mit dem Schriftzug "Würde unantastbar" und der Krone liegt in
+   der Bildmitte. Ab Desktop-Breite skaliert der Titel fluide mit der Breite und
+   bleibt klein genug, dass die längste Zeile den Block nicht überlagert.
+   Mobil-/Tablet-Größe bleibt unverändert. */
+@media (min-width: 1024px) {
+  .site-hero__title {
+    font-size: clamp(3.6rem, 5.2vw + 0.4rem, 6rem);
+  }
+}
+
+/* Auf sehr breiten Bildschirmen wandert der Block weit genug nach rechts,
+   sodass der Titel wieder bis zur vollen Größe wachsen darf. */
+@media (min-width: 1800px) {
+  .site-hero__title {
+    font-size: clamp(6rem, 4.4vw, 7rem);
+  }
 }
 
 .site-hero__actions {

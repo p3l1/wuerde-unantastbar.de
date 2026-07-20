@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.4.0](https://github.com/p3l1/wuerde-unantastbar.de/compare/v0.3.2...v0.4.0) (2026-07-07)
+
+
+### Features
+
+* **theme:** Mobile Systembereiche in Markenfarben + responsiver Hero-Titel ([#38](https://github.com/p3l1/wuerde-unantastbar.de/issues/38)) ([0dbbd20](https://github.com/p3l1/wuerde-unantastbar.de/commit/0dbbd20e97e134857cc186cec48e943a6556e4d5))
+* **theme:** Systembereiche auf Mobilgeräten in Markenfarben ([bb942bd](https://github.com/p3l1/wuerde-unantastbar.de/commit/bb942bdbd38bae1b62d6a86d6f23351ab2d505cc))
+
+## [0.3.2](https://github.com/p3l1/wuerde-unantastbar.de/compare/v0.3.1...v0.3.2) (2026-07-07)
+
+
+### Bug Fixes
+
+* **hero:** Titel skaliert responsiv und überlagert den Holzblock nicht mehr ([12010db](https://github.com/p3l1/wuerde-unantastbar.de/commit/12010db79e7064e97bd21922aadf2319da9c9ef3)), closes [#23](https://github.com/p3l1/wuerde-unantastbar.de/issues/23)
+* **hero:** Titel skaliert responsiv und überlagert den Holzblock nicht mehr ([#36](https://github.com/p3l1/wuerde-unantastbar.de/issues/36)) ([ec1aade](https://github.com/p3l1/wuerde-unantastbar.de/commit/ec1aadedfaefe485957bd39a55c9ef811c71d505))
+
 ## [0.3.1](https://github.com/p3l1/wuerde-unantastbar.de/compare/v0.3.0...v0.3.1) (2026-06-29)
 
 
