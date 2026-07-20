@@ -52,3 +52,46 @@ Türkis) entsteht über einen fixierten Verlauf am `html`-Element, den der opake
 `body` verdeckt — sichtbar nur beim Über-den-Rand-Ziehen. Dies ist ein
 technischer Kniff für die Systembereiche, kein sichtbarer Design-Verlauf, und
 steht daher nicht im Widerspruch zu „Keine Farbverläufe".
+
+---
+
+## Alle Kartenpins auf der Deutschlandkarte einheitlich türkis
+
+**Entscheidung:** Kartenpins verwenden immer die Markenfarbe Türkis
+(`#00aca0`), unabhängig von der zugeordneten Kategorie-Farbe.
+
+**Begründung:** Kundenwunsch — bei Kategorie-Farben je Pin wirkte die Karte
+unruhig und die Kategoriezuordnung eines Beitrags war über die Pin-Farbe ohnehin
+kaum ablesbar (Popup zeigt Details). Kategoriefarben bleiben auf den
+Kacheln/Akkordeon-Punkten bestehen.
+
+---
+
+## Kategorie-Akkordion auf der Mach-mit-Seite startet immer zugeklappt
+
+**Entscheidung:** Beim Laden der Seite sind alle Kategorien zugeklappt; das
+Öffnen einer Kategorie klappt automatisch alle anderen wieder zu (exklusives
+Akkordeon). Die Live-Suche ist davon ausgenommen — sie öffnet weiterhin alle
+Kategorien mit Treffern gleichzeitig, damit Suchergebnisse über mehrere
+Kategorien hinweg sichtbar bleiben.
+
+**Begründung:** Kundenwunsch — eine vorab geöffnete Kategorie wirkte
+bevorzugt/zufällig und machte die Seite beim ersten Laden unübersichtlich.
+
+---
+
+## Mosaik-Layout auf der Kategorie-Archivseite
+
+**Entscheidung:** Die Kartengrid auf der Kategorie-Archivseite
+(`taxonomy-wuerde_kategorie.php`) nutzt CSS Multi-Column-Layout
+(`column-count: 2`) statt CSS Grid, wodurch Karten unterschiedlicher Höhe
+sich automatisch versetzt anordnen (Pinterest-artiges Mosaik). Auf der
+Mach-mit-Seite (Akkordeon-Vorschau) bleibt hingegen das bisherige CSS-Grid mit
+gleich hohen Karten bestehen — dort clampen Titel/Text zusätzlich auf max.
+2/3 Zeilen für ein einheitliches Kachelbild.
+
+**Begründung:** Kundenwunsch nach zwei unterschiedlichen Darstellungen:
+gleich hohe Karten in der Vorschau, versetztes Mosaik auf der vollständigen
+Kategorieseite. CSS-Columns erreichen den Mosaik-Effekt nativ, ohne
+JavaScript — passend zum bestehenden Architekturprinzip, auf ein
+JS-Build-System zu verzichten (siehe `docs/architecture.md`).

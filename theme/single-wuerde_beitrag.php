@@ -7,19 +7,26 @@ get_header();
 $post_id       = get_the_ID();
 $thumbnail_url = get_the_post_thumbnail_url( $post_id, 'full' );
 
-$kat_terms = wp_get_post_terms( $post_id, 'wuerde_kategorie' );
+$kat_terms  = wp_get_post_terms( $post_id, 'wuerde_kategorie' );
+$kategorien = ! is_wp_error( $kat_terms ) ? $kat_terms : [];
+$kategorie  = ! empty( $kategorien ) ? $kategorien[0] : null; // erste Kategorie bestimmt die Banner-Farbe
+
 $ort_terms = wp_get_post_terms( $post_id, 'wuerde_ort' );
-$kategorie = ! is_wp_error( $kat_terms ) && ! empty( $kat_terms ) ? $kat_terms[0] : null;
 $ort_term  = ! is_wp_error( $ort_terms )  && ! empty( $ort_terms )  ? $ort_terms[0] : null;
 $ort       = $ort_term ? $ort_term->name : '';
 
-$cat_color = '';
-if ( $kategorie ) {
-    $cat_color = get_term_meta( $kategorie->term_id, 'wuerde_color_token', true );
-    if ( ! $cat_color ) {
-        $cat_color = 'var(--color-cat-' . esc_attr( $kategorie->slug ) . ')';
-    }
-}
+$kat_color = function ( WP_Term $term ): string {
+    $color = get_term_meta( $term->term_id, 'wuerde_color_token', true );
+    return $color ? $color : 'var(--color-cat-' . esc_attr( $term->slug ) . ')';
+};
+
+$cat_color = $kategorie ? $kat_color( $kategorie ) : '';
+
+$kurzbeschreibung = get_post_meta( $post_id, 'wuerde_kurzbeschreibung', true );
+$kontakt_email    = get_post_meta( $post_id, 'wuerde_einreichung_email_public',   true )
+    ? get_post_meta( $post_id, 'wuerde_einreichung_email',   true ) : '';
+$kontakt_telefon  = get_post_meta( $post_id, 'wuerde_einreichung_telefon_public', true )
+    ? get_post_meta( $post_id, 'wuerde_einreichung_telefon', true ) : '';
 ?>
 
 <?php
@@ -58,17 +65,17 @@ $banner_color   = $cat_color ?: $fallback_color;
     <div class="page-content__entry beitrag-detail">
 
 
-      <?php if ( $kategorie || $ort ) : ?>
+      <?php if ( ! empty( $kategorien ) || $ort ) : ?>
       <div class="beitrag-detail__meta">
-        <?php if ( $kategorie ) :
-            $kat_url = get_term_link( $kategorie, 'wuerde_kategorie' );
+        <?php foreach ( $kategorien as $kat ) :
+            $kat_url = get_term_link( $kat, 'wuerde_kategorie' );
         ?>
         <a href="<?php echo esc_url( ! is_wp_error( $kat_url ) ? $kat_url : '#' ); ?>"
            class="beitrag-detail__kat"
-           style="--cat-color:<?php echo esc_attr( $cat_color ); ?>">
-          <?php echo esc_html( $kategorie->name ); ?>
+           style="--cat-color:<?php echo esc_attr( $kat_color( $kat ) ); ?>">
+          <?php echo esc_html( $kat->name ); ?>
         </a>
-        <?php endif; ?>
+        <?php endforeach; ?>
         <?php if ( $ort_term ) :
             $ort_url = get_term_link( $ort_term, 'wuerde_ort' );
         ?>
@@ -84,9 +91,29 @@ $banner_color   = $cat_color ?: $fallback_color;
       </div>
       <?php endif; ?>
 
+      <?php if ( $kurzbeschreibung ) : ?>
+      <p class="beitrag-detail__kurzbeschreibung"><?php echo esc_html( $kurzbeschreibung ); ?></p>
+      <?php endif; ?>
+
       <div class="beitrag-detail__content">
         <?php the_content(); ?>
       </div>
+
+      <?php if ( $kontakt_email || $kontakt_telefon ) : ?>
+      <div class="beitrag-detail__kontakt">
+        <h2 class="beitrag-detail__kontakt-title">Kontakt</h2>
+        <?php if ( $kontakt_email ) : ?>
+        <a href="mailto:<?php echo esc_attr( $kontakt_email ); ?>" class="beitrag-detail__kontakt-link">
+          <?php echo esc_html( $kontakt_email ); ?>
+        </a>
+        <?php endif; ?>
+        <?php if ( $kontakt_telefon ) : ?>
+        <a href="tel:<?php echo esc_attr( preg_replace( '/\s+/', '', $kontakt_telefon ) ); ?>" class="beitrag-detail__kontakt-link">
+          <?php echo esc_html( $kontakt_telefon ); ?>
+        </a>
+        <?php endif; ?>
+      </div>
+      <?php endif; ?>
 
       <div class="beitrag-detail__back">
         <a href="<?php echo esc_url( wuerde_machmit_url() ); ?>"

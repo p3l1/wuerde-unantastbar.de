@@ -150,18 +150,31 @@
     form.addEventListener( 'submit', function ( e ) {
         e.preventDefault();
 
+        var kategorieIds = Array.from( form.querySelectorAll( '[name="kategorie_ids[]"]:checked' ) )
+            .map( function ( el ) { return parseInt( el.value, 10 ); } )
+            .filter( function ( id ) { return id > 0; } );
+
+        if ( ! kategorieIds.length ) {
+            setStatus( 'Bitte wähle mindestens eine Kategorie aus.', true );
+            return;
+        }
+
         var captchaEl = form.querySelector( '[name="h-captcha-response"]' );
         var body = {
-            name:          form.querySelector( '[name="name"]' ).value,
-            email:         form.querySelector( '[name="email"]' ).value,
-            titel:         form.querySelector( '[name="titel"]' ).value,
-            beschreibung:  form.querySelector( '[name="beschreibung"]' ).value,
-            kategorie_id:  parseInt( form.querySelector( '[name="kategorie_id"]' ).value, 10 ) || 0,
-            ort:           ortEl.value,
-            lat:           parseFloat( latEl.value ) || 0,
-            lng:           parseFloat( lngEl.value ) || 0,
-            captcha_token: captchaEl ? captchaEl.value : '',
-            nonce:         form.dataset.nonce,
+            name:           form.querySelector( '[name="name"]' ).value,
+            email:          form.querySelector( '[name="email"]' ).value,
+            telefon:        form.querySelector( '[name="telefon"]' ).value,
+            titel:          form.querySelector( '[name="titel"]' ).value,
+            beschreibung:   form.querySelector( '[name="beschreibung"]' ).value,
+            kurzbeschreibung: form.querySelector( '[name="kurzbeschreibung"]' ).value,
+            kategorie_ids:  kategorieIds,
+            ort:            ortEl.value,
+            lat:            parseFloat( latEl.value ) || 0,
+            lng:            parseFloat( lngEl.value ) || 0,
+            email_public:   form.querySelector( '[name="email_public"]' ).checked,
+            telefon_public: form.querySelector( '[name="telefon_public"]' ).checked,
+            captcha_token:  captchaEl ? captchaEl.value : '',
+            nonce:          form.dataset.nonce,
         };
 
         btn.disabled    = true;

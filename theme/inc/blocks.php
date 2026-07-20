@@ -107,13 +107,8 @@ function wuerde_map_points_handler( WP_REST_Request $request ): WP_REST_Response
         $terms = wp_get_post_terms( $post->ID, 'wuerde_kategorie' );
         $term  = ! is_wp_error( $terms ) && ! empty( $terms ) ? $terms[0] : null;
 
-        $color = '';
-        if ( $term ) {
-            $color = get_term_meta( $term->term_id, 'wuerde_color_token', true );
-        }
-        if ( ! $color ) {
-            $color = '#00ACA0';
-        }
+        // Alle Kartenpins einheitlich türkis, unabhängig von der Kategorie-Farbe.
+        $color = '#00ACA0';
 
         $ort_terms = wp_get_post_terms( $post->ID, 'wuerde_ort', [ 'fields' => 'names' ] );
         $ort       = ! is_wp_error( $ort_terms ) && ! empty( $ort_terms ) ? $ort_terms[0] : '';
