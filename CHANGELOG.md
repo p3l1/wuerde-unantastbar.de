@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0](https://github.com/p3l1/wuerde-unantastbar.de/compare/v0.5.0...v0.6.0) (2026-07-20)
+
+
+### Features
+
+* **mitmach:** Kundenanmerkungen zur Mach-mit-Seite umsetzen ([243619b](https://github.com/p3l1/wuerde-unantastbar.de/commit/243619b1d7df5dff08b5e5f08b7fdad8d201083b))
+
 ## [0.5.0](https://github.com/p3l1/wuerde-unantastbar.de/compare/v0.4.0...v0.5.0) (2026-07-20)
 
 
