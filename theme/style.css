@@ -982,6 +982,53 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
   bottom: calc(var(--space-10) * -1);
 }
 
+/* ==========================================================================
+   KRONE-LADEANIMATION — Platzhalter für noch ladende Bilder
+   Wird von site.js an jedes img[loading="lazy"] gehängt (.img-loader
+   davor eingefügt, Bild-Klassen umgeschaltet).
+   ========================================================================== */
+
+.img-loader {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-subtle);
+}
+
+.img-loader::before {
+  content: '';
+  width: 40px;
+  height: 40px;
+  background: var(--crown-url-yellow) center / contain no-repeat;
+  animation: crown-pulse 1.2s ease-in-out infinite;
+}
+
+.img-loader-pending {
+  opacity: 0;
+}
+
+.img-loader-loaded {
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+@keyframes crown-pulse {
+  0%, 100% { transform: scale(0.85); opacity: 0.6; }
+  50%      { transform: scale(1.05); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .img-loader::before {
+    animation: none;
+  }
+
+  .img-loader-loaded {
+    transition: none;
+  }
+}
+
 /* Krone-Asset-Vorschau-Grid (Lookbook) */
 .lb-krone-grid {
   display: flex;

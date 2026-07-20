@@ -95,3 +95,37 @@ gleich hohe Karten in der Vorschau, versetztes Mosaik auf der vollständigen
 Kategorieseite. CSS-Columns erreichen den Mosaik-Effekt nativ, ohne
 JavaScript — passend zum bestehenden Architekturprinzip, auf ein
 JS-Build-System zu verzichten (siehe `docs/architecture.md`).
+
+---
+
+## Ladeanimation für Bilder: pulsierende gelbe Krone
+
+**Entscheidung:** Solange ein `img[loading="lazy"]`-Bild noch lädt, zeigt ein
+generischer Mechanismus in `site.js`/`style.css` an dessen Stelle eine
+pulsierende gelbe Krone auf dezentem Hintergrund; nach dem Laden blendet das
+Bild sanft ein. Der Mechanismus greift automatisch auf jedes lazy-geladene
+Bild im Theme, ohne Änderungen an den einzelnen Templates.
+
+**Begründung:** Kundenwunsch. Ein generischer JS-Durchlauf statt manueller
+Markup-Änderungen in den fünf betroffenen Templates vermeidet Redundanz und
+erfasst auch künftig neu hinzukommende Bildstellen ohne Zusatzaufwand.
+
+---
+
+## Mitmach-Einreichungsformular: Felder in drei Abschnitte gruppiert
+
+**Entscheidung:** Das Einreichungsformular (`mitmach-einreichung`-Block) ist in
+drei benannte Abschnitte gegliedert — „Dein Beitrag" (Titel, Kategorie,
+Beschreibung, Kurzbeschreibung), „Ort" (Adresse, Ort, Karte) und „Deine
+Kontaktdaten" (Name, E-Mail, Telefon). Die Zustimmungs-Checkboxen zur
+Veröffentlichung von E-Mail/Telefon stehen jetzt direkt beim jeweiligen Feld
+statt gesammelt am Ende. Der Karten-Toggle folgt direkt auf Adresse/Ort statt
+danach isoliert zu stehen.
+
+**Begründung:** Die bisherige Reihenfolge (Name, E-Mail, Titel, Beschreibung,
+Kurzbeschreibung, Kategorie, Adresse/Ort, Telefon, Zustimmungen, Karte) mischte
+Identität, Inhalt und Ort ohne erkennbare Struktur; insbesondere lag die
+E-Mail-Zustimmung sieben Felder von der E-Mail-Adresse entfernt. Inhalt zuerst
+folgt dem Muster öffentlicher Einreichungsformulare (niedrigschwellige,
+inhaltliche Felder zuerst, Kontaktdaten zuletzt) und passt zum
+Seitenschwerpunkt „Ideen und Umsetzungsbeispiele teilen" aus `PROJECT.md`.

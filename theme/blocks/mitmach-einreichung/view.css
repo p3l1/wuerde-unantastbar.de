@@ -5,6 +5,22 @@
     max-width: 100%;
 }
 
+.wuerde-mitmach-einreichung__section {
+    border: 0;
+    margin: 0 0 2.25rem;
+    padding: 0;
+}
+
+.wuerde-mitmach-einreichung__section-title {
+    display: block;
+    width: 100%;
+    margin: 0 0 1.25rem;
+    padding: 0 0 0.5rem;
+    border-bottom: 1px solid #e2e2e2;
+    font-size: 1.125rem;
+    font-weight: 700;
+}
+
 .wuerde-mitmach-einreichung__field {
     margin-bottom: 1.25rem;
 }
@@ -95,7 +111,9 @@
     flex-shrink: 0;
 }
 
-.wuerde-mitmach-einreichung__zustimmungen .wuerde-mitmach-einreichung__checkbox {
+.wuerde-mitmach-einreichung__checkbox--consent {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
     font-size: 0.9375rem;
 }
 
