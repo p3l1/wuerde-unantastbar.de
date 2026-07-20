@@ -31,7 +31,7 @@ $attr = wp_parse_args( $attributes, [
     'labelKurzbeschreibung'       => 'Kurzbeschreibung des Angebots (freiwillig)',
     'labelTelefon'                => 'Telefonnummer (freiwillig)',
     'labelAdresse'                => 'Adresse',
-    'labelOrt'                    => 'Ort (freiwillig)',
+    'labelOrt'                    => 'Ort',
     'labelEmailPublic'            => 'Ich bin einverstanden, dass meine E-Mail-Adresse auf der Beitragsseite veröffentlicht wird.',
     'labelTelefonPublic'          => 'Ich bin einverstanden, dass meine Telefonnummer auf der Beitragsseite veröffentlicht wird.',
     'placeholderTitel'            => 'z. B. Kunstprojekt im Stadtmuseum',
@@ -101,8 +101,8 @@ $attr = wp_parse_args( $attributes, [
                     <span class="wuerde-mitmach-einreichung__adresse-hint" aria-live="polite"></span>
                 </div>
                 <div class="wuerde-mitmach-einreichung__field wuerde-mitmach-einreichung__field--ort">
-                    <label for="wuerde-einr-ort"><?php echo esc_html( $attr['labelOrt'] ); ?></label>
-                    <input type="text" id="wuerde-einr-ort" name="ort" autocomplete="off"
+                    <label for="wuerde-einr-ort"><?php echo esc_html( $attr['labelOrt'] ); ?> <span aria-hidden="true">*</span></label>
+                    <input type="text" id="wuerde-einr-ort" name="ort" required autocomplete="off"
                            placeholder="<?php echo esc_attr( $attr['placeholderOrt'] ); ?>">
                 </div>
             </div>

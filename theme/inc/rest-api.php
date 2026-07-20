@@ -45,7 +45,7 @@ function wuerde_register_form_routes() {
             ],
             'email_public'   => [ 'required' => false, 'sanitize_callback' => 'rest_sanitize_boolean', 'default' => false ],
             'telefon_public' => [ 'required' => false, 'sanitize_callback' => 'rest_sanitize_boolean', 'default' => false ],
-            'ort'           => [ 'required' => false, 'sanitize_callback' => 'sanitize_text_field', 'default' => '' ],
+            'ort'           => [ 'required' => true,  'sanitize_callback' => 'sanitize_text_field' ],
             'lat'           => [
                 'required'          => false,
                 'sanitize_callback' => function ( $v ) { return (float) $v; },
