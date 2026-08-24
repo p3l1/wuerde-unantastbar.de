@@ -3466,6 +3466,7 @@ a.btn-crown:hover:not(:disabled), button.btn-crown:hover:not(:disabled) {
 
 .page-banner--kategorie {
   background-color: var(--cat-color, var(--color-teal));
+  background-image: var(--cat-gradient, none);
 }
 
 .page-banner--kategorie::before {

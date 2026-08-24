@@ -35,3 +35,27 @@ die Abhängigkeiten minimal und macht das Lookbook wartbar, ohne dass Entwickler
 Node.js-Toolchain einrichten müssen. Eigene CSS Custom Properties aus `style.css`
 sorgen für konsistentes Styling ohne Framework. Assets (`lookbook.css`, `lookbook.js`)
 werden per `wp_enqueue_scripts` nur auf Lookbook-Seiten geladen (`is_page_template`).
+
+---
+
+## Verlaufs-Funktion als gemeinsame Quelle für Backend und Frontend
+
+**Entscheidung:** `theme/inc/kategorie-gradient.php` erzeugt den CSS-Verlauf der
+Kategorie-Banner. Sowohl die Vorschau-Miniaturen der Einstellungsseite
+(`theme/inc/settings-darstellung.php`) als auch der Banner in
+`theme/single-wuerde_beitrag.php` rufen dieselbe Funktion
+`wuerde_kategorie_gradient( array $colors, ?string $variant = null )` auf.
+
+**Begründung:** Eine zweite Implementierung nur für die Vorschau würde über die Zeit
+vom echten Banner abweichen — die Redaktion würde etwas auswählen, das die Website
+anders darstellt. Der Verlauf wird als CSS Custom Property `--cat-gradient` ins
+`style`-Attribut geschrieben und in `style.css` als `background-image` gelesen; die
+bestehende `background-color` bleibt als Fallback stehen. Liefert die Funktion einen
+leeren String (keine Kategorie oder ein nicht auflösbarer Farbwert), greift dieser
+Fallback automatisch.
+
+**Einstellungsseite:** Bewusst eine eigene Seite (`wuerde-darstellung`) statt eines
+weiteren Abschnitts der Formular-Einstellungen — die beiden Seiten haben getrennte
+Zielgruppen (Technik/Zugangsdaten gegenüber Gestaltung). Das Admin-CSS wird auf dieser
+einen Seite per `admin_enqueue_scripts` inline eingebunden und nicht in `style.css`
+abgelegt, das ausschließlich das Frontend versorgt.

@@ -28,6 +28,54 @@ und werden als CSS custom properties im Theme hinterlegt:
 **Begründung:** Die Gestaltung setzt auf klare, flächige Farben. Verläufe widersprechen
 dem sachlichen und zugänglichen Charakter des Vereinsauftritts.
 
+**Ausnahme:** Der Kategorie-Header eines Mitmach-Beitrags (siehe „Beitrags-Header:
+Verlauf über alle Kategoriefarben"). Dort ist der Verlauf kein Schmuck, sondern trägt
+die Information „dieser Beitrag gehört zu mehreren Kategorien".
+
+---
+
+## Beitrags-Header: Verlauf über alle Kategoriefarben
+
+**Entscheidung:** Der farbige Header eines Mitmach-Beitrags ohne Beitragsbild zeigt
+nicht mehr nur die Farbe der ersten Kategorie, sondern einen Verlauf über die Farben
+**aller** zugeordneten Kategorien. Die Form des Verlaufs wählt die Redaktion unter
+*Einstellungen → Darstellung* aus drei Varianten:
+
+| Variante | Form | Charakter |
+|----------|------|-----------|
+| `bogen` (Default) | weicher Verlauf quer über alle Farben | ruhig, am nächsten am bisherigen einfarbigen Banner |
+| `fahne` | gleich breite harte Bänder, eines je Kategorie | die Zuordnungen bleiben abzählbar |
+| `schnitt` | diagonale Keile in ungleichen Breiten | grafisch und bewegt, ohne Animation |
+
+**Begründung:** Die Detailseite listet seit 0.6.0 alle Kategorien als Badges, der
+Banner darüber zeigte aber weiter nur eine Farbe — Banner und Badges widersprachen
+einander. Drei Varianten statt einer, weil sich die Frage „ruhige Fläche oder
+abzählbare Zuordnung" nicht allgemein beantworten lässt: sie hängt vom Bildmaterial
+und vom Anteil mehrfach zugeordneter Beiträge ab, und beides ändert sich mit dem
+Inhalt. Mehr als drei Varianten wären eine Auswahl ohne erkennbaren Unterschied.
+
+Beiträge mit genau einer Kategorie sind kein Randfall, deshalb hat jede Variante eine
+eigene Einfarb-Form: `bogen` hellt auf und dunkelt ab, `schnitt` setzt eine diagonale
+Kante, `fahne` bleibt bewusst einfarbig wie bisher. So bleibt die gewählte Variante
+auch bei einer einzigen Zuordnung erkennbar, ohne dass die Farbe verfälscht wirkt.
+
+**Unverändert:** Beiträge mit Beitragsbild (dort gewinnt weiter das Foto), das
+Kronen-Muster über dem Banner und die Kategorieseiten — dort steht der Banner für
+genau einen Term und bleibt einfarbig. Beiträge ganz ohne Kategorie behalten den
+Teal-Fallback.
+
+---
+
+## Bekannter Punkt: Kontrast Weiß auf Amber
+
+**Beobachtung:** Weiß auf dem Amber-Ton `#E8941A` („Auf der Straße") erreicht nur rund
+2,2:1 und liegt damit unter der WCAG-Schwelle. Das betrifft bereits den heutigen
+einfarbigen Banner und ist nicht durch die Verlaufs-Varianten entstanden.
+
+**Lösung wäre** ein Lesbarkeits-Verlauf nach unten (dunkler werdende Abdeckung hinter
+dem Titel). Bewusst noch nicht umgesetzt, weil das die Wirkung aller Bannerfarben
+verändert und eine eigene gestalterische Abstimmung braucht.
+
 ---
 
 ## Startseite nicht im Hauptmenü
