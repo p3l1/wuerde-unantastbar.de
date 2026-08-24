@@ -4,7 +4,7 @@
   "name": "wuerde/impressionen-teaser",
   "title": "Impressionen-Teaser",
   "category": "wuerde",
-  "description": "Zeigt 3 zufällig ausgewählte Bilder aus einem kuratierten Pool mit Link zur Galerieseite.",
+  "description": "Zeigt Bilder aus einem kuratierten Pool — wahlweise 3 zufällige oder alle — mit optionalem Link zur Galerieseite.",
   "keywords": ["galerie", "impressionen", "bilder", "fotos"],
   "textdomain": "wuerde-unantastbar",
   "attributes": {
@@ -13,7 +13,7 @@
       "items": {
         "type": "object",
         "properties": {
-          "id":  { "type": "number" },
+          "id": { "type": "number" },
           "url": { "type": "string" },
           "alt": { "type": "string" }
         }
@@ -24,9 +24,9 @@
       "type": "string",
       "default": ""
     },
-    "heading": {
-      "type": "string",
-      "default": "Impressionen"
+    "showAllImages": {
+      "type": "boolean",
+      "default": false
     }
   },
   "supports": {

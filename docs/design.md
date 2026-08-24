@@ -129,3 +129,25 @@ E-Mail-Zustimmung sieben Felder von der E-Mail-Adresse entfernt. Inhalt zuerst
 folgt dem Muster öffentlicher Einreichungsformulare (niedrigschwellige,
 inhaltliche Felder zuerst, Kontaktdaten zuletzt) und passt zum
 Seitenschwerpunkt „Ideen und Umsetzungsbeispiele teilen" aus `PROJECT.md`.
+
+---
+
+## Impressionen-Teaser rendert keine eigene Überschrift
+
+**Entscheidung:** Der `impressionen-teaser`-Block gibt ausschließlich das
+Bild-Grid und — bei gesetzter Galerie-URL — den optionalen CTA aus. Das
+Attribut `heading` und die vom Block erzeugte `<h2>` sind entfallen.
+Neu steuert die Option „Alle Bilder anzeigen" (`showAllImages`), ob der
+komplette Pool in Pool-Reihenfolge oder wie bisher drei zufällige Bilder
+erscheinen.
+
+**Begründung:** Seiten setzen ihre Überschrift bereits als eigenständigen
+Gutenberg-Block; die blockeigene `<h2>` führte damit zu doppelten
+Überschriften und einer nicht steuerbaren Dokumentgliederung. Die Überschrift
+gehört in die Seitenstruktur, der Block liefert nur den Inhalt. Für kuratierte
+Galerieseiten ist die Zufallsauswahl unerwünscht — dort soll der gesamte Pool
+sichtbar sein.
+
+**Nebeneffekt:** Im „Alle Bilder"-Modus schaltet das Grid unter 600 px auf zwei
+Spalten (statt einer), damit ein großer Pool mobil keine übermäßig lange
+Einspalten-Kette ergibt.
