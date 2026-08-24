@@ -7,6 +7,8 @@ require_once get_template_directory() . '/inc/cpt.php';
 require_once get_template_directory() . '/inc/cpt-person.php';
 require_once get_template_directory() . '/inc/blocks.php';
 require_once get_template_directory() . '/inc/settings.php';
+require_once get_template_directory() . '/inc/kategorie-gradient.php';
+require_once get_template_directory() . '/inc/settings-darstellung.php';
 require_once get_template_directory() . '/inc/hcaptcha.php';
 require_once get_template_directory() . '/inc/submissions-admin.php';
 require_once get_template_directory() . '/inc/rest-api.php';

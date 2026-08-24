@@ -9,7 +9,7 @@ $thumbnail_url = get_the_post_thumbnail_url( $post_id, 'full' );
 
 $kat_terms  = wp_get_post_terms( $post_id, 'wuerde_kategorie' );
 $kategorien = ! is_wp_error( $kat_terms ) ? $kat_terms : [];
-$kategorie  = ! empty( $kategorien ) ? $kategorien[0] : null; // erste Kategorie bestimmt die Banner-Farbe
+$kategorie  = ! empty( $kategorien ) ? $kategorien[0] : null; // Fallback-Farbe hinter dem Verlauf
 
 $ort_terms = wp_get_post_terms( $post_id, 'wuerde_ort' );
 $ort_term  = ! is_wp_error( $ort_terms )  && ! empty( $ort_terms )  ? $ort_terms[0] : null;
@@ -21,6 +21,9 @@ $kat_color = function ( WP_Term $term ): string {
 };
 
 $cat_color = $kategorie ? $kat_color( $kategorie ) : '';
+
+// Der Banner verläuft über die Farben aller Kategorien; die Variante kommt aus den Einstellungen.
+$cat_gradient = wuerde_kategorie_gradient( array_map( $kat_color, $kategorien ) );
 
 $kurzbeschreibung = get_post_meta( $post_id, 'wuerde_kurzbeschreibung', true );
 $kontakt_email    = get_post_meta( $post_id, 'wuerde_einreichung_email_public',   true )
@@ -50,7 +53,7 @@ $banner_color   = $cat_color ?: $fallback_color;
 <section
   class="page-banner page-banner--kategorie"
   aria-label="<?php echo esc_attr( get_the_title() ); ?>"
-  style="--cat-color: <?php echo esc_attr( $banner_color ); ?>; --crown-url: url('<?php echo esc_url( $crown_url ); ?>'); --page-banner-height: clamp(280px, 40vh, 420px);"
+  style="--cat-color: <?php echo esc_attr( $banner_color ); ?>;<?php echo $cat_gradient ? ' --cat-gradient: ' . esc_attr( $cat_gradient ) . ';' : ''; ?> --crown-url: url('<?php echo esc_url( $crown_url ); ?>'); --page-banner-height: clamp(280px, 40vh, 420px);"
 >
   <div class="page-banner__content">
     <h1 class="page-banner__title"><?php the_title(); ?></h1>
