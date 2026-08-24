@@ -1,5 +1,5 @@
 // ABOUTME: Site-weites JavaScript für Header-Navigation (Hamburger, Dropdown).
-// ABOUTME: Lädt auf allen Seiten außer Lookbook/Hero-Demo (die haben lookbook.js).
+// ABOUTME: Wird über wuerde_enqueue_assets auf allen Seiten geladen.
 
 ( function () {
 	// =========================================================================
