@@ -4,11 +4,6 @@
   padding: 16px;
 }
 
-.impressionen-teaser-preview__heading {
-  margin: 0 0 12px;
-  font-size: 1.4rem;
-}
-
 .impressionen-editor__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

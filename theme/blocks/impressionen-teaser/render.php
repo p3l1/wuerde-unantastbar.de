@@ -1,30 +1,26 @@
 <?php
 // ABOUTME: Frontend-Rendering des Impressionen-Teaser-Blocks.
-// ABOUTME: Wählt 3 zufällige Bilder aus dem kuratierten Pool und zeigt sie als verlinktes Grid.
+// ABOUTME: Zeigt 3 zufällige oder alle Bilder des kuratierten Pools als verlinktes Grid.
 
-$images      = (array) ( $attributes['images']     ?? [] );
+$images      = (array) ( $attributes['images'] ?? [] );
 $gallery_url = sanitize_url( $attributes['galleryUrl'] ?? '' );
-$heading     = sanitize_text_field( $attributes['heading'] ?? 'Impressionen' );
+$show_all    = ! empty( $attributes['showAllImages'] );
 
 if ( empty( $images ) ) {
     return;
 }
 
-// 3 zufällige Bilder aus dem Pool
-$pool = $images;
-shuffle( $pool );
-$displayed = array_slice( $pool, 0, 3 );
-?>
-<section <?php echo get_block_wrapper_attributes( [ 'class' => 'impressionen-teaser' ] ); ?>>
+if ( $show_all ) {
+    $displayed = $images;
+} else {
+    $pool = $images;
+    shuffle( $pool );
+    $displayed = array_slice( $pool, 0, 3 );
+}
 
-  <div class="impressionen-teaser__header">
-    <h2 class="impressionen-teaser__heading"><?php echo esc_html( $heading ); ?></h2>
-    <?php if ( $gallery_url ) : ?>
-    <a href="<?php echo esc_url( $gallery_url ); ?>" class="impressionen-teaser__all-link">
-      Alle Impressionen →
-    </a>
-    <?php endif; ?>
-  </div>
+$wrapper_class = 'impressionen-teaser' . ( $show_all ? ' impressionen-teaser--all' : '' );
+?>
+<section <?php echo get_block_wrapper_attributes( [ 'class' => $wrapper_class ] ); ?>>
 
   <div class="impressionen-teaser__grid">
     <?php foreach ( $displayed as $image ) :

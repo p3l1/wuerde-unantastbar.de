@@ -10,13 +10,14 @@
 	var PanelBody       = window.wp.components.PanelBody;
 	var Button          = window.wp.components.Button;
 	var TextControl     = window.wp.components.TextControl;
+	var ToggleControl   = window.wp.components.ToggleControl;
 
 	blocks.registerBlockType( 'wuerde/impressionen-teaser', {
 		edit: function ( props ) {
-			var images     = props.attributes.images     || [];
-			var galleryUrl = props.attributes.galleryUrl || '';
-			var heading    = props.attributes.heading    || 'Impressionen';
-			var blockProps = useBlockProps( { className: 'impressionen-teaser-editor' } );
+			var images        = props.attributes.images     || [];
+			var galleryUrl    = props.attributes.galleryUrl || '';
+			var showAllImages = !! props.attributes.showAllImages;
+			var blockProps    = useBlockProps( { className: 'impressionen-teaser-editor' } );
 
 			function onSelectImages( selected ) {
 				props.setAttributes( {
@@ -36,23 +37,26 @@
 				} );
 			}
 
-			var previewImages = images.slice( 0, 3 );
+			var previewImages = showAllImages ? images : images.slice( 0, 3 );
 
 			return el(
 				'div',
 				blockProps,
 				el( InspectorControls, null,
 					el( PanelBody, { title: 'Einstellungen', initialOpen: true },
-						el( TextControl, {
-							label: 'Überschrift',
-							value: heading,
-							onChange: function ( val ) { props.setAttributes( { heading: val } ); },
+						el( ToggleControl, {
+							label: 'Alle Bilder anzeigen',
+							checked: showAllImages,
+							help: showAllImages
+								? 'Der komplette Pool wird in der gewählten Reihenfolge angezeigt.'
+								: 'Bei jedem Seitenaufruf werden 3 zufällige Bilder aus dem Pool angezeigt.',
+							onChange: function ( val ) { props.setAttributes( { showAllImages: val } ); },
 						} ),
 						el( TextControl, {
 							label: 'Galerie-URL',
 							value: galleryUrl,
 							placeholder: '/galerie/',
-							help: 'Zielseite beim Klick auf „Alle Impressionen"',
+							help: 'Optional. Zielseite beim Klick auf „Alle Impressionen ansehen“. Leer lassen für reine Bildanzeige.',
 							onChange: function ( val ) { props.setAttributes( { galleryUrl: val } ); },
 						} )
 					),
@@ -89,7 +93,6 @@
 				),
 
 				el( 'div', { className: 'impressionen-teaser-preview' },
-					el( 'h2', { className: 'impressionen-teaser-preview__heading' }, heading ),
 					images.length === 0
 						? el( 'div', { className: 'impressionen-editor__empty' },
 							el( 'p', null, 'Noch keine Bilder ausgewählt. Wähle Bilder im Panel rechts aus.' )
@@ -100,7 +103,7 @@
 									el( 'img', { src: img.url, alt: img.alt } )
 								);
 							} ),
-							images.length > 3 && el( 'p', { className: 'impressionen-editor__count' },
+							! showAllImages && images.length > 3 && el( 'p', { className: 'impressionen-editor__count' },
 								images.length + ' Bilder im Pool — 3 werden zufällig ausgewählt'
 							)
 						),
