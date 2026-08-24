@@ -1,17 +1,27 @@
 <?php
-// ABOUTME: Admin-Einstellungsseite „Darstellung" zur Wahl der Header-Verlaufsvariante.
+// ABOUTME: Admin-Seite „Darstellung" unter Mitmach-Beiträge zur Wahl der Header-Verlaufsvariante.
 // ABOUTME: Die Vorschau-Miniaturen entstehen über dieselbe Funktion wie der Banner im Frontend.
 
 function wuerde_darstellung_menu() {
-    add_options_page(
+    $hook = add_submenu_page(
+        'edit.php?post_type=wuerde_beitrag',
         'Darstellung',
         'Darstellung',
         'manage_options',
         'wuerde-darstellung',
         'wuerde_darstellung_page_html'
     );
+
+    if ( $hook ) {
+        add_action( 'load-' . $hook, 'wuerde_darstellung_load' );
+    }
 }
 add_action( 'admin_menu', 'wuerde_darstellung_menu' );
+
+// Über load-{hook} statt eines fest getippten Hook-Suffix — der ändert sich mit dem Elternmenü.
+function wuerde_darstellung_load() {
+    add_action( 'admin_enqueue_scripts', 'wuerde_darstellung_admin_assets' );
+}
 
 function wuerde_darstellung_settings_init() {
     register_setting( 'wuerde_darstellung', 'wuerde_header_gradient_variant', [
@@ -124,9 +134,13 @@ function wuerde_darstellung_page_html() {
     if ( ! current_user_can( 'manage_options' ) ) {
         return;
     }
+    if ( isset( $_GET['settings-updated'] ) ) {
+        add_settings_error( 'wuerde_darstellung', 'wuerde_darstellung_saved', 'Einstellungen gespeichert.', 'success' );
+    }
     ?>
     <div class="wrap">
         <h1>Darstellung</h1>
+        <?php settings_errors( 'wuerde_darstellung' ); ?>
         <form method="post" action="options.php">
             <?php
             settings_fields( 'wuerde_darstellung' );
@@ -138,16 +152,11 @@ function wuerde_darstellung_page_html() {
     <?php
 }
 
-function wuerde_darstellung_admin_assets( $hook ) {
-    if ( 'settings_page_wuerde-darstellung' !== $hook ) {
-        return;
-    }
-
+function wuerde_darstellung_admin_assets() {
     wp_register_style( 'wuerde-darstellung-admin', false, [], null );
     wp_enqueue_style( 'wuerde-darstellung-admin' );
     wp_add_inline_style( 'wuerde-darstellung-admin', wuerde_darstellung_admin_css() );
 }
-add_action( 'admin_enqueue_scripts', 'wuerde_darstellung_admin_assets' );
 
 function wuerde_darstellung_admin_css(): string {
     return <<<CSS

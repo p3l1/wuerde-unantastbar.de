@@ -54,8 +54,12 @@ bestehende `background-color` bleibt als Fallback stehen. Liefert die Funktion e
 leeren String (keine Kategorie oder ein nicht auflösbarer Farbwert), greift dieser
 Fallback automatisch.
 
-**Einstellungsseite:** Bewusst eine eigene Seite (`wuerde-darstellung`) statt eines
-weiteren Abschnitts der Formular-Einstellungen — die beiden Seiten haben getrennte
-Zielgruppen (Technik/Zugangsdaten gegenüber Gestaltung). Das Admin-CSS wird auf dieser
-einen Seite per `admin_enqueue_scripts` inline eingebunden und nicht in `style.css`
+**Einstellungsseite:** Eine eigene Seite (`wuerde-darstellung`) statt eines weiteren
+Abschnitts der Formular-Einstellungen — die beiden Seiten haben getrennte Zielgruppen
+(Technik/Zugangsdaten gegenüber Gestaltung). Sie hängt per `add_submenu_page` unter
+*Mitmach-Beiträge* statt unter *Einstellungen*, weil sie ausschließlich Mitmach-Beiträge
+betrifft und dort gesucht wird. Gespeichert wird weiter über die Options API; außerhalb
+der Einstellungen-Seiten druckt WordPress die Speichern-Meldung nicht selbst, deshalb
+ruft die Seite `settings_errors()` explizit auf. Das Admin-CSS wird über
+`load-{$hook_suffix}` nur auf dieser einen Seite eingebunden und nicht in `style.css`
 abgelegt, das ausschließlich das Frontend versorgt.

@@ -39,7 +39,7 @@ die Information „dieser Beitrag gehört zu mehreren Kategorien".
 **Entscheidung:** Der farbige Header eines Mitmach-Beitrags ohne Beitragsbild zeigt
 nicht mehr nur die Farbe der ersten Kategorie, sondern einen Verlauf über die Farben
 **aller** zugeordneten Kategorien. Die Form des Verlaufs wählt die Redaktion unter
-*Einstellungen → Darstellung* aus drei Varianten:
+*Mitmach-Beiträge → Darstellung* aus drei Varianten:
 
 | Variante | Form | Charakter |
 |----------|------|-----------|
