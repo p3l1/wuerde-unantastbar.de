@@ -2,7 +2,8 @@
 // ABOUTME: Server-side Rendering des Mitmach-Einreichungs-Blocks.
 // ABOUTME: Lädt Kategorien, Leaflet und bettet Konfiguration als data-Attribute ein.
 
-$site_key     = get_option( 'wuerde_hcaptcha_site_key', '' );
+// Widget nur rendern wenn hCaptcha vollständig konfiguriert ist (Site Key + Secret).
+$site_key     = wuerde_hcaptcha_enabled() ? get_option( 'wuerde_hcaptcha_site_key', '' ) : '';
 $notify_email = wuerde_notification_email();
 
 $kategorien = get_terms( [

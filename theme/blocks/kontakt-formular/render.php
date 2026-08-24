@@ -2,7 +2,9 @@
 // ABOUTME: Server-side Rendering des Kontaktformular-Blocks.
 // ABOUTME: Bettet Nonce und REST-Endpoint-URL als data-Attribute ein.
 
-$site_key = get_option( 'wuerde_hcaptcha_site_key', '' );
+// Widget nur rendern wenn hCaptcha vollständig konfiguriert ist — sonst würde der
+// Server Tokens verlangen, die das Frontend nicht liefern kann (oder umgekehrt).
+$site_key = wuerde_hcaptcha_enabled() ? get_option( 'wuerde_hcaptcha_site_key', '' ) : '';
 
 if ( $site_key ) {
     wp_enqueue_script( 'hcaptcha', 'https://js.hcaptcha.com/1/api.js', [], null, false );
