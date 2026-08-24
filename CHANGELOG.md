@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.8.0](https://github.com/p3l1/wuerde-unantastbar.de/compare/v0.7.0...v0.8.0) (2026-08-24)
+
+
+### Features
+
+* **impressionen:** Überschrift entfernt, Option für kompletten Bildpool ([e029398](https://github.com/p3l1/wuerde-unantastbar.de/commit/e0293980a163d1da63a76e70cee1c1dc0b96a5e9))
+* **impressionen:** Überschrift entfernt, Option für kompletten Bildpool ([#46](https://github.com/p3l1/wuerde-unantastbar.de/issues/46)) ([1d015bf](https://github.com/p3l1/wuerde-unantastbar.de/commit/1d015bf6c5d484f04dc169164eefaeeac11d718b))
+* **privacy:** DSGVO-Härtung, hCaptcha-Fix, Demo-Templates entfernt ([#49](https://github.com/p3l1/wuerde-unantastbar.de/issues/49)) ([6545b29](https://github.com/p3l1/wuerde-unantastbar.de/commit/6545b295a9d42d597f13f6011800767997f44c56))
+* **privacy:** no third-party requests without user consent ([04f90f4](https://github.com/p3l1/wuerde-unantastbar.de/commit/04f90f44e4d69c53fd2a41f6f04aa447441ca5b8))
+* **theme:** Beitrags-Header als Verlauf über alle Kategoriefarben ([47738a8](https://github.com/p3l1/wuerde-unantastbar.de/commit/47738a8a9c705961767fa0f921ffef7153157215))
+* **theme:** Beitrags-Header als Verlauf über alle Kategoriefarben ([#48](https://github.com/p3l1/wuerde-unantastbar.de/issues/48)) ([36c9bd9](https://github.com/p3l1/wuerde-unantastbar.de/commit/36c9bd9d7b37e73233c23abcaae4b4d8d5f2db68))
+
+
+### Bug Fixes
+
+* **forms:** close hCaptcha bypass and rework rate limiting ([39ad0f1](https://github.com/p3l1/wuerde-unantastbar.de/commit/39ad0f1b79f980b0ffb0472e68d5cf2304920286))
+
 ## [0.7.0](https://github.com/p3l1/wuerde-unantastbar.de/compare/v0.6.0...v0.7.0) (2026-07-20)
 
 
