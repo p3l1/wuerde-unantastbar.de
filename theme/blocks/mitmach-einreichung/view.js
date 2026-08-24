@@ -24,12 +24,16 @@
     var leafletMarker = null;
     var pinIcon       = null;
 
-    // Karte erst beim Öffnen des <details> laden.
+    // Karte erst beim Öffnen des <details> laden — und erst nach OSM-Einwilligung (DSGVO).
     var mapReady = false;
     if ( details && mapEl && typeof L !== 'undefined' ) {
         details.addEventListener( 'toggle', function () {
             if ( details.open && ! mapReady ) {
-                initMap();
+                if ( window.wuerdeOsmConsent ) {
+                    window.wuerdeOsmConsent.gate( mapEl, initMap );
+                } else {
+                    initMap();
+                }
             }
         } );
     }
@@ -119,14 +123,27 @@
             } );
     }
 
+    // Die Adresssuche geht an Nominatim (OpenStreetMap) — gleiche Einwilligung wie die Karte (DSGVO).
+    function geocodeMitEinwilligung() {
+        if ( window.wuerdeOsmConsent && ! window.wuerdeOsmConsent.granted() ) {
+            var feld = adresseEl.closest( '.wuerde-mitmach-einreichung__field--adresse' ) || form;
+            window.wuerdeOsmConsent.gate( feld, function () {
+                forwardGeocode( adresseEl.value );
+            }, {
+                text: 'Die Adresssuche nutzt den OpenStreetMap-Dienst Nominatim. Dabei werden deine IP-Adresse und die eingegebene Adresse an Server der OpenStreetMap Foundation übertragen.',
+                button: 'Einverstanden und suchen',
+            } );
+            return;
+        }
+        forwardGeocode( adresseEl.value );
+    }
+
     if ( adresseBtn && adresseEl ) {
-        adresseBtn.addEventListener( 'click', function () {
-            forwardGeocode( adresseEl.value );
-        } );
+        adresseBtn.addEventListener( 'click', geocodeMitEinwilligung );
         adresseEl.addEventListener( 'keydown', function ( e ) {
             if ( e.key === 'Enter' ) {
                 e.preventDefault();
-                forwardGeocode( adresseEl.value );
+                geocodeMitEinwilligung();
             }
         } );
     }

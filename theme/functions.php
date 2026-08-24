@@ -35,6 +35,21 @@ function wuerde_setup() {
 add_action( 'after_setup_theme', 'wuerde_setup' );
 
 /**
+ * WP-Emoji deaktivieren — lädt sonst Grafiken und DNS-Prefetch von s.w.org (DSGVO).
+ */
+function wuerde_disable_emojis() {
+    remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+    remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+    remove_action( 'wp_print_styles', 'print_emoji_styles' );
+    remove_action( 'admin_print_styles', 'print_emoji_styles' );
+    remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+    remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
+    remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+    add_filter( 'emoji_svg_url', '__return_false' );
+}
+add_action( 'init', 'wuerde_disable_emojis' );
+
+/**
  * Gibt die absolute URL zu einer Theme-Asset-Datei zurück.
  *
  * @param string $file Dateiname relativ zu theme/assets/ (z. B. 'krone.svg').
@@ -76,28 +91,6 @@ function wuerde_enqueue_assets() {
     );
 }
 add_action( 'wp_enqueue_scripts', 'wuerde_enqueue_assets' );
-
-/**
- * Lookbook-JS auf Template-Seiten laden.
- * Verwendet template_include — zu diesem Zeitpunkt ist der Template-Pfad bekannt.
- *
- * @param string $template Absoluter Pfad zum aktuellen Template.
- * @return string Unveränderter Template-Pfad.
- */
-function wuerde_enqueue_lookbook_js( $template ) {
-    $basename = basename( $template );
-    if ( in_array( $basename, [ 'page-lookbook.php', 'page-hero-demo.php' ], true ) ) {
-        wp_enqueue_script(
-            'wuerde-lookbook',
-            get_stylesheet_directory_uri() . '/lookbook.js',
-            [],
-            wp_get_theme()->get( 'Version' ),
-            [ 'strategy' => 'defer', 'in_footer' => true ]
-        );
-    }
-    return $template;
-}
-add_filter( 'template_include', 'wuerde_enqueue_lookbook_js' );
 
 function wuerde_body_classes( $classes ) {
     if ( is_page_template( 'page-hero.php' ) ) {
@@ -274,7 +267,7 @@ function wuerde_enqueue_kategorie_archive_scripts() {
     wp_enqueue_script(
         'wuerde-mitmach-map-view',
         get_template_directory_uri() . '/blocks/mitmach-map/view.js',
-        [ 'leaflet' ],
+        [ 'leaflet', 'leaflet-markercluster', 'wuerde-osm-consent' ],
         '1.0.0',
         true
     );

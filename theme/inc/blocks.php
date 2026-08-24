@@ -43,6 +43,15 @@ function wuerde_register_blocks() {
         '1.5.3',
         true
     );
+
+    // DSGVO: Karten/Nominatim laden erst nach Einwilligung (siehe docs/architecture.md).
+    wp_register_script(
+        'wuerde-osm-consent',
+        get_template_directory_uri() . '/assets/osm-consent.js',
+        [],
+        wp_get_theme()->get( 'Version' ),
+        true
+    );
 }
 add_action( 'init', 'wuerde_register_blocks' );
 

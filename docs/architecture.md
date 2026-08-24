@@ -24,17 +24,16 @@ verhindert Abhängigkeitskonflikte mit dem Host-System. Das Setup ist in
 
 ---
 
-## Lookbook als PHP-Template
+## Lookbook aus dem Theme entfernt
 
-**Entscheidung:** Das Lookbook wird als WordPress Page Template (`page-lookbook.php`)
-ohne Build-Step implementiert.
+**Entscheidung:** Die Demo-Templates (`page-lookbook.php`, `page-hero-demo.php`,
+`lookbook.js`, `_preview.html`) wurden samt zugehörigem CSS aus dem Theme entfernt.
 
-**Begründung:** Da das Theme bewusst kein JavaScript-Build-System (webpack, Vite o.ä.)
-einsetzt, werden alle Lookbook-Komponenten direkt als PHP/HTML gerendert. Dies hält
-die Abhängigkeiten minimal und macht das Lookbook wartbar, ohne dass Entwickler eine
-Node.js-Toolchain einrichten müssen. Eigene CSS Custom Properties aus `style.css`
-sorgen für konsistentes Styling ohne Framework. Assets (`lookbook.css`, `lookbook.js`)
-werden per `wp_enqueue_scripts` nur auf Lookbook-Seiten geladen (`is_page_template`).
+**Begründung:** Der Release-Workflow zippt das komplette `theme/`-Verzeichnis als
+Produktions-Artefakt. Damit wären die Demo-Templates (inkl. Platzhalter-URLs zu
+placehold.co und als „Template Name" im Editor auswählbar) auf dem Live-Server
+gelandet. Das Lookbook existierte als Entwicklungshilfe ohne Build-Step; wird es
+wieder gebraucht, lässt es sich aus der Git-Historie (< v0.8) wiederherstellen.
 
 ---
 
@@ -59,3 +58,20 @@ weiteren Abschnitts der Formular-Einstellungen — die beiden Seiten haben getre
 Zielgruppen (Technik/Zugangsdaten gegenüber Gestaltung). Das Admin-CSS wird auf dieser
 einen Seite per `admin_enqueue_scripts` inline eingebunden und nicht in `style.css`
 abgelegt, das ausschließlich das Frontend versorgt.
+
+---
+
+## Externe Dienste nur mit Einwilligung (DSGVO)
+
+**Entscheidung:** Das Frontend lädt ohne Nutzer-Einwilligung keine Ressourcen von
+Drittservern. Konkret: Schriften (Pally, Tanker) liegen lokal in `assets/fonts/`
+statt beim Fontshare-CDN; OpenStreetMap-Kacheln und die Nominatim-Adresssuche
+werden über ein Click-to-Load-Gate (`assets/osm-consent.js`, localStorage-Merker)
+erst nach Bestätigung geladen; WP-Emoji ist deaktiviert (lud Grafiken von s.w.org).
+Einzige Ausnahme ist hCaptcha als Spam-Schutz der Formulare.
+
+**Begründung:** Jeder Request an einen Drittserver überträgt die Besucher-IP und
+ist nach DSGVO einwilligungspflichtig (vgl. LG München zu Google Fonts). Für einen
+Verein mit Menschenrechts-Fokus ist Datensparsamkeit zudem Glaubwürdigkeitsfrage.
+Die Einwilligung wird bewusst clientseitig in localStorage gemerkt — kein Cookie,
+kein Server-Tracking, kein Consent-Banner-Plugin nötig.

@@ -83,13 +83,16 @@ function wuerde_verify_public_nonce( string $nonce, string $action ): bool {
 }
 
 // Gibt false zurück wenn das Limit für diese IP und Aktion bereits erreicht ist.
-function wuerde_check_rate_limit( string $action ): bool {
-    $ip  = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
-    $key = 'wuerde_rate_' . $action . '_' . md5( $ip );
-    if ( get_transient( $key ) ) {
+// Hinter Reverse-Proxy/CDN teilen sich alle Besucher eine REMOTE_ADDR — deshalb
+// ein Kontingent statt einer harten 1-Request-Sperre.
+function wuerde_check_rate_limit( string $action, int $limit = 5 ): bool {
+    $ip    = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
+    $key   = 'wuerde_rate_' . $action . '_' . md5( $ip );
+    $count = (int) get_transient( $key );
+    if ( $count >= $limit ) {
         return false;
     }
-    set_transient( $key, 1, HOUR_IN_SECONDS );
+    set_transient( $key, $count + 1, HOUR_IN_SECONDS );
     return true;
 }
 
@@ -98,12 +101,13 @@ function wuerde_handle_kontakt( WP_REST_Request $request ): WP_REST_Response {
         return new WP_REST_Response( [ 'error' => 'Ungültige Anfrage.' ], 403 );
     }
 
-    if ( ! wuerde_check_rate_limit( 'kontakt' ) ) {
-        return new WP_REST_Response( [ 'error' => 'Bitte warte eine Stunde vor der nächsten Nachricht.' ], 429 );
+    // Captcha vor dem Rate-Limit prüfen — ein gescheitertes Captcha darf kein Kontingent verbrauchen.
+    if ( wuerde_hcaptcha_enabled() && ! wuerde_verify_hcaptcha( $request->get_param( 'captcha_token' ) ) ) {
+        return new WP_REST_Response( [ 'error' => 'Captcha-Verifikation fehlgeschlagen.' ], 400 );
     }
 
-    if ( get_option( 'wuerde_hcaptcha_site_key', '' ) && ! wuerde_verify_hcaptcha( $request->get_param( 'captcha_token' ) ) ) {
-        return new WP_REST_Response( [ 'error' => 'Captcha-Verifikation fehlgeschlagen.' ], 400 );
+    if ( ! wuerde_check_rate_limit( 'kontakt' ) ) {
+        return new WP_REST_Response( [ 'error' => 'Zu viele Anfragen. Bitte versuche es später erneut.' ], 429 );
     }
 
     $name     = $request->get_param( 'name' );
@@ -135,12 +139,13 @@ function wuerde_handle_einreichung( WP_REST_Request $request ): WP_REST_Response
         return new WP_REST_Response( [ 'error' => 'Ungültige Anfrage.' ], 403 );
     }
 
-    if ( ! wuerde_check_rate_limit( 'einreichung' ) ) {
-        return new WP_REST_Response( [ 'error' => 'Bitte warte eine Stunde vor der nächsten Einreichung.' ], 429 );
+    // Captcha vor dem Rate-Limit prüfen — ein gescheitertes Captcha darf kein Kontingent verbrauchen.
+    if ( wuerde_hcaptcha_enabled() && ! wuerde_verify_hcaptcha( $request->get_param( 'captcha_token' ) ) ) {
+        return new WP_REST_Response( [ 'error' => 'Captcha-Verifikation fehlgeschlagen.' ], 400 );
     }
 
-    if ( get_option( 'wuerde_hcaptcha_site_key', '' ) && ! wuerde_verify_hcaptcha( $request->get_param( 'captcha_token' ) ) ) {
-        return new WP_REST_Response( [ 'error' => 'Captcha-Verifikation fehlgeschlagen.' ], 400 );
+    if ( ! wuerde_check_rate_limit( 'einreichung' ) ) {
+        return new WP_REST_Response( [ 'error' => 'Zu viele Anfragen. Bitte versuche es später erneut.' ], 429 );
     }
 
     $post_id = wp_insert_post( [
