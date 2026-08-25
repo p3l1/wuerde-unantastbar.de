@@ -165,7 +165,6 @@
         },
         ":hover": {
           "color": {
-            "background": "var(--wp--preset--color--yellow)",
             "text": "#1A1A1A"
           }
         }

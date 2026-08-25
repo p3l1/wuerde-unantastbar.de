@@ -102,3 +102,24 @@ ausgehebelt.
 Ergänzend setzt `.wp-block-button .wp-block-button__link:hover` die Textfarbe explizit
 auf `--color-black`. Das Slide-Overlay (`::after`) dieser Buttons ist immer gelb, die
 Hover-Textfarbe darf also nicht von der Ladereihenfolge des `theme.json`-CSS abhängen.
+
+---
+
+## Button-Hover-Hintergrund entsteht allein aus dem Slide-Overlay
+
+**Entscheidung:** `theme.json` setzt beim Button-Hover nur noch die Textfarbe, keine
+Hintergrundfarbe. Den gelben Hover-Hintergrund erzeugt ausschließlich das
+`::after`-Overlay aus `style.css`.
+
+**Begründung:** Beide Mechanismen färbten zuvor auf dasselbe Gelb. Da der
+`background-color`-Wechsel aus `theme.json` sofort greift, war die Fläche bereits gelb,
+bevor das Overlay hereinfuhr — die Slide-Animation lief unsichtbar ab.
+
+Die Korrektur erfolgt in `theme.json` statt per CSS-Override, damit eine im Editor
+gewählte Button-Hintergrundfarbe erhalten bleibt. Ein hart gesetztes
+`background-color` auf `:hover` in `style.css` würde sie überschreiben.
+
+Buttons ohne `.wp-block-button`-Wrapper (z. B. Core-Blöcke wie Suche oder
+Datei-Download) besitzen kein Overlay und zeigen beim Hover daher nur den
+Textfarbwechsel. Kontrast: `#1A1A1A` auf Türkis ≈ 6:1, WCAG AA erfüllt. Im Theme
+kommen solche Blöcke derzeit nicht vor — die eigenen Formular-Buttons nutzen `.btn`.
