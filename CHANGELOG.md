@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.8.1](https://github.com/p3l1/wuerde-unantastbar.de/compare/v0.8.0...v0.8.1) (2026-08-25)
+
+
+### Bug Fixes
+
+* **theme:** Darstellungs-Seite unter Mitmach-Beiträge statt Einstellungen ([453c4d5](https://github.com/p3l1/wuerde-unantastbar.de/commit/453c4d598c9d81bb153a4ddb632f5da5a35d466a))
+* **theme:** Darstellungs-Seite unter Mitmach-Beiträge statt Einstellungen ([#50](https://github.com/p3l1/wuerde-unantastbar.de/issues/50)) ([95b22a6](https://github.com/p3l1/wuerde-unantastbar.de/commit/95b22a603fb005664ac0e6c22aeca0827c649432))
+
 ## [0.8.0](https://github.com/p3l1/wuerde-unantastbar.de/compare/v0.7.0...v0.8.0) (2026-08-24)
 
 
