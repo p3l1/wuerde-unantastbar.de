@@ -79,3 +79,26 @@ ist nach DSGVO einwilligungspflichtig (vgl. LG München zu Google Fonts). Für e
 Verein mit Menschenrechts-Fokus ist Datensparsamkeit zudem Glaubwürdigkeitsfrage.
 Die Einwilligung wird bewusst clientseitig in localStorage gemerkt — kein Cookie,
 kein Server-Tracking, kein Consent-Banner-Plugin nötig.
+
+---
+
+## Globale Link-Hover-Farbe schließt Buttons aus
+
+**Entscheidung:** Die Basisregel `a:hover` in `style.css` verwendet
+`:not(:where(.wp-element-button, .btn))`, statt Buttons per höherer Spezifität zu
+überschreiben.
+
+**Begründung:** WordPress generiert die Button-Styles aus `theme.json` als
+`:root :where(.wp-element-button:hover, …)` — Spezifität 0,1,0. Die globale Regel
+`a:hover` liegt bei 0,1,1 und gewann dadurch die Kaskade: Der Buttontext wurde beim
+Hover gelb eingefärbt, obwohl der Hover-Hintergrund ebenfalls gelb ist. Der Text war
+unlesbar.
+
+Der Ausschluss steht in `:where()`, weil das die Spezifität der Regel unverändert bei
+0,1,1 hält. Ein einfaches `:not(.wp-element-button)` hätte sie auf 0,2,1 angehoben und
+damit bestehende kontextspezifische Hover-Overrides (Navigation, Footer, Breadcrumbs)
+ausgehebelt.
+
+Ergänzend setzt `.wp-block-button .wp-block-button__link:hover` die Textfarbe explizit
+auf `--color-black`. Das Slide-Overlay (`::after`) dieser Buttons ist immer gelb, die
+Hover-Textfarbe darf also nicht von der Ladereihenfolge des `theme.json`-CSS abhängen.
