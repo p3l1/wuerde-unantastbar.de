@@ -412,7 +412,9 @@ p {
   --slide-progress: 0;
 }
 
-/* Slide-Animation für alle WP-Block-Buttons */
+/* Slide-Animation für alle WP-Block-Buttons. Das gelbe Overlay erzeugt den
+   Hover-Hintergrund allein — theme.json setzt beim Hover deshalb nur die
+   Textfarbe, ein Farbwechsel dort würde die Animation überdecken. */
 .wp-block-button .wp-block-button__link {
   position: relative !important;
   overflow: hidden !important;
