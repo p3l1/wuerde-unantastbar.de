@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.8.2](https://github.com/p3l1/wuerde-unantastbar.de/compare/v0.8.1...v0.8.2) (2026-08-25)
+
+
+### Bug Fixes
+
+* **theme:** Buttontext beim Hover lesbar machen ([02ef8e7](https://github.com/p3l1/wuerde-unantastbar.de/commit/02ef8e7a988bec65b939c022bab20e9f2cf0fd5a))
+* **theme:** Buttontext beim Hover lesbar machen ([#52](https://github.com/p3l1/wuerde-unantastbar.de/issues/52)) ([579e2cc](https://github.com/p3l1/wuerde-unantastbar.de/commit/579e2ccb8e3f36308d497e82f4bd4c2e5e72913a))
+
 ## [0.8.1](https://github.com/p3l1/wuerde-unantastbar.de/compare/v0.8.0...v0.8.1) (2026-08-25)
 
 
