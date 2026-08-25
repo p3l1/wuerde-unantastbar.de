@@ -207,7 +207,9 @@ a {
   transition: color var(--transition-fast);
 }
 
-a:hover {
+/* :where() hält die Spezifität bei 0,1,1 — sonst schlägt diese Regel
+   bestehende Nav-/Footer-Hover-Overrides. Buttons färben sich selbst. */
+a:hover:not(:where(.wp-element-button, .btn)) {
   color: var(--color-secondary);
 }
 
@@ -430,6 +432,11 @@ p {
 
 .wp-block-button .wp-block-button__link:hover::after {
   --slide-progress: 0;
+}
+
+/* Slide-Overlay ist gelb — Text muss dunkel werden, sonst weiß auf gelb. */
+.wp-block-button .wp-block-button__link:hover {
+  color: var(--color-black);
 }
 
 .btn--lg {
