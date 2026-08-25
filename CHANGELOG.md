@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.8.3](https://github.com/p3l1/wuerde-unantastbar.de/compare/v0.8.2...v0.8.3) (2026-08-25)
+
+
+### Bug Fixes
+
+* **theme:** Slide-Animation beim Button-Hover wieder sichtbar ([c3c78a2](https://github.com/p3l1/wuerde-unantastbar.de/commit/c3c78a2d407a890892dc1df6c624cc42080a6179))
+* **theme:** Slide-Animation beim Button-Hover wieder sichtbar ([#54](https://github.com/p3l1/wuerde-unantastbar.de/issues/54)) ([52e93ac](https://github.com/p3l1/wuerde-unantastbar.de/commit/52e93aceadf9fe2b9c64ef4db861029e97b86d96))
+
 ## [0.8.2](https://github.com/p3l1/wuerde-unantastbar.de/compare/v0.8.1...v0.8.2) (2026-08-25)
 
 
